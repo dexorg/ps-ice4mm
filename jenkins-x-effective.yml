@@ -1,0 +1,272 @@
+buildPack: javascript
+pipelineConfig:
+  agent:
+    image: nodejs
+    label: jenkins-nodejs
+  env:
+  - name: APP_NAME
+    value: ps-ice4mm
+  - name: BRANCH_NAME
+    value: master
+  - name: BUILD_NUMBER
+    value: "1"
+  - name: JOB_NAME
+    value: dexorg/ps-ice4mm/master
+  - name: PIPELINE_KIND
+    value: release
+  - name: PULL_REFS
+    value: 'master:'
+  - name: REPO_NAME
+    value: ps-ice4mm
+  - name: REPO_OWNER
+    value: dexorg
+  - name: SOURCE_URL
+    value: https://github.com/dexorg/ps-ice4mm.git
+  extends:
+    file: javascript/pipeline.yaml
+    import: classic
+  pipelines:
+    post: {}
+    pullRequest:
+      pipeline:
+        env:
+        - name: APP_NAME
+          value: ps-ice4mm
+        - name: BRANCH_NAME
+          value: master
+        - name: BUILD_NUMBER
+          value: "1"
+        - name: JOB_NAME
+          value: dexorg/ps-ice4mm/master
+        - name: PIPELINE_KIND
+          value: release
+        - name: PULL_REFS
+          value: 'master:'
+        - name: REPO_NAME
+          value: ps-ice4mm
+        - name: REPO_OWNER
+          value: dexorg
+        - name: SOURCE_URL
+          value: https://github.com/dexorg/ps-ice4mm.git
+        options:
+          containerOptions:
+            env:
+            - name: APP_NAME
+              value: ps-ice4mm
+            - name: BRANCH_NAME
+              value: master
+            - name: BUILD_NUMBER
+              value: "1"
+            - name: DOCKER_REGISTRY
+              valueFrom:
+                configMapKeyRef:
+                  key: docker.registry
+                  name: jenkins-x-docker-registry
+            - name: GIT_AUTHOR_EMAIL
+              value: jenkins-x@googlegroups.com
+            - name: GIT_AUTHOR_NAME
+              value: jenkins-x-bot
+            - name: GIT_COMMITTER_EMAIL
+              value: jenkins-x@googlegroups.com
+            - name: GIT_COMMITTER_NAME
+              value: jenkins-x-bot
+            - name: JOB_NAME
+              value: dexorg/ps-ice4mm/master
+            - name: PIPELINE_KIND
+              value: release
+            - name: PULL_REFS
+              value: 'master:'
+            - name: REPO_NAME
+              value: ps-ice4mm
+            - name: REPO_OWNER
+              value: dexorg
+            - name: SOURCE_URL
+              value: https://github.com/dexorg/ps-ice4mm.git
+            - name: XDG_CONFIG_HOME
+              value: /home/jenkins
+            name: ""
+            resources:
+              requests:
+                cpu: 400m
+                memory: 512Mi
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /home/jenkins
+              name: workspace-volume
+          volumes:
+          - emptyDir: {}
+            name: workspace-volume
+        stages:
+        - agent:
+            image: nodejs
+          dir: /workspace/source
+          name: from-build-pack
+          steps:
+          - command: jx step credential -s npm-token -k file -f /builder/home/.npmrc
+              --optional=true
+            dir: /workspace/source
+            image: nodejs
+            name: build-npmrc
+          - command: npm install
+            dir: /workspace/source
+            image: nodejs
+            name: build-npm-install
+          - command: CI=true DISPLAY=:99 npm test
+            dir: /workspace/source
+            image: nodejs
+            name: build-npm-test
+          - args:
+            - --cache=true
+            - --cache-dir=/workspace
+            - --context=/workspace/source
+            - --dockerfile=/workspace/source/Dockerfile
+            - --destination=us.icr.io/myproject/ps-ice4mm:${inputs.params.version}
+            - --cache-repo=us.icr.io/todo/cache
+            - --skip-tls-verify-registry=us.icr.io
+            command: /kaniko/executor
+            dir: /workspace/source
+            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            name: build-container-build
+          - command: jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION
+            dir: /workspace/source
+            image: nodejs
+            name: postbuild-post-build
+          - command: make preview
+            dir: /workspace/source/charts/preview
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: promote-make-preview
+          - command: jx preview --app $APP_NAME --dir ../..
+            dir: /workspace/source/charts/preview
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: promote-jx-preview
+    release:
+      pipeline:
+        env:
+        - name: APP_NAME
+          value: ps-ice4mm
+        - name: BRANCH_NAME
+          value: master
+        - name: BUILD_NUMBER
+          value: "1"
+        - name: JOB_NAME
+          value: dexorg/ps-ice4mm/master
+        - name: PIPELINE_KIND
+          value: release
+        - name: PULL_REFS
+          value: 'master:'
+        - name: REPO_NAME
+          value: ps-ice4mm
+        - name: REPO_OWNER
+          value: dexorg
+        - name: SOURCE_URL
+          value: https://github.com/dexorg/ps-ice4mm.git
+        options:
+          containerOptions:
+            env:
+            - name: APP_NAME
+              value: ps-ice4mm
+            - name: BRANCH_NAME
+              value: master
+            - name: BUILD_NUMBER
+              value: "1"
+            - name: DOCKER_REGISTRY
+              valueFrom:
+                configMapKeyRef:
+                  key: docker.registry
+                  name: jenkins-x-docker-registry
+            - name: GIT_AUTHOR_EMAIL
+              value: jenkins-x@googlegroups.com
+            - name: GIT_AUTHOR_NAME
+              value: jenkins-x-bot
+            - name: GIT_COMMITTER_EMAIL
+              value: jenkins-x@googlegroups.com
+            - name: GIT_COMMITTER_NAME
+              value: jenkins-x-bot
+            - name: JOB_NAME
+              value: dexorg/ps-ice4mm/master
+            - name: PIPELINE_KIND
+              value: release
+            - name: PULL_REFS
+              value: 'master:'
+            - name: REPO_NAME
+              value: ps-ice4mm
+            - name: REPO_OWNER
+              value: dexorg
+            - name: SOURCE_URL
+              value: https://github.com/dexorg/ps-ice4mm.git
+            - name: XDG_CONFIG_HOME
+              value: /home/jenkins
+            name: ""
+            resources:
+              requests:
+                cpu: 400m
+                memory: 512Mi
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /home/jenkins
+              name: workspace-volume
+          volumes:
+          - emptyDir: {}
+            name: workspace-volume
+        stages:
+        - agent:
+            image: nodejs
+          dir: /workspace/source
+          name: from-build-pack
+          steps:
+          - command: jx step git credentials
+            dir: /workspace/source
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: setup-jx-git-credentials
+          - command: jx step credential -s npm-token -k file -f /builder/home/.npmrc
+              --optional=true
+            dir: /workspace/source
+            image: nodejs
+            name: build-npmrc
+          - command: npm install
+            dir: /workspace/source
+            image: nodejs
+            name: build-npm-install
+          - command: CI=true DISPLAY=:99 npm test
+            dir: /workspace/source
+            image: nodejs
+            name: build-npm-test
+          - args:
+            - --cache=true
+            - --cache-dir=/workspace
+            - --context=/workspace/source
+            - --dockerfile=/workspace/source/Dockerfile
+            - --destination=us.icr.io/myproject/ps-ice4mm:${inputs.params.version}
+            - --cache-repo=us.icr.io/todo/cache
+            - --skip-tls-verify-registry=us.icr.io
+            command: /kaniko/executor
+            dir: /workspace/source
+            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            name: build-container-build
+          - command: jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:${VERSION}
+            dir: /workspace/source
+            image: nodejs
+            name: build-post-build
+          - command: jx step changelog --batch-mode --version v${VERSION}
+            dir: /workspace/source/charts/ps-ice4mm
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: promote-changelog
+          - command: jx step helm release
+            dir: /workspace/source/charts/ps-ice4mm
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: promote-helm-release
+          - command: jx promote -b --all-auto --timeout 1h --version ${VERSION}
+            dir: /workspace/source/charts/ps-ice4mm
+            image: gcr.io/jenkinsxio-labs/jxl
+            name: promote-jx-promote
+      setVersion:
+        steps:
+        - image: nodejs
+          steps:
+          - comment: so we can retrieve the version in later steps
+            name: next-version
+            sh: jx step next-version --filename package.json
+          - name: tag-version
+            sh: jx step tag --version \$(cat VERSION)
