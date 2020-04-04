@@ -1,0 +1,24 @@
+{
+  "dimensionsSpec" : {
+    "dimensions": [
+      "bc_id",
+      "ep_id",
+      "ep_name",
+      "ep_elem_ref_id",
+      "tp_id",
+      "channel_id",
+      "channel_type",
+      "device",
+      "location",
+      "user_id",
+      "user_segment"
+    ]
+  },
+  "metricsSpec" : [
+    { "type" : "count", "name" : "count" },
+    { "type" : "doubleSum", "name" : "transaction_amount", "fieldName" : "transaction_amount" }
+  ]
+}
+
+
+

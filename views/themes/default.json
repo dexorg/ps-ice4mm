@@ -1,0 +1,10 @@
+{
+    "tenant": "DEX Inc.",
+    "logo": "//df3k07pdyptjl.cloudfront.net/themes/dexit.co/images/DexLogo.png",
+    "epaType": "dynamic",
+    "cannedReports": {
+        "database": "test_db_ah",
+        "table": "canned_reports"
+    },
+    "roleManager": ""
+}

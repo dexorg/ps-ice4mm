@@ -1,0 +1,202 @@
+<!--<script type="text/html" id="selectWidgetIntelTemplate">-->
+<!--    <div class="mm-delete-wrapper" data-bind="visible:courseVM.availableWidgetIntelligence().length < 3">-->
+<!--        <p>You must have configured atleast 3 metrics for this option to be available</p>-->
+<!--        <div class="mm-delete-buttons">-->
+<!--            <span class="btn-danger" role="button" data-dismiss="popover">Cancel</span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="bc-table-popover container-fluid" data-bind="visible:courseVM.availableWidgetIntelligence().length > 2">-->
+<!--        <table style="width:100%">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Metric</th>-->
+<!--                <th>Icon</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <select data-bind="{ options: courseVM.availableWidgetIntelligence1Filtered,optionsText: function(item) { return item.property.definition.metricName.replace(/_/g,' '); },value: courseVM.chosenWidgetIntelligence1,optionsCaption:'Choose...'}"></select>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    &lt;!&ndash; ko with: courseVM.iconPickerVM() &ndash;&gt;-->
+<!--                        <div class="form-group sm">-->
+<!--                            <select-->
+<!--                                    data-bind="options:iconList,-->
+<!--                                        optionsText:'label',-->
+<!--                                        optionsValue: 'value',-->
+<!--                                        value: chosen1Icon,-->
+<!--                                        multiselect: {-->
+<!--                                            enableFiltering: true,-->
+<!--                                            filterBehavior: 'value',-->
+<!--                                            numberDisplayed:1,-->
+<!--                                            enableHTML: true,-->
+<!--                                            nonSelectedText: 'Select Icon',-->
+<!--                                            maxHeight: 200}">-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <select data-bind="{ options: courseVM.availableWidgetIntelligence2Filtered,optionsText: function(item) { return item.property.definition.metricName.replace(/_/g,' '); },value: courseVM.chosenWidgetIntelligence2,optionsCaption:'Choose...'}"></select>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    &lt;!&ndash; ko with: courseVM.iconPickerVM() &ndash;&gt;-->
+<!--                        <div class="form-group sm">-->
+<!--                            <select-->
+<!--                                data-bind="options:iconList,-->
+<!--                                            optionsText:'label',-->
+<!--                                            optionsValue:'value',-->
+<!--                                                value:chosen2Icon,-->
+<!--                                            multiselect: {-->
+<!--                                                enableFiltering: true,-->
+<!--                                                filterBehavior: 'value',-->
+<!--                                                numberDisplayed:1,-->
+<!--                                                enableHTML: true,-->
+<!--                                                nonSelectedText: 'Select Icon',-->
+<!--                                                maxHeight: 200}">-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <select data-bind="{ options: courseVM.availableWidgetIntelligence3Filtered,optionsText: function(item) { return item.property.definition.metricName.replace(/_/g,' '); }, value: courseVM.chosenWidgetIntelligence3,optionsCaption:'Choose...'}"></select>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    &lt;!&ndash; ko with: courseVM.iconPickerVM() &ndash;&gt;-->
+<!--                        <div class="form-group sm">-->
+<!--                            <select-->
+<!--                                data-bind="options:iconList,-->
+<!--                                                optionsText:'label',-->
+<!--                                                optionsValue:'value',-->
+<!--                                                value:chosen3Icon,-->
+<!--                                                multiselect: {-->
+<!--                                                    enableFiltering: true,-->
+<!--                                                    filterBehavior: 'value',-->
+<!--                                                    numberDisplayed:1,-->
+<!--                                                    enableHTML: true,-->
+<!--                                                    nonSelectedText: 'Select Icon',-->
+<!--                                                    maxHeight: 200}">-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
+
+<!--        <div class="mm-delete-buttons">-->
+<!--            <span class="has-spinner mm-delete btn-success" role="button" data-bind="enable: courseVM.enableSaveWidgetIntelligence, click: function() { courseVM.saveWidgetIntelligence($root.currentRole()) }">Save-->
+<!--                <span class="spinner mm-delete-spinner"><i class="fa fa-spinner fa-spin"></i></span>-->
+<!--            </span>-->
+<!--            <span class="btn-danger" role="button" data-dismiss="popover">Cancel</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</script>-->
+
+
+<script type="text/html" id="bc-card-new">
+  <div class="sc-card" style="border-top: 6px solid purple;" data-bind="style: { 'border-top': courseVM.cardColour() ? ('6px solid '+ courseVM.cardColour()) : '6px solid #FFF;' }">
+    <div class="card-main-actions">
+      <i data-target="cardActionsTemplate" tabindex="0" data-bind="popover: {template: 'cardActionsTemplate', data: $data, options:{ trigger:'focus', placement:'auto bottom'}}" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    </div>
+    <p data-bind="text:courseVM.businessConceptInstance.id" class="hidden"></p>
+    <div class="sc-card-heading"><span data-bind="text:courseVM.businessConceptInstance.property.name, attr: { title: courseVM.businessConceptInstance.property.name }"></span></div>
+<!--    <div class="sc-card-section">-->
+<!--      <div class="sc-card-subheading"><span>Card subheading</span></div>-->
+<!--      <div class="font-small">-->
+<!--        <span>More sample text</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+    <!-- ko if:  ($root.currBCType() !== 'Store' && $root.currBCType() !== 'Offer' && $root.currBCType() !== 'Product')-->
+    <!-- ko foreach: courseVM.displayedBCRelationships() -->
+    <!-- ko if: $data.id === 'Offer' -->
+    <div class="sc-card-section">
+      <div class="sc-card-subheading"><span data-bind="text:$data.id"></span></div>
+      <div class="font-small">
+        <!-- ko foreach: $data.names -->
+        <span data-bind="text:$data"></span>
+        <!-- /ko -->
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+
+
+
+    <!-- ko if: courseVM.scheduleSet() -->
+    <div class="sc-card-section">
+      <div class="sc-card-subheading">Scheduled Period</div>
+      <div class="font-small">
+        <span class="tag sm start-date" data-bind="text:courseVM.startDate">Apr 29 at 9:00 AM</span><br/>
+        <span class="tag sm end-date" data-bind="text:courseVM.endDate">Apr 30 at 5:00 PM</span>
+      </div>
+    </div>
+    <!-- /ko -->
+
+
+
+    <div class="sc-card-section clearfix">
+      <div class="pull-right">
+
+
+        <!-- ko if: ($root.portalVM.childLinkPermission() && courseVM.permissionsLoaded() && ($root.currBCType() !== 'Store')) -->
+        <button class="btn btn-2" data-bind="click: $root.goToBCInstance.bind($element,$data)">Plan</button>
+        <!-- /ko -->
+
+        <!-- ko if: ($root.portalVM.childLinkPermission() && courseVM.permissionsLoaded() && ($root.currBCType() === 'Store') && courseVM.bsb.create() === true && (courseVM.businessConceptInstance.smartcontentobject && courseVM.businessConceptInstance.smartcontentobject.length > 0) )-->
+        <button class="btn btn-2" data-bind="click: $root.goToBCInstance.bind($element,$data)">Campaign</button>
+        <!-- /ko -->
+
+
+
+<!--        <button class="btn btn-6">Update</button>-->
+<!--        <button class="btn btn-2">View</button>-->
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<!-- NEW card popover for card actions -->
+<script type="text/html" id="cardActionsTemplate">
+
+
+  <ul class="popover-action-list">
+
+      <!-- ko if: $root.portalVM.createPermission() -->
+        <li data-bind="click: $root.showUpdateBCInstancePage.bind($data), text:'Update '+$root.currBCDef().singular.toLowerCase()"  data-dismiss="popover" role="button">Update</li>
+      <!-- /ko -->
+
+
+      <!-- ko if: ($root.portalVM.childLinkPermission() && courseVM.permissionsLoaded() && ($root.currBCType() === 'Store') && courseVM.bsb.create() === true && courseVM.businessConceptInstance.smartcontentobject && courseVM.businessConceptInstance.smartcontentobject.length < 1) -->
+        <li data-bind="click: $root.goToSubBCInstanceCreation.bind($element,$data)" data-dismiss="popover" role="button">Create/Define</li>
+      <!-- /ko -->
+
+      <!-- QH: for hiding on main card -->
+      <!-- ko if: ($root.currBCType() === 'Store' && $data.courseVM && $data.courseVM.enableAllocator() )-->
+        <li data-bind="click: $root.showTouchpointCampaignAllocatorModal.bind($data)" data-dismiss="popover" role="button">Allocator</li>
+      <!-- /ko -->
+
+      <!-- ko if: $root.portalVM.configurePermission() -->
+        <li data-bind="click: function(){$root.showCardColourPicker($data)}" role="button" data-dismiss="popover">Edit card colour</li>
+      <!-- /ko -->
+
+
+      <!-- FIXME -->
+      <!-- ko if: $root.portalVM.deletePermission()-->
+            <li data-bind="click: function(){$root.showDeleteBCInstanceModal($data)}, text:'Delete '+$root.currBCDef().singular.toLowerCase()" data-dismiss="popover" role="button">Delete program</li>
+      <!-- /ko -->
+
+
+    </ul>
+</script>

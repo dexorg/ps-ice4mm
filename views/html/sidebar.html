@@ -1,0 +1,113 @@
+<!-- only show sidebar if the current portal is NOT subscriber (this should maybe not be handled on the client side?) -->
+
+<div class="sidebarC" data-bind="css: { 'smallSideBar' : $root.smallSideBar() === true}" id="sidebar">
+  <div class="sidebar-toggle-main">
+<!--    <i class="fa fa-bars" data-bind="click: $root.toggleSidebar" aria-label="Toggle sidebar"></i>-->
+    <i class="fa" data-bind="click: $root.toggleSidebar, css: { 'fa-arrow-right' : $root.smallSideBar() === true, 'fa-arrow-left float-right' : $root.smallSideBar() !== true}" aria-label="Toggle sidebar"></i>
+  </div>
+
+  <img class="logo-lg" src="/images/logo-stacked.png">
+  <img class="logo-sm" src="/images/dex_logo_menu.svg">
+<!--  <img class="logo-sm" src="/images/logo-icon.png">-->
+
+  <hr>
+
+
+  <nav class="sNav">
+
+    <ul class="list-unstyled main-nav" data-bind="foreach: $root.availableBC()">
+      <li data-bind="css: { active: ($root.showDashboard() && $root.currentParentBCType() && $root.currentParentBCType() == $data.name) }, click: function(){ $root.showBCInstances($data); }" role="button">
+
+        <!-- ko if: $root.smallSideBar() === true -->
+        <i data-bind="css: iconClass, tooltip:{'title':label, 'placement':'auto right'}" aria-hidden="true" role="button"></i>
+        <!-- /ko -->
+        <!-- ko ifnot: $root.smallSideBar() === true -->
+        <i data-bind="css: iconClass" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="text: label, visible: $root.smallSideBar() !== true"></span>
+        <!-- /ko -->
+
+      </li>
+    </ul>
+      <!-- TODO: hide/show based on permission at server -->
+    <!-- ko if: $root.showEMMenu() -->
+    <ul class="list-unstyled main-nav">
+      <li data-bind="css: { active: showEMPage() },click: function(){ $root.goToEMPage(); }" role="button">
+        <i data-bind="enable: $root.smallSideBar, tooltip:{'title':'Metrics', 'placement':'auto right'}" class="fa fa-bar-chart" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Metrics</span>
+      </li>
+    </ul>
+    <!-- /ko -->
+
+    <!-- ko if: $root.showRMMenu() -->
+    <ul class="list-unstyled main-nav">
+      <li data-bind="css: { active: showRMPage() }, click: function(){ $root.goToRoleManagementPage(); }" role="button">
+        <i data-bind="enable: $root.smallSideBar, tooltip:{'title':'Roles', 'placement':'auto right'}" class="fa fa-users" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Roles</span>
+      </li>
+    </ul>
+    <!-- /ko -->
+
+
+    <!-- ko if: $root.showBRMenu() -->
+    <ul class="list-unstyled main-nav">
+      <li data-bind="css: { active: showBRPage() }, click: function(){ $root.goToBRPage(); }" role="button">
+        <i data-bind="enable: $root.smallSideBar, tooltip:{'title':'Rules', 'placement':'auto right'}" class="fa fa-book" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Rules</span>
+      </li>
+    </ul>
+    <!-- /ko-->
+
+    <!-- ko if: $root.showTagMenu() -->
+    <ul class="list-unstyled main-nav">
+      <li data-bind="css: { active: showTagsPage() },click: function(){ $root.goToTagsPage(); }" role="button">
+        <i data-bind="enable: $root.smallSideBar, tooltip:{'title':'Tags', 'placement':'auto right'}" class="fa fa-tags" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Tags</span>
+      </li>
+    </ul>
+    <!-- /ko -->
+
+    <!-- ko if: $root.showIntelConfigMenu() -->
+    <ul class="list-unstyled main-nav">
+      <li data-bind="css: { active: showIntelConfigurePage() },click: function(){ $root.goToIntelConfigurePage(); }" role="button">
+        <i data-bind="enable: $root.smallSideBar, tooltip:{'title':'Intelligence', 'placement':'auto right'}" class="fa fa-table" aria-hidden="true" role="button"></i>
+        <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Intelligence</span>
+      </li>
+    </ul>
+    <!-- /ko -->
+
+
+
+
+
+
+    <!--&lt;!&ndash; ko if: ($root.showBCInstancePage) &ndash;&gt;-->
+      <!--<a style="float:left;padding:10px" class="text-muted" data-bind="click: $root.hideCreate">-->
+        <!--<i class="fa fa-long-arrow-left" aria-hidden="true"></i>-->
+        <!--<span data-bind="text: 'Back to '+ $root.selectedCourse().courseVM.previousName()">Back</span>-->
+      <!--</a>-->
+      <!--<br/>-->
+      <!--&lt;!&ndash; /ko &ndash;&gt;-->
+
+    <div class="bottom-nav">
+      <ul>
+<!--        <li data-bind="click: $root.showNotifications" role="button">-->
+<!--          <span class="notification-count badge" data-bind="text: $root.notificationMessages().length, visible: $root.notificationMessages().length > 0"></span>-->
+<!--          <i class="circleI fa fa-bell" aria-hidden="true"></i>-->
+<!--          <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Notifications</span>-->
+<!--        </li>-->
+
+        <li href="#profileModal" data-toggle="modal" role="button">
+          <i class="circleI fa fa-user-circle" aria-hidden="true"></i>
+          <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Profile</span>
+        </li>
+
+        <li href="#logoutModal2" data-toggle="modal" role="button">
+          <i class="circleI fa fa-power-off" aria-hidden="true"></i>
+          <span class="sidebar-btn-label" data-bind="visible: $root.smallSideBar() !== true">Log out</span>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+</div>
+

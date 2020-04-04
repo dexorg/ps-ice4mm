@@ -1,0 +1,452 @@
+<section class="courseInfo">
+
+    <button class="btn btn-danger add-lesson-lozenge pull-right" data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields(); }, text: $root.modalOperation() === 'View' ? 'Close' : 'Cancel'">
+        Cancel
+    </button>
+
+    <!-- ko if: $root.modalOperation()==='Create' -->
+        <button class="btn btn-success add-lesson-lozenge pull-right" data-bind="click: $root.createOrEditPattern.bind($data, 'create', 'dynamic'), enable:  dpa_VM.enableDynamicButton">
+            Create Your Plan
+        </button>
+    <!-- /ko -->
+
+    <!-- ko if: $root.modalOperation()==='edit' -->
+        <button class="btn btn-success add-lesson-lozenge pull-right" data-bind="click: $root.createOrEditPattern.bind($data, 'edit', 'dynamic'), enable: dpa_VM.enableDynamicButton">
+            Save
+        </button>
+    <!-- /ko -->
+
+    <!-- settings section: set touchpoints and layout here -->
+
+    <div class="settings-wrapper">
+        <span>Set Touchpoint:</span>
+        <!-- ko foreach: { data: $root.selectedCourse().courseVM.alltps, afterRender: $root.selectedCourse().courseVM.highlightTP } -->
+        <li>
+            <div class="product-wrapper product-selection flex-tp-selection" role="button" data-bind="click: $root.selectedCourse().courseVM.addToSelectedTouchpoints.bind($data, $element), attr: { 'data-tpid': $data.tpId }">
+                <i class="flex-add-tp-icon" data-bind="css: $root.touchpointTypes()[channelType].icon"></i>
+            </div>
+
+            <div class="product-wrapper product-selection flex-tp-collect-data" role="button" data-bind="click: function(){ $root.selectedCourse().courseVM.addTPEptChoice($element,$data);}">
+                <label>Collect data for Touchpoint</label>
+            </div>
+        </li>
+        <!-- /ko -->
+    </div>
+    <!-- end settings section -->
+
+    <div class="communication-title-wrapper lesson-title">
+        <input data-mm-tag="property-mm-1" data-bind="value: $root.bcAuthVM.propertyTextValue()[0], event: { keyup: function() { $root.bcAuthVM.validateTitle($element, $root.selectedCourse(), $root.selectedWidget(), $root.modalOperation()) }}" class="create-communication-title" type="text" placeholder="Add Title">
+    </div>
+
+
+</section>
+<div class="row">
+	<section class="col-sm-8 no-right-margin">
+		<div class="drop-here-icon text-center" data-bind="css: { 'hide-dropzone' : dpa_VM.generatedStructure().length > 0 }">Create Engagement Plan</div>
+
+
+        <div id="paper" class="drop-here paper" data-bind="droppable: {data:dpa_VM.dropTo, isEnabled:dpa_VM.allowDrop, options:{}}">
+        </div>
+        <!-- for selecting transition -->
+        <div class="component-contents-reveal connector-event-reveal" data-bind="css: { 'reveal-content' : dpa_VM.addEvent }">
+			<div class="reveal-button-close pull-right text-center" data-bind="click: dpa_VM.hideTransitionScreen">
+				<i class="fa fa-times"></i>
+			</div>
+
+			<!-- ko if: dpa_VM.currentElement() !== null -->
+				<h3 class="mode-title">Select transition event to next element</h3>
+
+                <select style="max-width:40%" class="form-control" data-bind="options: dpa_VM.transitEvents, value: dpa_VM.selectedEvent"></select>
+                <!-- ko if: dpa_VM.selectedEvent() === 'Timer' -->
+                <input style="max-width:40%" class="answer-input" type="text" data-bind="value: dpa_VM.eventTime, valueUpdate: 'afterkeydown'" placeholder="enter time(minute)...">
+				<select style="max-width:40%" class="form-control" data-bind="options: dpa_VM.timeOptions, value: dpa_VM.selectedTime"></select>
+                <!-- /ko -->
+                <button data-bind="click: function(){dpa_VM.setEvent();} " class="flex-mcq-save">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </button>
+
+			<!-- /ko -->
+		</div>
+
+        <!-- for selecting input -->
+        <div class="component-contents-reveal connector-event-reveal" data-bind="css: { 'reveal-content' : dpa_VM.showInputScreen }">
+            <div class="reveal-button-close pull-right text-center" data-bind="click: dpa_VM.hideInputScreen">
+                <i class="fa fa-times"></i>
+            </div>
+
+            <h3 class="mode-title">Drag &amp; Drop Business Intelligence</h3>
+
+            <div id="elementInputForm"></div>
+
+        </div>
+
+		<div class="component-contents-reveal" data-bind="css: { 'reveal-content' : dpa_VM.editingItem }">
+			<div class="reveal-button-close pull-right text-center" data-bind="click: dpa_VM.hideContent">
+				<i class="fa fa-times"></i>
+			</div>
+
+			<!-- ko if: dpa_VM.currentElement() !== null -->
+				<h3 class="mode-title">Drag &amp; Drop to Add or Edit</h3>
+
+				<ul class="flex-element-list list-unstyled" data-bind="foreach: dpa_VM.currentElement().multiMediaList, event: { dragover: dpa_VM.allowDragOver, drop: dpa_VM.allowDrop }">
+					<li>
+						<span class="pull-left flex-item-pos text-center" data-bind="text: $index() + 1"></span>
+
+						<div class="flex-item-wrapper" data-bind="event: { dragover: dpa_VM.allowDragOver.bind($data), drop: function (data, event) { dpa_VM.updateCurrentItem(data, event); } }, dropBubble: false">
+							<!-- ko if: $data.type === "image" -->
+								<img class="flex-edit-item" data-bind="attr: { src: $data.value() }" alt="image asset" src="images/defaultImage.png">
+							<!-- /ko -->
+
+							<!-- ko if: $data.type === "video" -->
+								<video controls class="flex-edit-item">
+									<source data-bind="attr: { src: $data.value() }" src="//df3k07pdyptjl.cloudfront.net/images/novideo.mp4" type="video/mp4"/>
+								</video>
+							<!-- /ko -->
+
+							<!-- ko if: $data.type === "link" -->
+								<div class="flex-edit-item link-wrapper">
+									<img src="images/linkedDoc.png" alt="link placeholder">
+								</div>
+							<!-- /ko -->
+
+							<!-- ko if: $data.type === "text" -->
+								<textarea class="flex-textblock" data-bind="text: $data.value, event: { keyup: function(data, event) { dpa_VM.editTextBlock(data, event); } }"></textarea>
+							<!-- /ko -->
+
+							<span class="pull-right text-center flex-element-delete" data-bind="click: dpa_VM.removeMMListEntry, visible: dpa_VM.currentElement().multiMediaList().length > 1">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+
+
+						<span class="flex-mm-name" data-bind="text: $data.value().substring($data.value().lastIndexOf('/')+1), visible: $data.type !== 'text', attr: { title: $data.value().substring($data.value().lastIndexOf('/')+1) }"></span>
+					</li>
+				</ul>
+
+				<div class="flex-edit-drop text-center" data-bind="event: { dragover: dpa_VM.allowDragOver, drop: dpa_VM.addFromEdit }, dropBubble: false">
+					<div>
+						<i class="fa fa-plus edit-add"></i>
+						<p>Add Item</p>
+					</div>
+				</div>
+			<!-- /ko -->
+		</div>
+	</section>
+
+	<section class="col-sm-4 no-left-margin">
+		<div class="triangle-left"></div>
+		<div class="drag-zone">
+			<!-- ko if: $root.currBCType() !== "Campaign" -->
+				<h6 class="drag-header">Add eService</h6>
+				<div data-bind="foreach: dpa_VM.topLevelComponents" class="flex-beh-wrapper ep-components">
+					<!-- ko if: dpa_VM.addingDecision() === false -->
+						<!-- ko ifnot: $data.eptName === "Business Rule" -->
+							<div class="ep-components-wrapper" data-bind="draggable: { templateType: $data.type, subtype: $data.subtype, renderType : $data.subtype, src: $data }, attr: { 'data-type' : $data.type }, css: $data.subtype" draggable="true">
+								<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<!-- ko if: $parent.iconType === "null" -->
+									<img data-bind="attr: { src: 'images/' + $parent.imageName }" src="" alt="service icon" class="ept-panel-img">
+								<!-- /ko -->
+
+								<!-- ko ifnot: $parent.iconType === "null" -->
+									<i data-bind="css: $parent.iconType"></i>
+								<!-- /ko -->
+
+								<span data-bind="text: $parent.renderText, css: { 'less-top-margin' : $parent.iconType === 'null' }" class="ept-text"></span>
+							</div>
+						<!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: dpa_VM.addingDecision() === true -->
+						<!-- ko ifnot: $data.subtype === "questionnaire" -->
+						<div class="ep-components-wrapper" data-bind="event: { dragstart: function(data, event) { dpa_VM.dragBehaviourToDecision(data, event, $element); return true; } }, attr: { 'data-disableme' : dpa_VM.disableAddService, 'data-type' : $data.type, 'data-ruletype' : $data.ruleType, draggable: ($data.ruleType === 'simple' && dpa_VM.disableAddService() === false) }, css: $data.subtype">
+							<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<!-- ko if: $data.iconType === 'null' -->
+									<img data-bind="attr: { src: 'images/' + $data.imageName }" src="" alt="service icon" class="ept-panel-img">
+								<!-- /ko -->
+
+								<!-- ko ifnot: $data.iconType === 'null' -->
+									<i data-bind="css: $data.iconType"></i>
+								<!-- /ko -->
+
+								<span data-bind="text: $data.renderText, css: { 'less-top-margin' : $data.iconType === 'null' }" class="ept-text"></span>
+						</div>
+						<!-- /ko -->
+					<!-- /ko -->
+				</div>
+
+				<hr class="flex-top-divider">
+
+				<h6 class="drag-header">Add Business Rule</h6>
+				<div data-bind="foreach: dpa_VM.topLevelComponents" class="flex-beh-wrapper ep-components">
+					<!-- ko if: dpa_VM.addingDecision() === false -->
+						<!-- ko if: $data.eptName === "Business Rule" -->
+							<div class="ep-components-wrapper" data-bind="draggable: { templateType: $data.type, subtype: $data.subtype, renderType : $data.subtype, isBR: true, src: $data }, attr: { 'data-type' : $data.type }, css: $data.subtype" draggable="true">
+
+									<div class="small-dec-icon">
+										<img class="roadmap roadmap-small" src="images/roadmap_icon.svg" alt="roadmap icon">
+									</div>
+
+								<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<i data-bind="css: $parent.iconType"></i>
+								<span data-bind="text: $parent.renderText" class="ept-text"></span>
+							</div>
+						<!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: dpa_VM.addingDecision() === true -->
+						<!-- ko if: $data.subtype === "questionnaire" -->
+							<div class="ep-components-wrapper" data-bind="event: { dragstart: function(data, event) { dpa_VM.dragBehaviourToDecision(data, event, $element); return true; } }, attr: { 'data-disableme' : dpa_VM.disableAddService, 'data-type' : $data.type, 'data-ruletype' : $data.ruleType, 'draggable': ($data.ruleType === 'simple' && dpa_VM.disableAddService() === false) }, css: $data.subtype">
+								<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<i data-bind="css: $data.iconType"></i>
+								<span data-bind="text: 'Add Business Rule'" class="ept-text"></span>
+							</div>
+						<!-- /ko -->
+					<!-- /ko -->
+				</div>
+			<!-- /ko -->
+
+			<hr class="flex-top-divider">
+
+            <h6 class="drag-header flex-links-header">
+                Add Business Intelligence
+            </h6>
+
+            <div data-bind="foreach: $root.selectedCourse().courseVM.availableSegmentReports, afterRender: $root.selectedCourse().courseVM.highlightSegmentReport">
+	            <div class="ep-components-wrapper flex-report text-center" data-bind="draggable: { templateType: 'intelligence', subtype: 'report', renderType : 'report', src: $data }, attr: { 'data-type' : 'intelligence' }" draggable="true">
+	            	<i class="fa fa-pie-chart"></i>
+	                <span class="ept-text" data-bind="text: 'Report '"></span>
+	            </div>
+            </div>
+
+			<div data-bind="foreach: $root.selectedCourse().courseVM.availableUserProfile">
+				<div class="ep-components-wrapper flex-report text-center" data-toggle="popover" data-target="userprofile_popover" data-bind="popover: {template: 'userprofile_popover', html: 'true', title:'<i class=\'chat-pop-title\'></i><span>User Profile Fields</span>', placement:'top'}">
+					<i class="fa fa-address-card"></i>
+					<span class="ept-text" data-bind="text: 'User Profile'"></span>
+				</div>
+            </div>
+            <script type="text/html" id="userprofile_popover">
+                <!-- ko foreach: {data : $root.selectedCourse().courseVM.availableUserProfile()[0].records} -->
+                <!-- ko foreach: {data : $data.fields}-->
+                    <!-- ko if: $data.doc === "image" -->
+                    <div class="ep-components-wrapper flex-report text-center" data-bind="draggable: { templateType : 'multimedia', renderType : 'flex-image', mediaType : 'image', src : '{{'+$parent.name+'.'+$data.name+'}}'}" alt="user picture" src="images/defaultImage.png" draggable="true">
+    	            	<i class="fa fa-user-circle-o"></i>
+    	                <span class="ept-text" data-bind="text: $parent.name+' '+name"></span>
+                    </div>
+                    <!-- /ko -->r
+                    <!-- ko if: $data.doc === "text" -->
+                    <div class="ep-components-wrapper flex-report text-center" data-bind="draggable: { templateType : 'multimedia', renderType : 'flex-text', mediaType : 'text', src : '{{'+$parent.name+'.'+$data.name+'}}'}" draggable="true">
+    	            	<i class="fa fa-user-circle-o"></i>
+    	                <span class="ept-text" data-bind="text: $parent.name+' '+name"></span>
+                    </div>
+                    <!-- /ko -->
+                <!-- /ko -->
+                <!-- /ko -->
+                <button data-bind="click: function(data, event) { dpa_VM.hidePopover(null, event); }" class="flex-mcq-cancel">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </script>
+            <hr class="flex-top-divider">
+			<!-- <div class="asset-wrapper"> -->
+				<div class="flex-media-container media-container">
+					<h6 class="drag-header flex-links-header">
+						Add MultiMedia
+					</h6>
+					<ul class="pull-right list-inline flex-select-media select-media-type">
+                        <!-- ko if: $root.mmDefinePermission() != true -->
+						<li class="add-more-media">
+							<form class="flex-form">
+								<input name="upload" class="hidden" data-bind="attr:{'id': 'ep_1_imageVideo', 'accept' : $root.bcAuthVM.fileTypeRestrictions().validMediaTypes }, filesUpload: {property: 'fileName'}" type="file">
+
+								<label for="ep_1_imageVideo">
+									<i class="fa fa-cloud-upload flex-upload"></i>
+								</label>
+							</form>
+
+						</li>
+                        <!-- /ko -->
+						<li class="showImages" title="Show Images" data-bind="click: function() { $root.showImages($element, 0); }">
+							<i class="glyphicon glyphicon-picture"></i>
+						</li>
+
+						<li class="showVideos notActive" title="Show Videos" data-bind="click: function() { $root.showVideos($element, 0); }">
+							<i class="glyphicon glyphicon-film"></i>
+						</li>
+					</ul>
+				</div>
+
+				<div class="flex-ribbon">
+					<div class="flex-media-clips media-clips">
+						<div class="my-img">
+							<!-- ko if: $root.bcAuthVM.mediaGroups[0][1]() === true -->
+								<!-- ko if: $root.selectedCourse().courseVM.noImagesAvailable() -->
+									<p class="no-media-available">No images available. Please upload some.</p>
+								<!-- /ko -->
+
+								<!-- switch bindings depending on edit or author mode -->
+
+								<!-- ko if: dpa_VM.editingItem() === true || dpa_VM.addingDecision() === true -->
+									<!-- ko if: dpa_VM.disableAddMM() === false -->
+										<!-- ko foreach: $root.selectedCourse().courseVM.imageMM -->
+		                                    <img data-bind="event: { dragstart: function(data, event) { dpa_VM.dragStarted(data, event, $element, $parent); return true; } }, attr:{src: $data}" alt="select image" src="images/defaultImage.png" draggable="true">
+		                                <!-- /ko -->
+		                            <!-- /ko -->
+
+		                            <!-- ko if: dpa_VM.disableAddMM() === true -->
+										<!-- ko foreach: $root.selectedCourse().courseVM.imageMM -->
+		                                    <img data-bind="attr:{src: $data}" alt="select image" src="images/defaultImage.png" class="disable-add-rule" draggable="false">
+		                                <!-- /ko -->
+		                            <!-- /ko -->
+	                            <!-- /ko -->
+
+
+								<!-- ko if: dpa_VM.editingItem() === false && dpa_VM.addingDecision() === false -->
+									<!-- ko foreach: { data: $root.selectedCourse().courseVM.imageMM, afterAdd: dpa_VM.afterImageAdded } -->
+										<img data-bind="draggable: { templateType : 'multimedia', renderType : 'flex-image', mediaType : 'image', src : $data }, attr:{src: $data}" alt="select image" src="images/defaultImage.png" draggable="true">
+									<!-- /ko -->
+								<!-- /ko -->
+							<!-- /ko -->
+
+							<!-- ko if: $root.bcAuthVM.mediaGroups[0][0]() === true -->
+								<!-- ko if: $root.selectedCourse().courseVM.noVideoAvailable() -->
+									<p class="no-media-available">No video available. Please upload some.</p>
+								<!-- /ko -->
+
+								<!-- ko if: dpa_VM.editingItem() === true || dpa_VM.addingDecision() === true -->
+									<!-- ko foreach: $root.selectedCourse().courseVM.videoMM -->
+										<!-- ko if: dpa_VM.disableAddMM() === false -->
+											<div class="vid-thumb-wrapper text-center" data-bind="event: { dragstart: function(data, event) { dpa_VM.dragStarted(data, event, $element); return true; } }, attr: { 'data-vidsrc' : $data, title: $data.substring($data.lastIndexOf('/') +1) }" draggable="true">
+	                                        	<img src="images/video_thumb_Icon.png" alt="vid thumb image">
+	                                        	<p class="vid-tag" data-bind="text: 'Video ' + ($index() + 1)"></p>
+	                                    	</div>
+                                    	<!-- /ko -->
+
+                                    	<!-- ko if: dpa_VM.disableAddMM() === true -->
+											<div class="vid-thumb-wrapper text-center disable-add-rule" data-bind="attr: { 'data-vidsrc' : $data, title: $data.substring($data.lastIndexOf('/') +1) }" draggable="false">
+	                                        	<img src="images/video_thumb_Icon.png" alt="vid thumb image">
+	                                        	<p class="vid-tag" data-bind="text: 'Video ' + ($index() + 1)"></p>
+	                                    	</div>
+                                    	<!-- /ko -->
+                                    <!-- /ko -->
+								<!-- /ko -->
+
+								<!-- ko if: dpa_VM.editingItem() === false && dpa_VM.addingDecision() === false -->
+									<!-- ko foreach: $root.selectedCourse().courseVM.videoMM -->
+										<div class="vid-thumb-wrapper text-center" data-bind="draggable: { templateType : 'multimedia', renderType : 'flex-video', mediaType : 'video', src : $data }, attr: { 'data-vidsrc' : $data, title: $data.substring($data.lastIndexOf('/') +1) }" draggable="true">
+											<img src="images/video_thumb_Icon.png" alt="vid thumb image">
+											<p class="vid-tag" data-bind="text: 'Video ' + ($index() + 1)"></p>
+										</div>
+									<!-- /ko -->
+								<!-- /ko -->
+							<!-- /ko -->
+						</div>
+					</div>
+				</div>
+
+				<div class="flex-media-container flex-links-container hidden">
+					<h6 class="drag-header hidden flex-links-header">
+						Add a Document
+					</h6>
+
+					<ul class="pull-right list-inline flex-select-media select-media-type hidden">
+						<li title="Upload document" class="add-more-media links-add-button">
+							<form class="flex-form">
+								<input name='upload' type="file" class="hidden" data-bind="attr:{'id': 'ep_1_link', 'accept': $root.fileTypeRestrictions().validDocumentTypes }, filesUpload: {property: 'fileName'}">
+
+								<label for='ep_1_link'>
+									<i class="fa fa-cloud-upload documents-upload flex-upload"></i>
+								</label>
+							</form>
+						</li>
+					</ul>
+				</div>
+
+				<hr class="flex-top-divider">
+
+				<div class="flex-ribbon flex-document-ribbon">
+					<div data-bind="foreach: $root.selectedCourse().courseVM.docMM" class="flex-documents-wrapper">
+
+						<!-- ko if: dpa_VM.editingItem() === true || dpa_VM.addingDecision() === true -->
+							<div class="flex-document-wrapper" data-bind="attr: { 'data-docsrc' : $data }, event: { dragstart: function(data, event) { dpa_VM.dragStarted(data, event, $element); return true; } }," draggable="true">
+								<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<i class="fa fa-file-text-o"></i>
+
+								<span class="flex-document-name" data-bind="text: $data.substring($data.lastIndexOf('/') +1)"></span>
+								<span class="ept-text">Add Document</span>
+							</div>
+						<!-- /ko -->
+
+						<!-- ko if: dpa_VM.editingItem() === false && dpa_VM.addingDecision() === false -->
+							<div class="flex-document-wrapper" data-bind="draggable: { templateType : 'multimedia', renderType : 'flex-link', mediaType : 'link', src : $data }, attr: { 'data-docsrc' : $data }" draggable="true">
+								<i class="fa fa-plus-circle add-ept" aria-hidden="true"></i>
+								<i class="fa fa-file-text-o"></i>
+
+								<span class="flex-document-name" data-bind="text: $parent.substring($parent.lastIndexOf('/') +1)"></span>
+								<span class="ept-text">Add Document</span>
+							</div>
+						<!-- /ko -->
+
+					</div>
+				</div>
+			<!-- </div> -->
+
+			<hr class="flex-top-divider hidden">
+
+			<div class="flex-add-text">
+				<h6 class="drag-header flex-links-header hidden">
+					Add Text
+				</h6>
+
+				<div class="flex-text-wrapper clearfix text-center">
+					<div class="text-icon-wrapper">
+						<i class="fa fa-font"></i>
+						<i class="fa fa-plus-circle add-ept add-ept-blue" aria-hidden="true"></i>
+						<span class="ept-text">Text</span>
+					</div>
+
+					<textarea class="flex-text-add" data-bind="event: { focus: dpa_VM.expandTextBlock.bind($element)}"></textarea>
+				</div>
+
+				<ul class="flex-text-controls pull-right list-inline">
+                    <li>
+						<button class="btn btn-primary" data-bind="click: dpa_VM.addTextAsMM">Save</button>
+					</li>
+					<li>
+						<button class="btn btn-danger" data-bind="click: dpa_VM.closeTextBlock">Cancel</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+
+
+    <div class="notification">
+        <div class="notification-inner">
+            <a class="notification-close" aria-label="close">&times;</a>
+            <p><i class="fa fa-info-circle" aria-hidden="true"></i> Editing this step has added more options under Touchpoints and Metrics.</p>
+        </div>
+    </div>
+
+
+    <section class="notification" data-bind="visible: $root.selectedCourse() && $root.selectedCourse().courseVM && $root.selectedCourse().courseVM.chosenTouchpoints() && $root.selectedCourse().courseVM.chosenTouchpoints().length > 0">
+        <div class="notification-inner">
+            <a class="notification-close" aria-label="close">&times;</a>
+            <span>Engagement Driven</span>
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:$root.selectedCourse().courseVM.ecTPIntel()">
+                <tr>
+                    <td data-bind="text: name"></td>
+                    <td data-bind="text: value"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>

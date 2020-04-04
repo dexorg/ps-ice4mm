@@ -1,0 +1,140 @@
+<div data-bind="with: $root.mmTagVM">
+
+  <div data-bind="modal: {
+             visible: $data.createTagModalVisible,
+             header: { name: 'modal_header', data: { title: 'Add Tag'} },
+             body: { name: 'add_role_body', data: { nameToAdd: $data.pendingTagName } },
+             footer: {name: 'modal_footer', data: {save: $data.addTag, saveText: 'Save'} } }">
+  </div>
+
+
+  <h2 class="office-hours-header pull-left">
+    <span>Tag Management</span>
+  </h2>
+
+
+
+  <button class="btn btn-lg btn-1 pull-right" data-bind="visible: (selectedSection() === 'list'), click: showAddTagModal">
+    Add Tag
+  </button>
+
+  <div class="col-md-12">
+    <div class="text-center action-group">
+      <div class="tabs">
+        <a data-bind="css: {'active': selectedSection() === 'list'}, click: goToList" class="active"><span class="fa fa-th"></span> Tags</a>
+        <a data-bind="css: {'active': selectedSection() === 'assign'}, click: goToAssign"><span class="fa fa-calendar"></span> Assignment</a>
+      </div>
+    </div>
+  </div>
+
+  <!--  start mm tag listing  -->
+  <section class="col-sm-8 courseInfo add-top-margin" data-bind="visible: (selectedSection() === 'list')">
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="filter">Filter</label>
+      <div class="col-sm-3">
+        <input id="filter" data-bind="textInput:tagFilter" class="form-control" required="false" placeholder="Name">
+      </div>
+    </div>
+
+
+    <table id="emTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody data-bind="foreach: filteredTags">
+      <tr>
+        <td data-bind="text: $data"></td>
+        <td>
+<!--          <i role="button" class="fa fa-trash" data-target="click: showDeleteTagPopover">Archive</i>-->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--  end mm tag listing  -->
+
+
+
+  <!--  start mm tag assignment -->
+  <section class="col-sm-8 courseInfo add-top-margin" data-bind="visible: (selectedSection() === 'assign')">
+
+
+    <button class="btn btn-lg btn-1 tags-assign-save-btn" data-bind="visible:typeSelected,click: saveTagsAssignment">Save</button>
+
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="filterType">Type</label>
+        <div class="col-sm-3">
+          <select id="filterType" data-bind="options:baseTags, optionsCaption: 'Choose one...', value:typeFilter">
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-1" style="margin-top: -20px" data-bind="click:showFilteredAssignment">Select</button>
+
+
+    <div data-bind="visible:typeSelected" class="form-group" style="padding-top:20px">
+      <label class="col-sm-2 control-label" for="filterName">Filter By Name</label>
+      <div class="col-sm-3">
+        <input id="filterName" data-bind="textInput:nameFilter" class="form-control" required="false" placeholder="Name">
+        </select>
+      </div>
+    </div>
+
+
+
+
+    <table class="table table-striped" data-search="true" data-sort-name="fileName" data-sort-order="asc">
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Item</th>
+        <th>Tags</th>
+      </tr>
+      </thead>
+
+
+
+      <tbody>
+      <!-- ko foreach: {data: $data.availableMM, as: 'mm'} -->
+
+
+      <!-- ko if: (!$parent.nameFilter() || mm.fileName().substring(mm.fileName().lastIndexOf('/') + 1).toLowerCase().indexOf($parent.nameFilter()) !== -1) -->
+
+      <tr>
+        <td data-bind="text:mm.type"></td>
+
+        <!-- ko if:  mm.type() === 'image' -->
+        <td>
+          <img style="max-width: 100px" data-bind="attr:{src: mm.fileName()}" src="images/defaultImage.png">
+        </td>
+        <!-- /ko -->
+
+        <!-- ko ifnot: mm.type() === 'image' -->
+        <td data-bind="text: mm.fileName().substring(mm.fileName().lastIndexOf('/') +1)"></td>
+        <!-- /ko -->
+        <td>
+<!--          <pre data-bind="text: ko.toJSON(mm.selectedTags, null, 2)"></pre>-->
+          <select multiple="multiple"
+                  data-bind="options:$parent.tags,
+                              selectedOptions: mm.selectedTags,
+                              multiselect: {'numberDisplayed':1,
+                                nonSelectedText: 'Select Tag(s) - Optional'}">
+          </select>
+        </td>
+      </tr>
+
+      <!-- /ko -->
+      <!-- /ko -->
+
+      </tbody>
+    </table>
+
+  </section>
+  <!--  end mm tag assignment  -->
+
+
+</div>

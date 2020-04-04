@@ -1,0 +1,642 @@
+{
+  "id": "234711",
+  "revision": 1,
+  "pattern": {
+    "start": "2019-12-05T06:37:49.000Z",
+    "end": "never",
+    "epSchemaVersion": 2,
+    "element": [
+      {
+        "id": "72090c44-9564-4a98-8493-33f8745eb82c",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:df6c979d-08db-4aac-ad20-805ecbcde6b8:intelligence:fixme",
+        "args": {
+          "epId": "234716"
+        },
+        "presentationRef": "default",
+        "description": "Transfer",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null,
+        "name": "Transfer"
+      },
+      {
+        "id": "ecd4e1bd-b3cd-4eac-8404-7c28c6f612d3",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:5cbfa36c-0edd-4dd6-8ae5-347dba910ffa:intelligence:fixme",
+        "args": {
+          "epId": "234717"
+        },
+        "presentationRef": "default",
+        "description": "Bill Payment",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Bill Payment"
+      },
+      {
+        "id": "a1d8bd41-0cfa-45ed-81ba-7839e0d0127a",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:a13354b3-ee42-4316-bdc4-b57de3e253a8:intelligence:fixme",
+        "args": {
+          "epId": "234712"
+        },
+        "presentationRef": "default",
+        "description": "Purchase",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Purchase"
+      },
+      {
+        "id": "f90ffb81-27bf-495a-9253-90e42e92ab0e",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:72325137-399d-4362-9d95-a50b2d458fe7:intelligence:fixme",
+        "args": {
+          "epId": "234718"
+        },
+        "presentationRef": "default",
+        "description": "Top up",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Top up"
+      },
+      {
+        "id": "5ce109d3-86f8-40a2-95cc-4b99565dfd15",
+        "type": "multimedia",
+        "subType": "intelligence",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:9b335bfb-a775-41c3-9a21-fece6f283a52#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null
+      },
+      {
+        "id": "c466fad6-98a6-4108-a013-48de4a0f2d10",
+        "type": "multimedia",
+        "subType": "intelligence",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:ee0caaed-dc70-47ff-bbcd-151dd3feddd6#image",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "71fbe7ee-2c3a-4e4f-997f-8a74758631c5",
+        "type": "multimedia",
+        "subType": "intelligence",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:f6203248-5ae8-479f-b443-666fdf8e09a7#image",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null
+      },
+      {
+        "id": "9fb9c5d3-41f5-4ac2-af83-aec17a33c056",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:7227211a-7275-45bd-bb4e-a907313030ba:intelligence:fixme",
+        "args": {
+          "epId": "234720"
+        },
+        "presentationRef": "default",
+        "description": "History",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "History"
+      },
+      {
+        "id": "a4c3da37-19ee-4bbe-952f-20e68dc7cd01",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:ccf2a17f-9edb-4f97-8f8b-0f5bbbe6da39:intelligence:fixme",
+        "args": {
+          "epId": "234721"
+        },
+        "presentationRef": "default",
+        "description": "Help",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null,
+        "name": "Help"
+      },
+      {
+        "id": "b84fb7ac-882b-4be1-b8a5-6f24cd7f6e27",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:e8394616-2579-46c8-be0d-3862127649aa:intelligence:fixme",
+        "args": {
+          "epId": "234719"
+        },
+        "presentationRef": "default",
+        "description": "Transactions",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Transactions"
+      },
+      {
+        "id": "2c3cf022-3cf0-462e-9b81-78a4dd706d57",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc::intelligence:fixme",
+        "args": {
+          "epId": "111114"
+        },
+        "presentationRef": "default",
+        "description": "logout",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "logout"
+      },
+      {
+        "id": "ba9f2d41-62eb-4ca4-b7ce-7f6be481c6a6",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:1cefe685-41d7-4255-9890-182e1a715fa5#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null
+      },
+      {
+        "id": "beacf517-add1-42f2-adb2-482f74cbd8fc",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:5597c1a5-13b8-460a-85a2-a68fca726f64#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": [
+            {
+              "name": "Click",
+              "args": {}
+            }
+          ]
+        },
+        "eventListener": null
+      },
+      {
+        "id": "88d51ae3-b72d-49a9-bd69-0d323ff9dba6",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:multimedia:9396f3b3-eb07-4f05-9989-2a2c7c7a1667#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      }
+    ],
+    "connection": [
+      {
+        "name": "start",
+        "from": "start",
+        "to": "2c3cf022-3cf0-462e-9b81-78a4dd706d57",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "b84fb7ac-882b-4be1-b8a5-6f24cd7f6e27",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "a4c3da37-19ee-4bbe-952f-20e68dc7cd01",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "9fb9c5d3-41f5-4ac2-af83-aec17a33c056",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "72090c44-9564-4a98-8493-33f8745eb82c",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "f90ffb81-27bf-495a-9253-90e42e92ab0e",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "a1d8bd41-0cfa-45ed-81ba-7839e0d0127a",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "ecd4e1bd-b3cd-4eac-8404-7c28c6f612d3",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "71fbe7ee-2c3a-4e4f-997f-8a74758631c5",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "c466fad6-98a6-4108-a013-48de4a0f2d10",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "ba9f2d41-62eb-4ca4-b7ce-7f6be481c6a6",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "5ce109d3-86f8-40a2-95cc-4b99565dfd15",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "88d51ae3-b72d-49a9-bd69-0d323ff9dba6",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "beacf517-add1-42f2-adb2-482f74cbd8fc",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-14",
+        "from": "2c3cf022-3cf0-462e-9b81-78a4dd706d57",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-15",
+        "from": "b84fb7ac-882b-4be1-b8a5-6f24cd7f6e27",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-16",
+        "from": "a4c3da37-19ee-4bbe-952f-20e68dc7cd01",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-17",
+        "from": "9fb9c5d3-41f5-4ac2-af83-aec17a33c056",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-18",
+        "from": "72090c44-9564-4a98-8493-33f8745eb82c",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-19",
+        "from": "f90ffb81-27bf-495a-9253-90e42e92ab0e",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-20",
+        "from": "a1d8bd41-0cfa-45ed-81ba-7839e0d0127a",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-21",
+        "from": "ecd4e1bd-b3cd-4eac-8404-7c28c6f612d3",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-22",
+        "from": "71fbe7ee-2c3a-4e4f-997f-8a74758631c5",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-23",
+        "from": "c466fad6-98a6-4108-a013-48de4a0f2d10",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-24",
+        "from": "88d51ae3-b72d-49a9-bd69-0d323ff9dba6",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-25",
+        "from": "ba9f2d41-62eb-4ca4-b7ce-7f6be481c6a6",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-26",
+        "from": "beacf517-add1-42f2-adb2-482f74cbd8fc",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-27",
+        "from": "5ce109d3-86f8-40a2-95cc-4b99565dfd15",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      }
+    ],
+    "touchpoints": [
+      "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+      "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2"
+    ],
+    "tp": [
+      {
+        "touchpoint": "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+        "layout": {
+          "layoutId": "cust-b513164f-6487-43de-a909-4acb65540e41",
+          "id": "cust-b513164f-6487-43de-a909-4acb65540e41",
+          "baseTemplate": "sadad-bcc-mobile-hs",
+          "modTemplate": "tem-b513164f-6487-43de-a909-4acb65540e41",
+          "custom": true,
+          "layoutMarkup": "<div><div><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"main-banner blue-bg shadow-banner has-amount\"><div class=\"top-content\"><div class=\"logo-wrap\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-small.png\" alt=\"logo\"></div><div class=\"welcome-text\"><h3 data-gjs-type=\"data-region\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h3></div><div class=\"filter\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/ico-setting.png\" alt=\"\"></div></div><div class=\"user-name\"><h2 data-gjs-type=\"data-region-text\" data-region=\"r2\" class=\"placeholder placeholder-text\"></h2></div><div class=\"progress-bar-wrap\"><div class=\"progess-wrap-inner\"><div data-gjs-type=\"data-region\" data-region=\"r3\" class=\"meter-wrap placeholder placeholder-image-250-250\"></div></div><div class=\"progess-wrap-inner\"><div data-gjs-type=\"data-region\" data-region=\"r4\" class=\"meter-wrap placeholder placeholder-image-250-250\"></div></div></div><div class=\"amount-price\"><h2 data-gjs-type=\"data-region-text\" data-region=\"r5\" class=\"placeholder placeholder-text\"></h2><small><span>Opportunities to <span class=\"c549\">Cash In</span></span></small></div></div><div class=\"main-cat-menu\"><div class=\"cat-wrap\"><div class=\"cat-inner cat-inner-left\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m1\" class=\"placeholder placeholder-image-300\"></div><!--\n                    <img src=\"images/ill-topup.png\" alt=\"\">\n                    <span>Top Up</span> --></button></div><div class=\"cat-inner cat-inner-right\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m2\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-bill.png\" alt=\"\">\n                    <span>Pay Bills</span> --></button></div><div class=\"cat-inner cat-inner-left\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m3\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-mobile.png\" alt=\"\">\n                    <span>Mobile Payment</span> --></button></div><div class=\"cat-inner cat-inner-right\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m4\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-transfer.png\" alt=\"\">\n                    <span>Money Transfer</span> --></button></div></div></div><div class=\"bottom-menu\"><div class=\"inner-bottom-wrap\"><ul><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm1\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-transfers.png\" alt=\"\">\n                        <span>Transfers</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm2\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-history.png\" alt=\"\">\n                        <span>History</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm3\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-help.png\" alt=\"\">\n                        <span>Help</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm4\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-logout.png\" alt=\"\">\n                        <span>Log out</span> --></button></li></ul></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}#imcwu{width:73px;height:54.4375px;}#in2wy{width:64.9453125px;height:50.4375px;}.c549{color:red;}</style>",
+          "regions": {
+            "r1": [
+              "ba9f2d41-62eb-4ca4-b7ce-7f6be481c6a6"
+            ],
+            "r2": [
+              "5ce109d3-86f8-40a2-95cc-4b99565dfd15"
+            ],
+            "r3": [
+              "c466fad6-98a6-4108-a013-48de4a0f2d10"
+            ],
+            "r4": [
+              "71fbe7ee-2c3a-4e4f-997f-8a74758631c5"
+            ],
+            "r5": [
+              "beacf517-add1-42f2-adb2-482f74cbd8fc"
+            ],
+            "r6": [
+              "88d51ae3-b72d-49a9-bd69-0d323ff9dba6"
+            ],
+            "m1": [
+              "a1d8bd41-0cfa-45ed-81ba-7839e0d0127a"
+            ],
+            "m2": [
+              "f90ffb81-27bf-495a-9253-90e42e92ab0e"
+            ],
+            "m3": [
+              "72090c44-9564-4a98-8493-33f8745eb82c"
+            ],
+            "m4": [
+              "ecd4e1bd-b3cd-4eac-8404-7c28c6f612d3"
+            ],
+            "bm1": [
+              "b84fb7ac-882b-4be1-b8a5-6f24cd7f6e27"
+            ],
+            "bm2": [
+              "9fb9c5d3-41f5-4ac2-af83-aec17a33c056"
+            ],
+            "bm3": [
+              "a4c3da37-19ee-4bbe-952f-20e68dc7cd01"
+            ],
+            "bm4": [
+              "2c3cf022-3cf0-462e-9b81-78a4dd706d57"
+            ]
+          },
+          "thumbnail": ""
+        }
+      },
+      {
+        "touchpoint": "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+        "layout": {
+          "layoutId": "cust-0fcf85b7-8595-4980-85d8-121647f2655c",
+          "id": "cust-0fcf85b7-8595-4980-85d8-121647f2655c",
+          "baseTemplate": "sadad-bcc-mobile-hs",
+          "modTemplate": "tem-0fcf85b7-8595-4980-85d8-121647f2655c",
+          "custom": true,
+          "layoutMarkup": "<div><div><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"main-banner blue-bg shadow-banner has-amount\"><div class=\"top-content\"><div class=\"logo-wrap\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-small.png\" alt=\"logo\"></div><div class=\"welcome-text\"><h3 data-gjs-type=\"data-region\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h3></div><div class=\"filter\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/ico-setting.png\" alt=\"\"></div></div><div class=\"user-name\"><h2 data-gjs-type=\"data-region-text\" data-region=\"r2\" class=\"placeholder placeholder-text\"></h2></div><div class=\"progress-bar-wrap\"><div class=\"progess-wrap-inner\"><div data-gjs-type=\"data-region\" data-region=\"r3\" class=\"meter-wrap placeholder placeholder-image-250-250\"></div></div><div class=\"progess-wrap-inner\"><div data-gjs-type=\"data-region\" data-region=\"r4\" class=\"meter-wrap placeholder placeholder-image-250-250\"></div></div></div><div class=\"amount-price\"><h2 data-gjs-type=\"data-region-text\" data-region=\"r5\" class=\"placeholder placeholder-text\"></h2><small><span>Opportunities to <span class=\"c7737\">Cash In</span></span></small></div></div><div class=\"main-cat-menu\"><div class=\"cat-wrap\"><div class=\"cat-inner cat-inner-left\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m1\" class=\"placeholder placeholder-image-300\"></div><!--\n                    <img src=\"images/ill-topup.png\" alt=\"\">\n                    <span>Top Up</span> --></button></div><div class=\"cat-inner cat-inner-right\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m2\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-bill.png\" alt=\"\">\n                    <span>Pay Bills</span> --></button></div><div class=\"cat-inner cat-inner-left\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m3\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-mobile.png\" alt=\"\">\n                    <span>Mobile Payment</span> --></button></div><div class=\"cat-inner cat-inner-right\"><button class=\"cat-buttn\"><div data-gjs-type=\"data-region\" data-region=\"m4\" class=\"placeholder placeholder-image-300\"></div><!-- <img src=\"images/ill-transfer.png\" alt=\"\">\n                    <span>Money Transfer</span> --></button></div></div></div><div class=\"bottom-menu\"><div class=\"inner-bottom-wrap\"><ul><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm1\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-transfers.png\" alt=\"\">\n                        <span>Transfers</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm2\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-history.png\" alt=\"\">\n                        <span>History</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm3\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-help.png\" alt=\"\">\n                        <span>Help</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm4\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-logout.png\" alt=\"\">\n                        <span>Log out</span> --></button></li></ul></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}#i4ltr{width:56.953125px;height:64px;}#ixw3l{width:61px;height:45.875px;}.c7737{color:red;}</style>",
+          "regions": {
+            "r1": [
+              "ba9f2d41-62eb-4ca4-b7ce-7f6be481c6a6"
+            ],
+            "r2": [
+              "5ce109d3-86f8-40a2-95cc-4b99565dfd15"
+            ],
+            "r3": [
+              "c466fad6-98a6-4108-a013-48de4a0f2d10"
+            ],
+            "r4": [
+              "71fbe7ee-2c3a-4e4f-997f-8a74758631c5"
+            ],
+            "r5": [
+              "beacf517-add1-42f2-adb2-482f74cbd8fc"
+            ],
+            "r6": [
+              "88d51ae3-b72d-49a9-bd69-0d323ff9dba6"
+            ],
+            "m1": [
+              "a1d8bd41-0cfa-45ed-81ba-7839e0d0127a"
+            ],
+            "m2": [
+              "72090c44-9564-4a98-8493-33f8745eb82c"
+            ],
+            "m3": [
+              "ecd4e1bd-b3cd-4eac-8404-7c28c6f612d3"
+            ],
+            "m4": [
+              "f90ffb81-27bf-495a-9253-90e42e92ab0e"
+            ],
+            "bm1": [
+              "b84fb7ac-882b-4be1-b8a5-6f24cd7f6e27"
+            ],
+            "bm2": [
+              "9fb9c5d3-41f5-4ac2-af83-aec17a33c056"
+            ],
+            "bm3": [
+              "a4c3da37-19ee-4bbe-952f-20e68dc7cd01"
+            ],
+            "bm4": [
+              "2c3cf022-3cf0-462e-9b81-78a4dd706d57"
+            ]
+          },
+          "thumbnail": ""
+        }
+      }
+    ],
+    "mainScId": "9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "Home",
+    "startDate": "2019-12-05T06:37:49.000Z",
+    "_scheduleSet": true,
+    "_currentActivity": "published",
+    "_cmsConfiguration": "internal"
+  },
+  "isActive": true,
+  "isStarted": false,
+  "updateTime": "2019-12-05T13:10:39.860Z"
+}

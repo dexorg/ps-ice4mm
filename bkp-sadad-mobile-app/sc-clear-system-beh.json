@@ -1,0 +1,71 @@
+{
+  "scope": "user",
+  "url": "http://scc.latest.dexit.co/repos/dexitco/behaviour/36946dac-a637-4c91-9054-cc1800654b57",
+  "id": "36946dac-a637-4c91-9054-cc1800654b57",
+  "kind": "smartcontent#behaviour",
+  "property": {
+    "isAssignedTo": "http://dexit.co/smartcontent/9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "mpay",
+    "resource": "/",
+    "path_template": "/",
+    "action": "post",
+    "args": [
+      ":Accept=:Accept",
+      ":tenant=:tenant",
+      ":operation=:operation",
+      ":sender=:sender",
+      ":senderType=:senderType",
+      ":deviceId=:deviceId",
+      ":lang=:lang",
+      ":msgId=:msgId",
+      ":pin=:pin",
+      ":extraData=:extraData"
+    ],
+    "body": "{\"Accept\":\":Accept\",\"tenant\":\":tenant\",\"operation\":\":operation\",\"sender\":\":sender\",\"senderType\":\":senderType\",\"deviceId\":\":deviceId\",\"lang\":\":lang\",\"msgId\":\":msgId\",\"pin\":\":pin\",\"extraData\":\":extraData\"}",
+    "location": "9f57e29d-9a19-4054-8a3a-84229cd630ce",
+    "type": "service",
+    "raml": "true",
+    "context": "cloud",
+    "description": "mtransfer",
+    "ds": "{\"id\":\"483d59dc-ed6e-415c-acc1-4b512422d3ee\",\"serviceId\":\"9f57e29d-9a19-4054-8a3a-84229cd630ce\",\"description\":\"mtransfer\",\"setup\":{},\"uiElements\":{\"icon_type\":\"fa-key\",\"image_name\":\"null\",\"render_color\":\"#fcc00b !important\",\"render_text\":\"mtransfer\",\"subtype\":\"mtransfer\"}}",
+    "display": "{\"icon\":\"fa-key\",\"icon_text\":\"mtransfer\",\"icon_text_wrapper\":\"ev-text-only\",\"mode\":\"local-embed\",\"render_color\":\"#fcc00b\"}",
+    "consumptionType": "api-ui-local",
+    "output_parameters": "{\"schemaType\":\"json\",\"schema\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"errorCd\":{\"type\":\"string\"},\"desc\":{\"type\":\"string\"},\"reF\":{\"type\":\"number\"},\"statusCode\":{\"type\":\"string\"}}}}",
+    "inputModel": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"definitions\":{},\"properties\":{\"user\":{\"type\":\"string\",\"title\":\"Recipient\"},\"amount\":{\"type\":\"string\",\"title\":\"Amount\"},\"notes\":{\"type\":\"string\",\"title\":\"Notes\"},\"pin\":{\"type\":\"string\",\"title\":\"PIN\"}},\"type\":\"object\",\"required\":[\"user\",\"amount\",\"pin\"]}",
+    "completeModel": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"definitions\":{},\"properties\":{\"user\":{\"type\":\"string\",\"title\":\"Recipient\"},\"amount\":{\"type\":\"string\",\"title\":\"Amount\"},\"notes\":{\"type\":\"string\",\"title\":\"Notes\"}},\"type\":\"object\"}",
+    "outputMapping": "{}",
+    "inputMapping": "{\"expression\":\"{'sender':phoneNumber, 'deviceId':deviceId, 'msgId':msgId, 'senderType':'M', 'lang':1, 'tenant': 'ALMADAR','operation':'p2p', 'extraData':[{'key':'amnt','value':amount},{'key':'rcvId','value':user},{'key':'rcvType','value':'M'},{'key':'data','value':notes}]}\"}",
+    "output_events": [
+      "submit",
+      "complete"
+    ],
+    "presentationMapping": "{\"type\":\"genui\",\"confirmScreen\":\"true\",\"resultScreen\":\"true\",\"args\":{\"form\":[\"*\",{\"type\":\"submit\",\"title\":\"Submit\",\"htmlClass\":\"btn-inner-purchase block-btn\"}]}}",
+    "scope": "public",
+    "tag": "sc",
+    "date": "2019-12-05T06:36:23.154Z",
+    "date_modified": "2019-12-05T06:36:23.154Z",
+    "version": "3815276b-9ef8-438e-bd9e-d899d5830445"
+  }
+}
+
+{
+  "scope": "system",
+  "id": "system_behaviour_create_schedule",
+  "kind": "smartcontent#behaviour",
+  "property": {
+    "args": "",
+    "context": "",
+    "type": "service",
+    "action": "POST",
+    "method": "POST",
+    "name": "Create Schedule",
+    "header": {
+      "Content-Type": "application/json"
+    },
+    "body": "null",
+    "location": "02a86726-532c-428b-9648-2390ee3124ec",
+    "path_template": "/schedule"
+  }
+}
+
+

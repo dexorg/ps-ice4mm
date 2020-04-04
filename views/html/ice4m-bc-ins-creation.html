@@ -1,0 +1,107 @@
+<div class="row main-container" data-bind="visibleFade: $root.showBCCreationPage">
+  <div class="col-md-12 col-lg-8">
+    <!-- ko with: $data.bcCreationVM -->
+    <a data-bind="click: $root.hideCreate">
+      <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+      <span data-bind="text: 'Back to '+ $data.parentBCiName()">Back</span>
+    </a>
+
+
+
+    <div class="secondary" data-bind="modal: {
+         visible: MMModalVisible,
+         header: { data: { label: 'Select Multimedia' } },
+         dialogCss: 'modal-lg',
+         body: { name: 'multimediaManagementTemplBody', data: mmManagementVM },
+         footer: { name: 'settings_footer', data: {saveSettings: mmManagementVM.saveTags } }}">
+    </div>
+
+
+
+    <!--<a data-bind="text: 'Back to '+ $data.parentBCiName(), click: hideCreate"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to (Merchandising Campaign)</a>-->
+    <h2 data-bind="text: 'Define '+ $data.currBCDef().singular"></h2>
+    <div class="col-sm-12 text-center" data-bind="css: loadCss">
+      <div class="loading-wrapper dashboard-loading-wrapper">
+        <i class="fa fa-spinner fa-pulse"></i>
+        <i class="loading-message">Loading</i>
+      </div>
+    </div>
+    <div data-bind="foreach: stepsVM">
+
+<!--      <pre data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
+      <!-- campaign steps here -->
+      <!-- ko if: $data.sectionStart -->
+      <h3 data-bind="text:$data.section"></h3>
+      <!-- /ko -->
+      <div data-bind="style: section() && section().length > 0 ? 'padding-left: 20px': ''">
+      <div data-bind="template: { name: 'createBCiStepTempl'}"></div>
+      </div>
+
+
+
+      <hr>
+    </div>
+    <!-- ko if: editMode() === true && loaded() -->
+    <div class="clearfix">
+      <div class="pull-left">
+        <a class="link-secondary" data-bind="click:deleteBCInstance"><i class="fa fa-trash" aria-hidden="true"></i><span
+          data-bind="text:'Delete '+$data.currBCDef().singular">Delete Campaign</span></a>
+      </div>
+      <div class="pull-right">
+
+        <!--TODO: add duplicate campaign <button class="btn btn-lg btn-1 inverse">Duplicate Campaign</button>-->
+        <button class="btn btn-lg btn-1" data-bind="click:updateBCInstance, enable:changesMade">Save Changes</button>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- end: for edit -->
+
+    <!-- for save -->
+    <!-- ko ifnot: editMode() === true -->
+    <div class="clearfix" data-bind="visible: showSummaryView">
+      <div class="pull-right">
+        <button class="btn btn-lg btn-1"
+                data-bind="click:addBCInstance, text:'Save ' + $data.currBCDef().singular,enable:enableCreate">Save
+          Campaign
+        </button>
+      </div>
+    </div>
+    <!-- /ko -->
+    <br><br>
+    <!-- Sample notification modal -->
+    <!-- TODO: this should be invoked when user deselects in edit  <a href="#newModal" data-toggle="modal">Launch Demo Modal</a> -->
+    <!-- Modal HTML -->
+    <div id="newModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><i class="fa fa-exclamation-triangle" aria-hidden="true"
+                                       data-bind="text:'Editing '+$data.currBCDef().singular"></i> Editing Merchandising
+              Campaign</h4>
+          </div>
+          <div class="modal-body">
+            <p>Deleting this option will cause some of your previously selected options in some of the other steps to
+              disappear. Are you sure you want to continue?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-1 inverse" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-lg btn-1">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification" data-bind="visible:showNotificationForEditAdd">
+      <div class="notification-inner">
+        <a data-bind="click:function(){showNotificationForEditAdd(false);}" class="notification-close"
+           aria-label="close">&times;</a>
+        <p><i class="fa fa-info-circle" aria-hidden="true"></i> Editing this step has added more options under
+          Touchpoints and Metrics.</p>
+      </div>
+    </div>
+
+    <br><br><br><br>
+    <!-- /ko -->
+  </div>
+</div>

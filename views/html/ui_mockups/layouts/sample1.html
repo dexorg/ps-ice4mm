@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link href="https://unpkg.com/@ionic/core@latest/css/ionic.bundle.css" rel="stylesheet">
+
+
+
+
+  <script type="module" src="https://unpkg.com/@ionic/core@latest/dist/ionic/ionic.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@ionic/core@latest/dist/ionic/ionic.js"></script>
+
+
+
+  <title>Basic Ionic 4 HTML page</title>
+</head>
+
+<body>
+
+<!-- Default -->
+<ion-badge>99</ion-badge>
+
+<!-- Colors -->
+<ion-badge color="primary">11</ion-badge>
+<ion-badge color="secondary">22</ion-badge>
+<ion-badge color="tertiary">33</ion-badge>
+<ion-badge color="success">44</ion-badge>
+<ion-badge color="warning">55</ion-badge>
+<ion-badge color="danger">66</ion-badge>
+
+<ion-button shape="round" color="primary" fill="outline">Hello World</ion-button>
+<ion-button size="small">Small Button</ion-button>
+
+<ion-card>
+  <ion-card-content>
+    <ion-card-title>Hello World</ion-card-title>
+    <p>The content for this card</p>
+    <ion-icon name="arrow-dropright-circle"></ion-icon>
+    <ion-icon name="american-football"></ion-icon>
+  </ion-card-content>
+</ion-card>
+
+<ion-checkbox color="primary" checked></ion-checkbox>
+<ion-checkbox color="secondary"></ion-checkbox>
+<ion-checkbox color="danger" checked></ion-checkbox>
+<ion-checkbox color="light"></ion-checkbox>
+<ion-checkbox color="dark" checked></ion-checkbox>
+
+<ion-list>
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime display-format="MM/DD/YYYY"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/avatar-frodo.jpg"></img>
+    </ion-avatar>
+    <ion-label>
+      <h2>Finn</h2>
+      <h3>I'm a big deal</h3>
+      <p>Listen, I've had a pretty messed up day...</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-range>
+      <ion-icon slot="start" size="small" name="sunny"></ion-icon>
+      <ion-icon slot="end" name="sunny"></ion-icon>
+    </ion-range>
+  </ion-item>
+</ion-list>
+
+
+<ion-item>
+  <ion-label>Hair Color</ion-label>
+  <ion-select value="brown" ok-text="Okay" cancel-text="Dismiss">
+    <ion-select-option value="brown">Brown</ion-select-option>
+    <ion-select-option value="blonde">Blonde</ion-select-option>
+    <ion-select-option value="black">Black</ion-select-option>
+    <ion-select-option value="red">Red</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-slides pager="true">
+  <ion-slide>
+    <h1>Slide 1</h1>
+  </ion-slide>
+
+  <ion-slide>
+    <h1>Slide 2</h1>
+  </ion-slide>
+
+  <ion-slide>
+    <h1>Slide 3</h1>
+  </ion-slide>
+</ion-slides>
+
+<script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+
+</body>
+
+</html>

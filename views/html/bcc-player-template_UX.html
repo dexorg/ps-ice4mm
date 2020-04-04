@@ -1,0 +1,20 @@
+<template id="bcc-player-template">
+    <!-- ko if: bccActive() === true -->
+
+        <div class="ucc-preloader text-center">
+            <div class="ucc-preload-spinner">
+                <!--<i data-bind="css: uccVM.statusIcon"></i>-->
+                <!--<p class="ucc-preload-text" data-bind="text: uccVM.statusMessage"></p>-->
+            </div>
+
+            <div class="upload-error show-error-panel" style="display:none" data-bind="visible: $root.cannotExecute()===true">
+                <span>Cannot execute lecture</span>
+            </div>
+        </div>
+    <!-- /ko -->
+    <!-- ko if: showPlayer() === true -->
+        <i data-bind="text: previewMode() === true ? 'Loading...' : ''" class="preview-text"></i>
+        <!-- this is required for the BCC channel -->
+        <div class="ucc-container subscriber-player" data-region="2"></div>
+    <!-- /ko -->
+</template>

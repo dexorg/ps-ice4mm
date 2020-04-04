@@ -1,0 +1,50 @@
+<!-- Bottom Panel - hide until ko is loaded -->
+<section id="bottomPanel" class="row no-stretch consumer-row brandable-consumer" style="visibility:hidden" data-bind="style: { visibility: $root.isKOLoaded() ? '' : 'hidden' }, css: { 'no-stretch' : $root.currPortal() !== 'subscriber', 'reset-bottom-panel' : $root.currPortal() === 'subscriber' }">
+    <h2 class="hidden">Bottom Content</h2>
+
+    <!-- start subscriber block -->
+    <!-- ko if: $root.currPortal() === 'subscriber' && $root.showMerchandisingPlayer() !== true -->
+        <div class="row">
+            <div class="services-top-header">
+                <!-- ko if: $root.currentRole() === 'wholesaler' -->
+                <img src="images/subscriber_portal_bg_small4.jpg" alt="subscriber hero graphic" class="img-responsive">
+                <!-- /ko -->
+
+                <!-- ko if: $root.currentRole() === 'retailer' -->
+                <img src="images/subscriber_portal_bg2a_small.jpg" alt="subscriber hero graphic" class="img-responsive">
+                <!-- /ko -->
+
+                <!-- ko if: $root.currentRole() === 'subscriber' -->
+                <img src="images/subscriber_portal_bg2_small.jpg" alt="subscriber hero graphic" class="img-responsive">
+                <!-- /ko -->
+
+
+                <div class="heading-text-wrapper">
+                    <h3 class="welcome-back-text" data-bind="text:'Welcome '+$root.userProfile().attributes.firstName + ' ' + $root.userProfile().attributes.lastName"></h3>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row add-some-left">
+            <div class="col-sm-12">
+                <h2 class="workgroupHeader brandable-header-text">My Services</h2>
+            </div>
+
+            <div id="coursePanels" class="col-sm-12" data-bind="foreach: $root.merchandisingChannelBCi()">
+                <merch-channel-widget params="name:name, icon:icon, image:image, colour:colour, epId:epId, tp:tp"></merch-channel-widget>
+            </div>
+        </div>
+
+        <div class="row add-some-left">
+            <div id="promo-container"></div>
+        </div>
+    <!-- /ko-->
+
+    <!-- ko if: ($root.currPortal() === 'subscriber') && ($root.showMerchandisingPlayer() === true)  -->
+        <!-- new UI elements => metrics / reports etc -->
+        <div id="merch-container" class="row consumer-row merch-container"></div>
+    <!-- /ko-->
+    <!-- end subscriber block -->
+</section>

@@ -1,0 +1,473 @@
+
+<!--<section class="row main-container">-->
+<section class="row main-container">
+    <div id="epPreviewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="epPreviewModal" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modalCon">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title ccrModalTitle">EP Review</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-pattern-preview-area"></div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-courseCancel" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+  <!--<div class="secondary sm" data-bind="modal: {-->
+           <!--visible: $root.selectedCourse().courseVM.creativeBriefModalVisible,-->
+           <!--header: { name: 'settings_header', data: { 'title': 'Briefing Setup' }},-->
+           <!--body: { name: 'creative_brief_setup_body', data: { 'selectedBriefLink': $root.selectedCourse().courseVM.creativeBriefLink}},-->
+           <!--footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveCreativeBrief, saveText:'Save' } }}">-->
+  <!--</div>-->
+  <div class="modal-xl" data-bind="modal: {
+           visible: $root.selectedCourse().courseVM.creativeBriefModalVisible,
+           dialogCss: 'modal-xl',
+           header: { name: 'settings_header', data: { 'title': 'Briefing Setup' }},
+           body: { name: 'creative_brief_setup_body', data: {'visible': $root.selectedCourse().courseVM.creativeBriefModalVisible, 'windowFolderLink': $root.selectedCourse().courseVM.windowFolderLink, 'iframeFolderLink':$root.selectedCourse().courseVM.iframeFolderLink, 'selectedBriefLink': $root.selectedCourse().courseVM.creativeBriefLink}},
+           footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveCreativeBrief, saveText:'Save' } }}">
+  </div>
+
+    <!-- ko ifnot: storyboard_VM.showEditScreen() === true -->
+
+      <!-- ko if: $root.modalOperation() && $root.modalOperation() === 'approval' -->
+        <h1 class="board-title text-grey">Content Design Approval:&nbsp;</h1>
+      <!-- /ko -->
+      <!-- ko ifnot: $root.modalOperation() && $root.modalOperation() === 'approval' -->
+        <h1 class="board-title text-grey">Content Design:&nbsp;</h1>
+      <!-- /ko -->
+      <h1 class="board-title" data-bind="text:storyboard_VM.currentName"></h1>
+
+    <!-- /ko -->
+
+    <!-- ko if: storyboard_VM.showEditScreen() === true -->
+
+      <h1 class="board-title text-grey">Content Allocation:</h1>
+      <h1 class="board-title" data-bind="text:storyboard_VM.currentName"></h1>
+
+      <div class="col-md-3">
+        <a data-bind="click: storyboard_VM.hideEditView"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          <span data-bind="text:'Go to '+ $root.selectedCourse().courseVM.businessConceptInstance.property.name+ ' Content Design'">Go To Content Design</span>
+        </a>
+      </div>
+
+
+
+      <!-- grouping for any info at top -->
+      <div class="col-md-3">
+<!--        <span data-bind="text: ' Mode:' +  storyboard_VM.editorModeTitle()"></span>-->
+        <!-- ko if: storyboard_VM.selectedTouchpoint() -->
+        <span data-bind="text:' Touchpoint:' + storyboard_VM.selectedTouchpoint().name, attr: { 'data-tpId': storyboard_VM.selectedTouchpoint().tpId }"></span>
+        <!-- /ko -->
+      </div>
+
+
+<!--    &lt;!&ndash; ko if: storyboard_VM.previewVisible &ndash;&gt;-->
+<!--    <button class="btn btn-1 inverse pull-right"  data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">-->
+<!--      Preview-->
+<!--    </button>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    <button data-bind="click:$root.selectedCourse().courseVM.showCampaignDetails" type="button" class="btn btn-lg btn-1 inverse"><span class="fa fa-info-circle"></span>&nbsp;&nbsp;Details</button>-->
+
+
+    <div class="col-md-6 form-inline">
+            <!-- ko if: storyboard_VM.mode() && storyboard_VM.mode() === 'design' -->
+            <div class="form-group sm">
+              <select style="max-width:300px" data-bind="foreach: storyboard_VM.groupedElements, selectedOptions:storyboard_VM.selectedEPElements" multiple="multiple">
+                <optgroup data-bind="attr: {label: 'Region :'+label()}, foreach: children">
+                  <option data-bind="text: label, value: id"></option>
+                </optgroup>
+              </select>
+              <button class="btn btn-1" data-bind="click:storyboard_VM.updateDesignView">
+                Set
+              </button>
+            </div>
+            <!-- /ko -->
+
+
+        <!-- ko if: ($root.modalOperation().toLowerCase() ==='create' || $root.modalOperation().toLowerCase() ==='edit') -->
+
+          <!-- ko if: storyboard_VM.mode() && storyboard_VM.mode() === 'layout' -->
+          <button class="btn btn-1 pull-right" data-bind="click: function(){ storyboard_VM.saveCustomLayout(); }">
+            Save/Allocation
+          </button>
+          <!-- /ko -->
+          <!-- ko if: storyboard_VM.mode() && storyboard_VM.mode() === 'allocation' -->
+            <button class="btn btn-1 pull-right" data-bind="click: storyboard_VM.saveAndGoToDesign">
+              Save/Design
+            </button>
+          <!-- /ko -->
+
+          <!-- ko if: storyboard_VM.mode() && storyboard_VM.mode() === 'design' -->
+            <button class="btn btn-1 pull-right" data-bind="click: function() { storyboard_VM.mode('allocation'); storyboard_VM.edit({touchpoint: storyboard_VM.selectedTouchpoint()}, storyboard_VM.selectedLayoutId());  }">
+              Allocation
+            </button>
+          <!-- /ko -->
+
+            <button class="btn btn-1 pull-right" data-bind="click: $root.updatePatternWithRegions, enable:storyboard_VM.saveEnabled">
+              Save/Exit
+            </button>
+          <!-- /ko -->
+
+      <button class="btn btn-1 inverse pull-right"  data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">
+        EP Review
+      </button>
+    </div>
+
+    <!-- /ko -->
+
+
+
+    <!-- ko if: storyboard_VM.showEditScreen() !== true -->
+      <div class="form-group sm">
+        <a data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields();}">
+          &#8226;
+          <span data-bind="text: 'Go to ' + $root.selectedCourse().courseVM.businessConceptInstance.property.name + ' Campaign Board' ">Go to Campaign Board</span>
+        </a>
+      </div>
+
+<!--    <button class="btn btn-lg btn-1 inverse pull-right" data-bind="">Close</button>-->
+
+        <!-- ko if: $root.modalOperation().toLowerCase() === 'edit' -->
+          <button class="btn btn-lg btn-1 pull-right" data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields(); $root.selectedWidget().perform('done'); }">Send for Approval</button>
+        <!-- /ko -->
+
+
+
+<!--        <button class="btn btn-lg btn-1 inverse pull-right" data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">-->
+<!--          Preview-->
+<!--        </button>-->
+
+        <button data-bind="click:function() {$root.selectedCourse().courseVM.showCreativeBrief('campaign') }" type="button" class="btn btn-lg btn-1 inverse pull-right"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp;Campaign Brief</button>
+
+        <!-- ko if: $root.modalOperation() && $root.modalOperation() === 'approval' -->
+
+<!--        <button class="btn btn-lg btn-1 inverse pull-right" data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields(); $root.selectedCourse().courseVM.approveStep(false, 'rejected');}">Reject</button>-->
+        <button class="btn btn-lg btn-1 pull-right" data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields(); $root.selectedCourse().courseVM.approveStep(true, 'approved');}">Approve</button>
+        <button class="btn btn-lg btn-1 inverse pull-right" data-bind="popover: {template: 'rejectPopoverTemplate', data: { toRun: $root.selectedCourse().courseVM.approveStep}, options: {placement:'auto bottom'}}">Reject</button>
+
+        <!-- /ko -->
+        <h3 data-bind="value: $root.bcAuthVM.propertyTextValue()[0]"></h3>
+    <!-- /ko -->
+    <!-- end settings section -->
+</section>
+
+<div class="col-sm-12 no-right-margin no-left-margin">
+
+
+  <div class="secondary" data-bind="modal: {
+             visible: storyboard_VM.selectLayoutModalVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { title: 'Make your selection' }},
+             body: { name: 'layout_selection_modal_body', data: { layoutSelectionMode: storyboard_VM.layoutSelectionMode, layouts: storyboard_VM.availableRawLayouts, templates:storyboard_VM.availableTemplateLayouts, selectedLayout: storyboard_VM.tempSelectedLayout, warningText:storyboard_VM.layoutSelectionWarning } },
+             footer: { name: 'modal_footer', data: { save: storyboard_VM.makeLayoutSelection, saveText:'Confirm' } } }">
+  </div>
+
+
+  <!-- ko if: (storyboard_VM.showEditScreen() !== true && storyboard_VM.containsPlaceholderMultimedia() == true) -->
+
+
+  <!-- ko if: storyboard_VM.mmManagementVM() -->
+  <div class="secondary" data-bind="modal: {
+           visible: storyboard_VM.mmModalVisible,
+           header: { data: { label: 'Select Multimedia' } },
+           dialogCss: 'modal-lg',
+           body: { name: 'multimediaManagementTemplBody', data: storyboard_VM.mmManagementVM },
+           footer: { name: 'settings_footer', data: {saveSettings: storyboard_VM.saveTags } }}">
+  </div>
+  <!-- /ko -->
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h4>Preview the Campaign plan and/or view the brief above for the multimedia placeholders.. </h4>
+<!--      <div class="col-md-4 col-md-offset-4">-->
+<!--        <button class="btn btn-1 btn-lg" data-bind="click:storyboard_VM.showSetMultimediaPlaceholders, visible: !(storyboard_VM.showPlaceholderSelection())">-->
+<!--          Ok-->
+<!--        </button>-->
+<!--      </div>-->
+    </div>
+  </div>
+
+    <div class="row">
+<!--      data-bind="visible: storyboard_VM.showPlaceholderSelection">-->
+
+<!--      <pre data-bind="text: ko.toJSON(storyboard_VM.placeholderElemAndMultimedia, null, 2)"></pre>-->
+<!--      <pre data-bind="text: ko.toJSON(storyboard_VM.availableMultimedia, null, 2)"></pre>-->
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Placeholder</th>
+          <th>Multimedia</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach: storyboard_VM.placeholderElemAndMultimedia">
+        <tr>
+          <td>
+            <div>
+
+
+              <span data-bind="text:$data.attributes.placeholderName"></span>
+
+                <br/>
+
+            </div>
+          </td>
+          <td>
+
+
+          <!-- ko if: $data.type === 'image' -->
+            <!-- ko if: $data.selectedMM -->
+              <img style="max-width: 100px" data-bind="attr:{src: $data.selectedMM().url}" src="images/defaultImage.png">
+            <!-- /ko -->
+
+            <!-- ko ifnot: $data.selectedMM -->
+              <img style="max-width: 100px" data-bind="attr:{src: $data.placeHolderImage}" src="images/defaultImage.png">
+            <!-- /ko -->
+          <!-- /ko -->
+
+          <!-- ko if: $data.type === 'video' -->
+            <!-- ko if: $data.selectedMM -->
+              <video style="max-width: 100px"><source data-bind="attr:{src: $data.selectedMM().url}" src="/images/novideo.mp4"></video>
+            <!-- /ko -->
+
+            <!-- ko ifnot: $data.selectedMM -->
+             <video style="max-width: 100px"><source data-bind="attr:{src: $data.placeHolderImage}" src="/images/novideo.mp4"></video>
+            <!-- /ko -->
+
+
+          <!--              <span data-bind="text: $data.placeHolderImage.substring($data.placeHolderImage.lastIndexOf('/') +1)"></span>-->
+          <!-- /ko -->
+
+          <!-- ko ifnot: ($data.type === 'image' || $data.type === 'video')  -->
+
+            <!-- ko if: $data.selectedMM -->
+            <span data-bind="text: $data.placeHolderImage.substring($data.selectedMM().url.lastIndexOf('/') +1)"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: $data.selectedMM -->
+            <span data-bind="text: $data.placeHolderImage.substring($data.placeHolderImage.lastIndexOf('/') +1)"></span>
+            <!-- /ko -->
+
+
+          <!-- /ko -->
+
+
+
+
+
+            <!--            &lt;!&ndash; ko if: $data.type === 'image' &ndash;&gt;-->
+<!--            <select-->
+<!--              data-bind="options:storyboard_VM.availableImages,-->
+<!--                            value: $data.selectedMM,-->
+<!--                            optionsText: 'key'">-->
+<!--            </select>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--            &lt;!&ndash; ko if: $data.type === 'video'&ndash;&gt;-->
+<!--            <select-->
+<!--              data-bind="options:storyboard_VM.availableVideos,-->
+<!--                            value: $data.selectedMM,-->
+<!--                            optionsText: 'key'">-->
+<!--            </select>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--            &lt;!&ndash; ko if: $data.type === 'document'&ndash;&gt;-->
+<!--            <select-->
+<!--              data-bind="options:storyboard_VM.availableDocuments,-->
+<!--                            value: $data.selectedMM,-->
+<!--                            optionsText: 'key'">-->
+<!--            </select>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--&lt;!&ndash;                <select&ndash;&gt;-->
+<!--&lt;!&ndash;                  data-bind="options:storyboard_VM.availableMultimedia,&ndash;&gt;-->
+<!--&lt;!&ndash;                                value: $data.selectedMM,&ndash;&gt;-->
+<!--&lt;!&ndash;                                optionsText: 'key'">&ndash;&gt;-->
+<!--&lt;!&ndash;                </select>&ndash;&gt;-->
+          </td>
+          <td>
+            <button class="btn btn-lg btn-3 btn-file" data-bind="click: function() {storyboard_VM.showMMModal($data, $index); }">Assign</button>
+
+          </td>
+        </tr>
+      </tbody>
+      </table>
+  <button class="btn btn-1 btn-lg pull-right" data-bind="click:storyboard_VM.saveAllocationForMultimediaPlaceholders">
+    Save
+  </button>
+
+
+
+  </div>
+
+  <!-- /ko -->
+
+
+  <!-- ko if: (storyboard_VM.externalCMSMode() === true && storyboard_VM.containsPlaceholderMultimedia() !== true)  -->
+    <div class="secondary" data-bind="modal: {
+           visible: storyboard_VM.cmsShellVM.pageIdSetupVisible,
+           dialogCss: 'modal-sm',
+           header: { name: 'report_modal_header', data: { title: 'Configuration' } },
+           body: { name: 'external_cms_modal_setup_body', data: { selectedPageId: storyboard_VM.cmsShellVM.selectedPageId, save: storyboard_VM.cmsShellVM.saveExternalId} },
+           footer: { name: 'modal_footer', data: { save: storyboard_VM.cmsShellVM.saveExternalIdFinish, saveText: 'Complete' } } }">
+    </div>
+
+    <span data-bind="text: storyboard_VM.cmsShellVM.name()+' (External) CMS Mode)'"></span>
+    <button class="btn btn-default" data-bind="click: storyboard_VM.cmsShellVM.showAllocation, text:storyboard_VM.cmsShellVM.allocationSetupButtonText"></button>
+
+    <!-- ko if: (storyboard_VM.cmsShellVM.allocationSetup() === true) -->
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Touchpoint</th>
+          <th>Setup Complete</th>
+          <th>Actions/Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- ko foreach: { data: storyboard_VM.availableTPsAndLayouts(), as: 'available'} -->
+        <tr>
+          <td>
+            <span data-bind="attr: { 'data-tpid': available.touchpoint.tpId }, text: available.touchpoint.name"></span>
+          </td>
+          <td>
+            <!-- ko if: (available.layout && available.layout.id) -->
+            <i class="fa fa-check" aria-label="complete"></i>
+            <!-- /ko -->
+          </td>
+          <td>
+            <!-- ko if: $root.modalOperation().toLowerCase() === 'edit' -->
+            <!--<button class="btn btn-default" data-bind="click:storyboard_VM.showLayoutSelection">Layout Selection</button>-->
+            <a class="btn btn-default" target="_blank" data-bind="attr: { href: storyboard_VM.cmsShellVM.externalUrl() }">Allocation/Design</a>
+            <!-- ko if: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc') ) -->
+            <button class="btn btn-default" data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">
+              EP Review
+            </button>
+
+            <!-- ko if: (available.layout) -->
+            <button class="btn btn-default" data-bind="enable:(available.layout), click:function(){storyboard_VM.showFullPreview($data)}">Full Preview</button>
+            <!-- /ko -->
+
+            <!-- /ko -->
+            <button class="btn btn-1" data-bind="click: function(){ storyboard_VM.cmsShellVM.markTPDone(available); }">
+              Done
+            </button>
+            <!-- /ko -->
+
+            <!-- ko if: $root.modalOperation().toLowerCase() !== 'edit' -->
+            <!--<button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.edit(available, available.layout.id)}">Review</button>-->
+            <!-- ko if: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc') ) -->
+              <button class="btn btn-default" data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">
+                Review EP
+              </button>
+            <!-- /ko -->
+
+            <!-- /ko -->
+          </td>
+        </tr>
+        <!-- /ko -->
+        </tbody>
+      </table>
+    </div>
+    <!-- /ko -->
+
+  <!-- /ko -->
+
+
+  <!-- ko if: (storyboard_VM.showEditScreen() !== true && storyboard_VM.externalCMSMode() !== true && storyboard_VM.containsPlaceholderMultimedia() !== true  )  -->
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Touchpoint</th>
+          <th>Supports Custom Layout</th>
+          <th>Actions/Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- ko foreach: { data: storyboard_VM.availableTPsAndLayouts(), as: 'available'} -->
+        <tr>
+          <td>
+            <span data-bind="attr: { 'data-tpid': available.touchpoint.tpId }, text: available.touchpoint.name"></span>
+          </td>
+          <td>
+            <!-- ko if: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc') ) -->
+              <i class="fa fa-check" aria-label="supported"></i>
+            <!-- /ko -->
+            <!-- ko ifnot: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc') ) -->
+              <i class="fa fa-times" aria-label="not supported"></i>
+            <!-- /ko -->
+          </td>
+          <td>
+
+            <!-- ko if: storyboard_VM.externalCMSMode() === true -->
+                external
+            <!-- /ko -->
+
+            <!-- ko ifnot: storyboard_VM.externalCMSMode() === true -->
+
+              <!--<pre data-bind="text: ko.toJSON(available, null, 2)"></pre>-->
+              <!-- ko if: $root.modalOperation().toLowerCase() === 'edit' -->
+
+                <!-- ko if: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc' || available.touchpoint.channelType === 'email') ) -->
+                  <button class="btn btn-default" data-bind="click:storyboard_VM.showLayoutSelection">Layout/Template</button>
+                  <button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.edit(available, available.layout.id)}">Allocation</button>
+                  <!-- ko ifnot: (available.layout && available.layout.modTemplate)-->
+                    <button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.goToDesign(available); }">Design</button>
+                  <!-- /ko -->
+                  <button class="btn btn-default" data-bind="enable:(available.layout), click:function(){storyboard_VM.showFullPreview($data,false)}">Full Preview</button>
+                <!-- /ko -->
+
+                <!-- ko ifnot: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc'|| available.touchpoint.channelType === 'email') ) -->
+
+                  <!-- ko if: available.layouts && available.layouts.length > 1 -->
+                    <button class="btn btn-default" data-bind="click:storyboard_VM.showLayoutSelection">Layout/Template</button>
+                    <button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.edit(available, available.layout.id)}">Allocation</button>
+                  <!-- /ko -->
+                  <button class="btn btn-default" data-bind="enable:(available.layout), click:function(){storyboard_VM.showFullPreview($data,true)}">Full Preview</button>
+                <!-- /ko -->
+
+              <!-- /ko -->
+
+              <!-- ko if: $root.modalOperation().toLowerCase() !== 'edit' -->
+                <button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.edit(available, available.layout.id)}">Review Allocation</button>
+                <!-- ko if: (available.touchpoint.channelType && (available.touchpoint.channelType === 'ucc' || available.touchpoint.channelType === 'bcc') ) -->
+                  <!-- ko ifnot: (available.layout && available.layout.modTemplate)-->
+                    <button class="btn btn-default" data-bind="enable:(available.layout), click: function(){storyboard_VM.goToDesign(available); }">Review Design</button>
+                  <!-- /ko -->
+                  <button class="btn btn-default" data-bind="enable:(available.layout), click:function(){storyboard_VM.showFullPreview($data)}">Full Preview</button>
+                <!-- /ko -->
+              <!-- /ko -->
+
+            <!-- /ko -->
+
+
+            <button class="btn btn-default"  data-bind="click: function(){ storyboard_VM.showEPModal(storyboard_VM.epGraph); }">
+              EP Review
+            </button>
+
+          </td>
+        </tr>
+        <!-- /ko -->
+        </tbody>
+      </table>
+    </div>
+  <!-- /ko -->
+
+  <!-- ko if: storyboard_VM.showEditScreen() === true -->
+    <div id="gjs" class="storyboard"></div>
+  <!-- /ko -->
+
+</div>

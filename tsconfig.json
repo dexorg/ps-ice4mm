@@ -1,0 +1,124 @@
+{
+  "start": "now",
+  "end": "never",
+  "epSchemaVersion": 2,
+  "element": [{
+    "id": "13e034de-932e-463d-ab6f-9535ea2afa0c",
+    "type": "behaviour",
+    "subType": "questionnaire",
+    "type_id": "sc:bfe6e729-e8c9-4882-8335-a18ca559428c:behaviour:da3d182b-b55c-4367-bef3-745aa96a29f5",
+    "args": {
+      ":questionnaire_id": "93336bc9-cb73-4694-bb94-041eac5f346f"
+    },
+    "presentationRef": "default",
+    "description": "business rule",
+    "inEvent": {
+      "events": []
+    }
+  }, {
+    "id": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_intelligence",
+    "type": "intelligence",
+    "type_id": "sc:7f51ecda-5aea-463e-9766-bebfabb35569:intelligence:389d66ba-4e57-47dc-94c8-8c9d32dc0ba5",
+    "args": {},
+    "description": "external service intelligence"
+  }, {
+    "id": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_decision",
+    "type": "decision",
+    "type_id": ["sc:7f51ecda-5aea-463e-9766-bebfabb35569:decision:5f36e74f-f665-43fc-b48e-4d420a36b678", "sc:7f51ecda-5aea-463e-9766-bebfabb35569:decision:cd132aeb-b926-4c68-8683-2c45f6f1d7c5"],
+    "args": {
+      "simulate": true
+    },
+    "description": "internal decision element from business rule"
+  }, {
+    "id": "35b0b6f3-49e3-4191-b3e3-c2ed27a418a5",
+    "type": "multimedia",
+    "subType": "multimedia",
+    "type_id": "sc:7f51ecda-5aea-463e-9766-bebfabb35569:layout:f5b459cb-f378-4d94-a92e-9c0a1f263388",
+    "args": {},
+    "presentationRef": "default",
+    "description": "",
+    "inEvent": {
+      "events": []
+    }
+  }, {
+    "id": "af491b9d-09ad-40a6-90ed-5a265337595a",
+    "type": "multimedia",
+    "subType": "multimedia",
+    "type_id": "sc:7f51ecda-5aea-463e-9766-bebfabb35569:layout:ae500dce-de06-45d3-983f-dfee1bc4ee90",
+    "args": {},
+    "presentationRef": "default",
+    "description": "",
+    "inEvent": {
+      "events": []
+    }
+  }],
+  "connection": [{
+    "name": "start",
+    "from": "start",
+    "to": "13e034de-932e-463d-ab6f-9535ea2afa0c",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }, {
+    "name": "epa.FlowConnector-1",
+    "from": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_decision",
+    "to": "35b0b6f3-49e3-4191-b3e3-c2ed27a418a5",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }, {
+    "name": "epa.FlowConnector-2",
+    "from": "35b0b6f3-49e3-4191-b3e3-c2ed27a418a5",
+    "to": "end",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }, {
+    "name": "epa.FlowConnector-3",
+    "from": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_decision",
+    "to": "af491b9d-09ad-40a6-90ed-5a265337595a",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }, {
+    "name": "epa.FlowConnector-4",
+    "from": "af491b9d-09ad-40a6-90ed-5a265337595a",
+    "to": "end",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }, {
+    "name": "13e034de-932e-463d-ab6f-9535ea2afa0c_questionnaire_connection_intelligence",
+    "from": "13e034de-932e-463d-ab6f-9535ea2afa0c",
+    "to": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_intelligence",
+    "type": "link"
+  }, {
+    "name": "13e034de-932e-463d-ab6f-9535ea2afa0c_questionnaire_connection_decision",
+    "from": "13e034de-932e-463d-ab6f-9535ea2afa0c",
+    "to": "13e034de-932e-463d-ab6f-9535ea2afa0c_biz_rule_decision",
+    "type": "flow",
+    "properties": {
+      "wait": ""
+    }
+  }],
+  "touchpoints": ["46261b44-cce1-42c9-b806-9c3db01dfc27-2"],
+  "tp": [{
+    "touchpoint": "46261b44-cce1-42c9-b806-9c3db01dfc27-2",
+    "layout": {
+      "id": "alt-seservice",
+      "regions": {
+        "1": null,
+        "2": null,
+        "3": null
+      },
+      "layoutId": "alt-seservice",
+      "layoutMarkup": "<div class=\"col-sm-12\" data-region=\"1\"></div>\r\n<div class=\"col-sm-6\" data-region=\"2\"></div>\r\n<div class=\"col-sm-6\" data-region=\"3\"></div>\r\n<div class=\"col-sm-12\" data-region=\"4\"></div>",
+      "thumbnail": "http://resource.dexit.co/images/layout/layout_5.svg"
+    }
+  }]
+}

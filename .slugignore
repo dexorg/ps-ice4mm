@@ -1,0 +1,9 @@
+#############################################################
+# Files & Directories to be ignored by Heroku Slug Compiler #
+#############################################################
+/coverage
+/test
+###############################
+# Client library source files #
+###############################
+/public/js/app/src

@@ -1,0 +1,809 @@
+
+
+<div class="row main-container">
+    <div class="col-md-12">
+        <div class="form-group sm">
+            <a data-bind="click: $root.hideCreate">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              <span data-bind="text: 'Go to '+ $root.selectedCourse().courseVM.previousName()">Back</span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+<!--    <div class="col-md-4">-->
+        <h1 class="board-title text-grey">Campaign Board:&nbsp;</h1>
+        <h1 class="board-title" data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.property.name"></h1>
+    </div>
+
+
+
+  <div class="row">
+      <!-- ko if: ($root.createEngagementPlan() === false && $root.selectedCourse().courseVM.bsb.planning() === true) -->
+      <div class="form-group sm">
+        <a data-bind="click: $root.selectedCourse().courseVM.goToProgramPlan">
+          &#8226;
+          <span data-bind="text: 'Go to ' + $root.selectedCourse().courseVM.businessConceptInstance.property.name + ' Planning Board' ">Go to Planning</span>
+        </a>
+      </div>
+      <!-- /ko -->
+
+      <div class="col-lg-5 pull-right">
+          <div class="form-group sm text-right action-group">
+<!--            <button data-bind="click:$root.selectedCourse().courseVM.showCampaignDetails" type="button" class="btn btn-lg btn-1 inverse"><span class="fa fa-info-circle"></span>&nbsp;&nbsp;Details</button>-->
+
+            <button data-bind="click:function() {$root.selectedCourse().courseVM.showCreativeBriefProgram('program') }" type="button" class="btn btn-lg btn-1 inverse"><span class="fa fa-file"></span>&nbsp;&nbsp;Plan Brief</button>
+
+
+            <!-- ko if: ($root.createEngagementPlan() === false && $root.selectedCourse().courseVM.bsb.create() === true && $root.currBCType() === 'Store') -->
+              <button type="button"  data-bind="click: function() { $root.viewOnlyModal(false); $root.prepareCreationModal('lecture', 'create', $data); }, enable: $root.selectedCourse().courseVM.enablesSubBCCreation, attr: { title: $root.selectedCourse().courseVM.validateTPMessage}" class="btn btn-lg btn-1" data-toggle="tooltip" data-placement="top">
+                <span data-bind="text: 'New '+ $root.currBCDef().singular">New </span>
+              </button>
+            <!-- /ko -->
+          </div>
+
+
+          <div data-bind="modal: {
+             visible: $root.selectedCourse().courseVM.campaignDetailsModalVisible,
+             header: { name: 'campaign_details_header', data:$root.selectedCourse().courseVM },
+             body: { name: 'campaign_details_body', data: $root.selectedCourse().courseVM }}">
+          </div>
+
+    </div>
+  </div>
+    <!-- ko with: $root.selectedCourse().courseVM  -->
+    <div class="col-md-12">
+        <div class="text-center action-group">
+            <div class="tabs">
+                <!-- TODO: notify css -->
+                <a data-bind="css: {'active': selectedSection() === 'subcampaign'}, click: function(){ goToSubcampaigns(true)}"><span class="fa fa-th"></span> Campaigns</a>
+                <a data-bind="css: {'active': selectedSection() === 'timeline'},click: goToTimeline"><span class="fa fa-calendar"></span> Timeline</a>
+                <a data-bind="css: {'active': selectedSection() === 'performance'}, click: goToPerformance"><span class="fa fa-pie-chart"></span> Performance</a>
+              <a data-bind="css: {'active': selectedSection() === 'analysis'}, click: goToAnalysis"><span class="fa fa-pie-chart"></span> Analysis</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- /ko -->
+</div>
+
+
+<!-- ko if: $root.selectedCourse().courseVM.selectedSection() === 'subcampaign' -->
+<!-- ko with: $root.selectedCourse().courseVM -->
+<div class="sc-work-area">
+
+    <div class="col-sm-12 courses-loading text-center campaign-action-loader" style="padding-top: 50px">
+      <div class="loading-wrapper dashboard-loading-wrapper" style="margin-top: 50px">
+        <i data-bind="css: $root.widgetClassName"></i>
+        <i class="loading-message" data-bind="text: $root.thereAreWidgets"></i>
+      </div>
+    </div>
+
+
+    <div class="secondary" data-bind="modal: {
+                 dialogCss: 'modal-sm',
+                 visible: $data.cardColourPickerVisible,
+                 header: { name: 'selectCardColourModalHeader' },
+                 footer: { name: 'selectCardColourModalFooter', data: { save: $data.updateEPCardColour } },
+                 body: { name: 'selectCardColourModalBody', data: $data }}">
+    </div>
+
+    <div class="modal-xl" data-bind="modal: {
+             visible: $root.selectedCourse().courseVM.programBriefModalVisible,
+             dialogCss: 'modal-xl',
+             header: { name: 'settings_header', data: { 'title': 'Program Briefing Setup' }},
+             body: { name: 'creative_brief_setup_body', data: {'visible': $root.selectedCourse().courseVM.programBriefModalVisible, 'windowFolderLink': $root.selectedCourse().courseVM.windowFolderLink, 'iframeFolderLink':$root.selectedCourse().courseVM.iframeFolderLink, 'selectedBriefLink': $root.selectedCourse().courseVM.programBriefLink}},
+             footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveCreativeBriefProgram, saveText:'Save' } }}">
+    </div>
+
+
+    <div class="secondary" data-bind="modal: {
+           visible: scheduleEPModalVisible,
+           header: { name: 'modal_header', data: { title: 'Delete Subcampaign' }},
+           body: { name: 'schedule_ep_modal_body',
+            data: { name: selectedCardName, timeZone: timeZone, startTime: selectedStartTime, endTime: selectedEndTime, startDate: selectedStartDate, endDate: selectedEndDate, startDateOptions: startDateOptions, endDateOptions: endDateOptions }
+           },
+           footer: { name: 'modal_footer', data: { save: saveSchedule, saveText: 'Save' } } }">
+    </div>
+    <div class="secondary" data-bind="modal: {
+             visible: copyEPModalVisible,
+             header: { name: 'modal_header', data: { title: 'Clone Subcampaign' }},
+             body: { name: 'copy_ep_modal_body', data: {name: selectedCardName } },
+             footer: { name: 'modal_footer', data: { save: createNewVersionOfEPDefaultName, saveText:'Clone' } } }">
+    </div>
+
+  <div class="secondary" data-bind="modal: {
+           visible: deleteEPModalVisible,
+           header: { name: 'modal_header', data: { title: 'Delete Subcampaign' }},
+           body: { name: 'delete_ep_modal_body', data: {name: selectedCardName } },
+           footer: { name: 'modal_footer', data: { save: deleteEP, saveText: 'Delete' } } }">
+  </div>
+
+
+  <div class="secondary" data-bind="modal: {
+           visible: cmsCampaignConfigurationModalVisible,
+           header: { name: 'modal_header', data: { title: 'Make your Selection' }},
+           body: { name: 'cms_mode_configuration_body', data: {available: availableCmsConfigurationModes, selected: cmsCampaignConfiguration } },
+           footer: { name: 'modal_footer', data: { save: saveCmsCampaignConfiguration, saveText: 'Save' } } }">
+  </div>
+
+
+
+  <div class="secondary" data-bind="modal: {
+             visible: touchpointCampaignAllocatorVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { title: 'Make your selection' }},
+             body: { name: 'tp_campaign_allocation_body', data: {layout: tpAllocatorLayout, name: toAllocatorTitle,  allocationRegion: allocationRegion, isPrimary: isPrimaryAllocation  } },
+             footer: { name: 'modal_footer', data: { save: saveTouchpointCampaignAllocation, saveText:'Save' } } }">
+  </div>
+
+
+
+  <div class="secondary" data-bind="modal: {
+             visible: dynamicCampaignSelectionVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { title: 'Make your selection' }},
+             body: { name: 'campaign_dynamic_selection_body', data: { name: toAllocatorTitle,  dynamicCampaign: dynamicCampaign  } },
+             footer: { name: 'modal_footer', data: { save: saveDynamicCampaignAllocation, saveText:'Save' } } }">
+  </div>
+
+
+
+  <!-- ko foreach: groupedVMs -->
+
+
+    <!-- ko if: $data.single -->
+      <!-- ko with: $data.single -->
+        <div class="sc-column" data-bind="css: styleClass">
+        <a class="sc-column-collapse" data-bind="click:$data.toggleCollapse, visible:($data.numberOfCards() > 0), css: columnIcon"></a>
+        <div class="sc-column-inner" data-bind="css: styleClass">
+
+          <div class="sc-column-heading"><span data-bind="text:$data.label() + '  ('+ $data.numberOfCards() + ')'"></span></div>
+          <!-- ko foreach: $data.activeCards -->
+          <!--<div class="sc-card" data-bind="css: { 'sc-card-collapse': $parent.collapsed() === true }">-->
+          <div class="sc-card" data-bind="css: { 'hidden': $parent.collapsed() === true }, style:{'border-top': $data.cardColour() ? ('6px solid '+ $data.cardColour()) : '6px solid #FFF;' }">
+
+            <div class="card-main-actions">
+              <!--      <pre data-bind="text: ko.toJSON($data.courseVM, null, 2)"></pre>-->
+              <i data-target="campaignCardActionsTemplate" tabindex="0" data-bind="popover: {template: 'campaignCardActionsTemplate', data: $data, options:{ placement:'auto bottom', trigger:'focus'}}" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            </div>
+            <p data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.id" class="hidden"></p>
+            <div class="sc-card-heading">
+              <!-- <pre data-bind="text: ko.toJSON(extendedInfo, null, 2)"></pre>  -->
+              <span style="cursor:pointer" data-bind="text:name, tooltip: { container: 'body', placement:'top', title: extendedInfo }">Title</span>
+              <!-- ko if: isRevision()-->
+                <a class="fa fa-code-fork icon-link" data-toggle="tooltip" data-title="Cloned Campaign"></a>
+              <!-- /ko -->
+            </div>
+
+            <!-- ko if: showPerformance() === true -->
+            <!--<div class="sc-card-section">-->
+              <!--<div class="sc-card-subheading">Performance</div>-->
+              <!--<div class="sc-statuses clearfix">-->
+                <!--&lt;!&ndash; ko foreach: $data.filteredWidgetReport() &ndash;&gt;-->
+                <!--<div class="sc-status" data-bind="style:{'background-color': $parent.cardColour() ? $parent.cardColour() : '#ccc', 'border-color': $parent.cardColour() ? $parent.cardColour() : '#FFFFFF' }">-->
+                  <!--&lt;!&ndash;<div class="font-small error-color"><span class="fa fa-caret-down"></span> 3.2%</div>&ndash;&gt;-->
+                  <!--<div class="font-large"><span data-bind="text:value">9,765</span></div>-->
+                  <!--<div class="font-small"><span data-bind="text:label">Total orders</span></div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /ko &ndash;&gt;-->
+              <!--</div>-->
+            <!--</div>-->
+            <!-- /ko -->
+
+
+<!--            <div class="sc-card-section clearfix">-->
+<!--              <div class="pull-right">-->
+
+<!--                &lt;!&ndash; ko if: showScheduleButton() === true &ndash;&gt;-->
+<!--                <button data-bind="click:$root.selectedCourse().courseVM.showScheduleModal" class="btn btn-6">Schedule</button>-->
+<!--                &lt;!&ndash; /ko &ndash;&gt;-->
+
+
+
+<!--              </div>-->
+<!--            </div>-->
+
+            <!-- ko if: showScheduleButton() === true -->
+            <div class="sc-card-section">
+              <button data-bind="click:$root.selectedCourse().courseVM.showScheduleModal" class="btn btn-3">Schedule</button>
+            </div>
+            <!-- /ko -->
+
+            <!-- ko if: showSchedule() === true && showScheduleButton() === false -->
+            <div class="sc-card-section">
+
+              <div class="clearfix">
+                <div class="pull-left">
+                  <div class="sc-card-subheading">Schedule</div>
+                </div>
+
+                <!-- ko if: scheduleSet() == true -->
+                <div class="pull-right">
+                  <a data-bind="click:$root.selectedCourse().courseVM.showScheduleModal, css: {'fa fa-pencil': currentActivity() !== 'published' }" class="icon-link"></a>
+                </div>
+                <!-- /ko -->
+              </div>
+              <!-- ko if: scheduleSet() == true -->
+              <span class="tag sm start-date" data-bind="text:displayedStartDate">Apr 29 at 9:00 AM</span><br>
+              <span class="tag sm end-date" data-bind="text:displayedEndDate">Apr 30 at 5:00 PM</span> <!-- &nbsp;&nbsp;&nbsp;<b class="error-color font-small">In 3 days</b> -->
+              <!-- /ko -->
+
+            </div>
+            <!-- /ko -->
+
+            <!-- TODO: visibility should not be hard-coded for specific BC in view-->
+            <!-- ko if:  $root.currBCType() !== 'Store' -->
+            <div class="sc-card-section">
+              <div class="sc-card-subheading">Touchpoints</div>
+              <div class="font-small"><span data-bind="text:chosenTPsTitle">BBC Merc, BCC Latest</span></div>
+            </div>
+            <!-- /ko -->
+
+
+            <!-- view for configured CMS -->
+            <div class="sc-card-section">
+              <div class="sc-card-subheading">Configured CMS</div>
+              <!-- ko if: cmsConfiguration -->
+              <div class="font-small"><span data-bind="text:cmsConfiguration">GrapesJS</span></div>
+              <!-- /ko -->
+<!--              &lt;!&ndash; ko ifnot: cmsConfiguration &ndash;&gt;-->
+<!--              <div class="font-small"><span data-bind="text:$parent.availableCmsConfigurationModes()[0].name">BBC Merc, BCC Latest</span></div>-->
+<!--              &lt;!&ndash; /ko &ndash;&gt;-->
+            </div>
+
+
+
+
+            <div class="sc-card-section clearfix">
+              <div class="pull-right">
+
+
+                <!-- ko if: ( scheduleSet() == true && currentActivity() !== 'published') -->
+                <button data-bind="click:function() { $data.perform('default');}, visible: performActionVisible" class="btn btn-2">Publish</button>
+                <!-- /ko -->
+              </div>
+
+              <!-- ko if:  $root.currBCType() === 'Store' && ( scheduleSet() == true && currentActivity() !== 'published') -->
+                <button class="btn btn-6" data-bind="click: function() { $data.displayFullPreviewPopover()}">Full Preview</button>
+              <!-- /ko -->
+
+            </div>
+          </div>
+          <!-- /ko -->
+          <!-- ko if: $data.numberOfCards() < 1 -->
+          <!--<span>There is nothing here</span>-->
+          <!-- /ko -->
+        </div>
+
+
+
+        <!-- ko if: name() === 'published' && expiredCards().length > 0  -->
+        <div class="sc-column-inner expired">
+          <div class="sc-column-heading-secondary">Expired</div>
+          <!-- ko foreach: expiredCards -->
+          <div class="sc-card" data-bind="css: { 'hidden': $parent.collapsed() === true }">
+            <div class="card-main-actions">
+              <!--      <pre data-bind="text: ko.toJSON($data.courseVM, null, 2)"></pre>-->
+              <i data-target="campaignCardActionsTemplate" tabindex="0" data-trigger="focus" data-bind="popover: {template: 'campaignCardActionsTemplate', data: $data, options:{ placement:'auto bottom', trigger:'focus', container: 'body'}}" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            </div>
+<!--            <a class="sc-card-link" data-bind="click:function() { $data.perform('default');}, visible: performActionVisible,, tooltip: { container: 'body', placement:'top', title: extendedInfo }">-->
+<!--              &lt;!&ndash;<span class="fa fa-eye"></span>&ndash;&gt; &lt;!&ndash; TODO: permissions &ndash;&gt;-->
+<!--              <span data-bind="css: {'fa fa-pencil': currentActivity() !== 'published' }"></span>-->
+<!--            </a>-->
+            <p data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.id" class="hidden"></p>
+            <div class="sc-card-heading">
+              <!-- <pre data-bind="text: ko.toJSON(extendedInfo, null, 2)"></pre>  -->
+              <span style="cursor:pointer" data-bind="text:name, tooltip: { container: 'body', placement:'top', title: extendedInfo }">Title</span>
+              <!-- ko if: isRevision()-->
+              <a class="fa fa-code-fork icon-link" data-toggle="tooltip" data-title="Cloned Campaign"></a>
+              <!-- /ko -->
+            </div>
+
+            <!-- ko if: showScheduleButton() === true -->
+            <div class="sc-card-section">
+              <button data-bind="click:$root.selectedCourse().courseVM.showScheduleModal" class="btn btn-3">Schedule</button>
+            </div>
+            <!-- /ko -->
+
+            <!-- ko if: showSchedule() === true && showScheduleButton() === false -->
+            <div class="sc-card-section">
+
+              <div class="clearfix">
+                <div class="pull-left">
+                  <div class="sc-card-subheading">Schedule</div>
+                </div>
+                <!-- ko if: scheduleSet() == true -->
+                <div class="pull-right">
+                  <a data-bind="click:$root.selectedCourse().courseVM.showScheduleModal, css: {'fa fa-pencil': currentActivity() !== 'published' }" class="icon-link"></a>
+                </div>
+                <!-- /ko -->
+              </div>
+              <!-- ko if: scheduleSet() == true -->
+              <span class="tag sm start-date" data-bind="text:displayedStartDate">Apr 29 at 9:00 AM</span><br>
+              <span class="tag sm end-date" data-bind="text:displayedEndDate">Apr 30 at 5:00 PM</span> <!-- &nbsp;&nbsp;&nbsp;<b class="error-color font-small">In 3 days</b> -->
+              <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <div class="sc-card-section">
+              <div class="sc-card-subheading">Touchpoints</div>
+              <div class="font-small"><span data-bind="text:chosenTPsTitle">BBC Merc, BCC Latest</span></div>
+            </div>
+            <div class="sc-card-section clearfix">
+              <div class="pull-right">
+<!--                <a data-bind="click:$root.selectedCourse().courseVM.showEPCopyModal" class="fa fa-copy icon-link"></a>-->
+<!--                <a data-bind="click:$root.selectedCourse().courseVM.showDeleteEPModal" class="fa fa-trash icon-link"></a>-->
+                    <!-- ko if: performActionVisible() -->
+
+                    <button class="btn btn-2" data-bind="click:function() { $data.perform('default');}, text:extendedInfo">Next</button>
+
+<!--                    <a class="sc-card-link" data-bind=" visible: performActionVisible, tooltip: { container: 'body', placement:'top', title: extendedInfo }">-->
+<!--                      &lt;!&ndash;<span class="fa fa-eye"></span>&ndash;&gt; &lt;!&ndash; TODO: permissions &ndash;&gt;-->
+<!--                      <span data-bind="css: {'fa fa-pencil': currentActivity() !== 'published' }"></span>-->
+<!--                    </a>-->
+                    <!-- /ko -->
+
+              </div>
+            </div>
+          </div>
+          <!-- /ko -->
+        </div>
+        <!-- /ko -->
+      </div>
+      <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko ifnot: $data.single -->
+      <div class="sc-stage-group">
+
+        <div class="sc-stage-group-heading"><span data-bind="text:$data.title() + '  ('+ ($data.inProgress.numberOfCards() + $data.approval.numberOfCards()) + ')'"></span></div>
+
+
+      <!-- ko if: $data.inProgress -->
+        <div data-bind="with:$data.inProgress" style="float: left">
+          <div style="padding: 5px" class="sc-column" data-bind="css: styleClass">
+          <a class="sc-column-collapse" data-bind="click:$data.toggleCollapse, visible:($data.numberOfCards() > 0), css: columnIcon"></a>
+          <div class="sc-column-inner" data-bind="css: styleClass">
+
+            <div class="sc-column-heading2"><span data-bind="text: 'In Progress (' + $data.numberOfCards() + ')'"></span></div>
+            <!-- ko foreach: $data.activeCards -->
+            <!--<div class="sc-card" data-bind="css: { 'sc-card-collapse': $parent.collapsed() === true }">-->
+            <div class="sc-card" data-bind="css: { 'hidden': $parent.collapsed() === true }, style:{'border-top': $data.cardColour() ? ('6px solid '+ $data.cardColour()) : '6px solid #FFF;' }">
+
+              <div class="card-main-actions">
+                <!--      <pre data-bind="text: ko.toJSON($data.courseVM, null, 2)"></pre>-->
+                <i data-target="campaignCardActionsTemplate" tabindex="0" data-trigger="focus" data-bind="popover: {template: 'campaignCardActionsTemplate', data: $data, options:{ placement:'auto bottom', trigger:'focus', container: 'body'}}" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+              </div>
+
+              <p data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.id" class="hidden"></p>
+              <div class="sc-card-heading">
+                <!-- <pre data-bind="text: ko.toJSON(extendedInfo, null, 2)"></pre>  -->
+                <span style="cursor:pointer" data-bind="text:name, tooltip: { container: 'body', placement:'top', title: extendedInfo }">Title</span>
+                <!-- ko if: isRevision()-->
+                <a class="fa fa-code-fork icon-link" data-toggle="tooltip" data-title="Cloned Campaign"></a>
+                <!-- /ko -->
+              </div>
+
+              <!-- ko if: showScheduleButton() === true -->
+              <div class="sc-card-section">
+                <button data-bind="click:$root.selectedCourse().courseVM.showScheduleModal" class="btn btn-3">Schedule</button>
+              </div>
+              <!-- /ko -->
+
+              <!-- ko if: showSchedule() === true && showScheduleButton() === false -->
+              <div class="sc-card-section">
+
+                <div class="clearfix">
+                  <div class="pull-left">
+                    <div class="sc-card-subheading">Schedule</div>
+                  </div>
+                  <!-- ko if: scheduleSet() == true -->
+                  <div class="pull-right">
+                    <a data-bind="click:$root.selectedCourse().courseVM.showScheduleModal, css: {'fa fa-pencil': currentActivity() !== 'published' }" class="icon-link"></a>
+                  </div>
+                  <!-- /ko -->
+                </div>
+                <!-- ko if: scheduleSet() == true -->
+                <span class="tag sm start-date" data-bind="text:displayedStartDate">Apr 29 at 9:00 AM</span><br>
+                <span class="tag sm end-date" data-bind="text:displayedEndDate">Apr 30 at 5:00 PM</span> <!-- &nbsp;&nbsp;&nbsp;<b class="error-color font-small">In 3 days</b> -->
+                <!-- /ko -->
+
+              </div>
+              <!-- /ko -->
+
+              <!-- TODO: visibility should not be hard-coded for specific BC in view-->
+              <!-- ko if:  $root.currBCType() !== 'Store' -->
+              <div class="sc-card-section">
+                <div class="sc-card-subheading">Touchpoints</div>
+                <div class="font-small"><span data-bind="text:chosenTPsTitle">BBC Merc, BCC Latest</span></div>
+              </div>
+              <!-- /ko -->
+
+              <!-- view for configured CMS -->
+              <div class="sc-card-section">
+                <div class="sc-card-subheading">Configured CMS</div>
+                <!-- ko if: cmsConfiguration -->
+                <div class="font-small"><span data-bind="text:cmsConfiguration">GrapesJS</span></div>
+                <!-- /ko -->
+<!--                &lt;!&ndash; ko ifnot: cmsConfiguration &ndash;&gt;-->
+<!--                <div class="font-small"><span data-bind="text:$parent.availableCmsConfigurationModes()[0].name">BBC Merc, BCC Latest</span></div>-->
+<!--                &lt;!&ndash; /ko &ndash;&gt;-->
+              </div>
+
+
+              <div class="sc-card-section clearfix">
+                <div class="pull-right">
+
+                  <!-- ko if: currentActivity() !== 'published' -->
+                  <button data-bind="text: $data.performActionLabel, click:function() { $data.perform('default');}, visible: performActionVisible" class="btn btn-2">View</button>
+                  <!-- /ko -->
+                  <!--              <a class="sc-card-link" data-bind="click:function() { $data.perform('default');}, visible: performActionVisible, tooltip: { container: 'body', placement:'top', title: extendedInfo }">-->
+                  <!--                &lt;!&ndash;<span class="fa fa-eye"></span>&ndash;&gt; &lt;!&ndash; TODO: permissions &ndash;&gt;-->
+                  <!--                <span data-bind="css: {'fa fa-pencil': currentActivity() !== 'published' }"></span>-->
+                  <!--              </a>-->
+
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $data.numberOfCards() < 1 -->
+            <!--<span>There is nothing here</span>-->
+            <!-- /ko -->
+          </div>
+
+
+        </div>
+        </div>
+
+      <!-- /ko -->
+
+      <!-- ko if: $data.approval -->
+        <div data-bind="with:$data.approval" style="float: right">
+          <div style="padding: 5px" class="sc-column" data-bind="css: styleClass">
+          <a class="sc-column-collapse" data-bind="click:$data.toggleCollapse, visible:($data.numberOfCards() > 0), css: columnIcon"></a>
+          <div class="sc-column-inner" data-bind="css: styleClass">
+
+            <div class="sc-column-heading2"><span data-bind="text: 'Approval (' + $data.numberOfCards() + ')'"></span></div>
+            <!-- ko foreach: $data.activeCards -->
+            <!--<div class="sc-card" data-bind="css: { 'sc-card-collapse': $parent.collapsed() === true }">-->
+            <div class="sc-card" data-bind="css: { 'hidden': $parent.collapsed() === true }, style:{'border-top': $data.cardColour() ? ('6px solid '+ $data.cardColour()) : '6px solid #FFF;' }">
+              <div class="card-main-actions">
+                <!--      <pre data-bind="text: ko.toJSON($data.courseVM, null, 2)"></pre>-->
+                <i data-target="campaignCardActionsTemplate" tabindex="0" data-trigger="focus" data-bind="popover: {template: 'campaignCardActionsTemplate', data: $data, options:{ placement:'auto bottom', trigger:'focus', container: 'body'}}" class="fa fa-ellipsis-h" aria-hidden="true"></i>
+              </div>
+              <p data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.id" class="hidden"></p>
+              <!--<div class="sc-card-heading"><span data-bind="text:name">Title of the subcampaign</span></div>-->
+              <div class="sc-card-heading">
+                <!-- <pre data-bind="text: ko.toJSON(extendedInfo, null, 2)"></pre>  -->
+                <span style="cursor:pointer" data-bind="text:name, tooltip: { container: 'body', placement:'top', title: extendedInfo }">Title</span>
+                <!-- ko if: isRevision()-->
+                <a class="fa fa-code-fork icon-link" data-toggle="tooltip" data-title="Cloned Campaign"></a>
+                <!-- /ko -->
+              </div>
+
+              <!-- ko if: showScheduleButton() === true -->
+              <div class="sc-card-section">
+                <button data-bind="click:$root.selectedCourse().courseVM.showScheduleModal" class="btn btn-3">Schedule</button>
+              </div>
+              <!-- /ko -->
+
+              <!-- ko if: showSchedule() === true && showScheduleButton() === false -->
+              <div class="sc-card-section">
+
+                <div class="clearfix">
+                  <div class="pull-left">
+                    <div class="sc-card-subheading">Schedule</div>
+                  </div>
+                  <!-- ko if: scheduleSet() == true -->
+                  <div class="pull-right">
+                    <a data-bind="click:$root.selectedCourse().courseVM.showScheduleModal, css: {'fa fa-pencil': currentActivity() !== 'published' }" class="icon-link"></a>
+                  </div>
+                  <!-- /ko -->
+                </div>
+                <!-- ko if: scheduleSet() == true -->
+                <span class="tag sm start-date" data-bind="text:displayedStartDate">Apr 29 at 9:00 AM</span><br>
+                <span class="tag sm end-date" data-bind="text:displayedEndDate">Apr 30 at 5:00 PM</span> <!-- &nbsp;&nbsp;&nbsp;<b class="error-color font-small">In 3 days</b> -->
+                <!-- /ko -->
+
+              </div>
+              <!-- /ko -->
+
+              <!-- TODO: visibility should not be hard-coded for specific BC in view-->
+              <!-- ko if:  $root.currBCType() !== 'Store' -->
+              <div class="sc-card-section">
+                <div class="sc-card-subheading">Touchpoints</div>
+                <div class="font-small"><span data-bind="text:chosenTPsTitle">BBC Merc, BCC Latest</span></div>
+              </div>
+              <!-- /ko -->
+              <!-- view for configured CMS -->
+              <div class="sc-card-section">
+                <div class="sc-card-subheading">Configured CMS</div>
+                <!-- ko if: cmsConfiguration -->
+                <div class="font-small"><span data-bind="text:cmsConfiguration">GrapesJS</span></div>
+                <!-- /ko -->
+                <!-- ko ifnot: cmsConfiguration -->
+<!--                <div class="font-small"><span data-bind="text:$parent.availableCmsConfigurationModes()[0].name">BBC Merc, BCC Latest</span></div>-->
+                <!-- /ko -->
+              </div>
+
+
+              <div class="sc-card-section clearfix">
+                <div class="pull-right">
+                  <!-- ko if: currentActivity() !== 'published' -->
+                  <button data-bind="text: $data.performActionLabel, click:function() { $data.perform('default');}, visible: performActionVisible" class="btn btn-2">View</button>
+                  <!-- /ko -->
+
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $data.numberOfCards() < 1 -->
+            <!--<span>There is nothing here</span>-->
+            <!-- /ko -->
+          </div>
+
+
+        </div>
+        </div>
+
+      <!-- /ko -->
+
+      </div>
+
+    <!-- /ko -->
+  <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: $root.selectedCourse().courseVM.selectedSection() === 'timeline' -->
+<!-- ko with:  $root.selectedCourse().courseVM.timelineVM -->
+<div class="timeline-work-area">
+  <div class="clearfix">
+    <div class="pull-left">
+      <!--<p><b>Showing 7/7 scheduled subcampaigns</b></p>-->
+      <p><b><span data-bind="text:title"></span></b></p>
+      <div class="font-small">
+        <!-- comment out for now -->
+        <!--<span><span class="fa fa-circle success-color"></span> Performing well</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<span><span class="fa fa-circle warning-color"></span> Some metrics need attention</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<span><span class="fa fa-circle error-color"></span> Poor performance</span>-->
+      </div>
+      <br>
+    </div>
+    <div class="pull-right">
+      <!--<button href="#settingsModal" data-toggle="modal" class="btn btn-4"><span class="fa fa-cog"></span> Settings</button>-->
+      <button data-bind="click:showTimelineSettings" type="button" class="btn btn-4"><span class="fa fa-cog"></span> Settings</button>
+    </div>
+  </div>
+  <div class="timeline-work-area-inner">
+
+    <!-- ko if: selectedSubcampaignIds().length < 1 -->
+      <span> There are no scheduled campaigns selected or available to show</span>
+
+    <!-- /ko -->
+    <!-- ko if: selectedSubcampaignIds().length > 0 -->
+      <div id="timeline_chart_div"></div>
+
+    <!-- /ko -->
+  </div>
+</div>
+
+
+<div class="secondary sm" data-bind="modal: {
+         visible: timelineSettingModalVisible,
+         header: { name: 'settings_header'},
+         body: { name: 'settings_body', data: {idField: 'id',subTitle: 'Show timeline', selectedArray: $data.tempSelectedSubcampaignIds, availableArray: $data.filteredCards }},
+         footer: { name: 'settings_footer', data: {saveSettings:$data.saveSettings } }}">
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+
+<!-- ko if: $root.selectedCourse().courseVM.selectedSection() === 'performance' -->
+<!-- ko with:  $root.selectedCourse().courseVM.performanceVM -->
+<div class="performance-reports">
+
+  <div class="secondary sm" data-bind="modal: {
+         visible: $data.performanceSettingModalVisible,
+         header: { name: 'settings_header' },
+         body: { name: 'grouped_settings_body', data: {idField: 'name',subTitle: 'Show Reports', selectedArray: $data.tempSelectedDashboardIntelligence, groupedArray: $data.groupedDashboardIntelligence, remove: $data.removeSelectedEngReports }},
+         footer: { name: 'performance_settings_footer', data: { saveSettings:$data.saveSettings, showAddNew: $data.showAddNew, addNew:$data.addNew } }}">
+  </div>
+
+
+  <div data-bind="modal: {
+         visible: $data.performanceReportModalVisible,
+         dialogCss: 'modal-xl',
+         header: { name: 'report_modal_header', data: { title: $data.selectedPerformanceReportModalTitle } },
+         body: { name: 'report_modal_body', data: { objectives: $data.currentBizObjectives } },
+         footer: { name: 'report_modal_footer' } }">
+  </div>
+
+
+  <!-- ko with: $root.ccEDCreateVM -->
+  <div data-backdrop="static" data-bind="modal: {
+        keyboard: false,
+        backdrop: 'static',
+         visible: modalVisible,
+         dialogCss: 'modal-xl',
+         header: { data: { label: headerLabel } },
+         body: { name: 'cced_create', data: $data },
+         footer: { data: { action: saveIntelligenceKPI, closeLabel: 'Cancel', primaryLabel: 'Save' }} }">
+  </div>
+  <!-- /ko -->
+
+  <div class="clearfix">
+    <div class="pull-left">
+      <p><b><span data-bind="text:title"></span></b></p>
+      <!--<p><b>Showing 5/5 reports</b></p>-->
+      <div class="font-small">
+        <span><span class="fa fa-circle success-color"></span> Engagement Driven (ED)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span><span class="fa fa-circle warning-color"></span> Consumer Centric (CC)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--<span><span class="fa fa-circle success-color"></span> Performing well</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<span><span class="fa fa-circle warning-color"></span> Some metrics need attention</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<span><span class="fa fa-circle error-color"></span> Poor performance</span>-->
+      </div>
+    </div>
+    <div class="pull-right">
+      <!--<button href="#settingsModal" data-toggle="modal" class="btn btn-4"><span class="fa fa-cog"></span> Settings</button>-->
+      <button data-bind="click:showPerformanceSettings, enable:(enableLoadKPIReport() === true)" class="btn btn-4"><span class="fa fa-cog"></span> Settings</button>
+
+    </div>
+  </div>
+  <div class="performance-sc-inner">
+    <div id="ddeDashboard"></div>
+    <!-- ko foreach: kpiReportVMs -->
+      <div class="report-card">
+        <div class="report-card-inner" style="overflow: hidden">
+          <!--<a href="#reportModal" data-toggle="modal" class="report-card-link"><span class="fa fa-search-plus"></span></a>-->
+          <a data-bind="click: function() { $parent.showPerformanceReportModal($index()); }"  class="report-card-link"><span class="fa fa-search-plus"></span></a>
+          <div class="performance-report-chart" data-bind="attr: {'id': 'camp-kpi-chart-div' + $index()}"></div>
+          <!--<img src="https://assets.highcharts.com/images/demo-thumbnails/highcharts/chart-update-default.png">-->
+        </div>
+        <div>
+          <b>
+            <!--<span class="fa fa-circle success-color"></span>-->
+            <span data-bind="css: classificationStyle" class="fa fa-circle"></span>
+            <span data-bind="text:$data.title"></span>
+          </b>
+          <!--<b><span class="fa fa-circle success-color"></span> Average engagement</b>-->
+          <!-- Todo: update when support for configuring how many campaigns/eps are configurable for performance reports -->
+          <!--<div class="font-small">2 metrics | 4 subcampaigns</div>-->
+        </div>
+      </div>
+    <!-- /ko -->
+  </div>
+</div>
+<!-- section to show performance of subcampaigns-->
+<!--<div class="performance-sc">-->
+
+  <!--<div class="performance-sc-heading">Performance related subcampaigns <span data-bind="text: ' (' + $data.performanceCards().length + ')'"></span></div>-->
+
+  <!--<div class="performance-sc-inner">-->
+
+    <!--&lt;!&ndash; ko foreach: $data.performanceCards&ndash;&gt;-->
+    <!--<div class="sc-card"> &lt;!&ndash; removed error class for now &ndash;&gt;-->
+      <!--<a class="sc-card-link"><span class="fa fa-eye"></span></a>-->
+      <!--<p data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.id" class="hidden"></p>-->
+      <!--<div class="sc-card-heading"><span data-bind="text:name"></span></div>-->
+      <!--<div class="sc-card-section">-->
+        <!--<div class="sc-card-subheading">Performance</div>-->
+        <!--<div class="sc-statuses clearfix">-->
+          <!--&lt;!&ndash; ko foreach: $data.widgetReport() &ndash;&gt;-->
+          <!--<div class="sc-status">-->
+            <!--&lt;!&ndash;<div class="font-small error-color"><span class="fa fa-caret-down"></span> 3.2%</div>&ndash;&gt;-->
+            <!--<div class="font-large"><span data-bind="text:value">9,765</span></div>-->
+            <!--<div class="font-small"><span data-bind="text:label">Total orders</span></div>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; /ko &ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="clearfix sc-card-section">-->
+        <!--<div class="sc-card-subheading">Schedule</div>-->
+        <!--<span class="tag sm start-date" data-bind="text:displayedStartDate">Apr 29 at 9:00 AM</span><br>-->
+        <!--<span class="tag sm end-date" data-bind="text:displayedEndDate">Apr 30 at 5:00 PM</span>&nbsp;&nbsp;&nbsp;-->
+      <!--</div>-->
+      <!--<div class="sc-card-section">-->
+        <!--<div class="sc-card-subheading">Touchpoints</div>-->
+        <!--<div class="font-small"><span data-bind="text:chosenTPsTitle">BBC Merc, BCC Latest</span></div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; /ko &ndash;&gt;-->
+  <!--</div>-->
+
+<!--</div>-->
+<!-- /ko -->
+<!-- /ko -->
+
+
+<!-- ko if: $root.selectedCourse().courseVM.selectedSection() === 'analysis' -->
+<!-- ko with:  $root.selectedCourse().courseVM.analysisVM -->
+<div id="campaign-analysis" class="performance-reports">
+
+  <div class="clearfix">
+    <div class="pull-left">
+      <p><b><span data-bind="text:title"></span></b></p>
+    </div>
+  </div>
+  <div class="performance-sc-inner">
+
+
+    <div class="form-inline">
+      <div class="form-group sm">
+        <label for="ep-campaign-selection">Select Campaign:&nbsp;&nbsp;&nbsp;</label>
+        <select id="ep-campaign-selection"
+                data-bind="options:$data.availableCampaignList,
+                                          optionsText:'name',
+                                          optionsValue:'bcId',
+                                          value:$data.selectedBCId">
+        </select>
+      </div>
+
+      <div class="form-group sm">
+        <label for="ep-campaign-analysis-selection">Analysis:&nbsp;&nbsp;&nbsp;</label>
+        <select id="ep-campaign-analysis-selection"
+                data-bind="options:$data.availableAnalysisOptions,
+                                          optionsText:'name',
+                                          optionsValue:'id',
+                                          value: $data.selectedAnalysisOption">
+        </select>
+      </div>
+      <button data-bind="click:showAnalysisReport, enable:(enableLoadAnalysisReport() === true)" class="btn btn-4"><span class="fa fa-cog"></span> Explore</button>
+
+    </div>
+
+    <!-- ko if: $data.showAnalysisSection() -->
+    <div>
+
+      <!-- section to hold the visualization of the EP (same as EPA) -->
+
+
+      <div class="col-sm-6">
+        <span data-bind="text:$data.currentPathTitle"></span>
+        <div id="pattern-preview-area"></div>
+
+      </div>
+      <div class="col-sm-4">
+        <!-- section for  analysis -->
+
+        <!-- ko if: $data.analysisDataLoaded() -->
+        <table id="emTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+          <thead>
+          <tr>
+            <th>Path</th>
+            <th>Percentage</th>
+            <th>Frequency</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody data-bind="foreach: $data.pathAnalysisData">
+          <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: percentage"></td>
+            <td data-bind="text: value"></td>
+            <td>
+              <button data-bind="click:function(){ $parent.showPath($data) }">view</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <!-- /ko -->
+
+        <!-- ko ifnot: $data.analysisDataLoaded() -->
+          Waiting for data to load...
+        <!-- /ko -->
+
+
+
+
+
+      </div>
+
+    </div>
+    <!-- /ko -->
+  </div>
+</div>
+<!-- /ko -->
+<!-- /ko -->

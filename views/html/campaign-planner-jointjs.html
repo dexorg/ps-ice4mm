@@ -1,0 +1,466 @@
+<!-- Popover templates - navigation dropdowns - build off of bootstrap popover -->
+<script type="text/html" id="pp_campaignPopoverTemplate">
+    <div class="ep-action-dropdown clearfix">
+      <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+        <div class="ep-action-dropdown-sidebar" data-bind="foreach: campaignPlannerVm.pagedCampaigns">
+            <a data-bind="click: function(){ campaignPlannerVm.activeCampaignPagedItemVM($index());}, css: {'active': campaignPlannerVm.activeCampaignPagedItemVM() === $index()}, text: title"></a>
+        </div>
+        <!-- ko foreach: campaignPlannerVm.pagedCampaigns -->
+        <div class="ep-action-dropdown-content" data-bind="visible: campaignPlannerVm.activeCampaignPagedItemVM() === $index()">
+            <!-- ko foreach: pages -->
+            <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+                <div class="clearfix" data-bind="foreach: $data">
+                    <div class="ep-item business-i" data-bind="click: function(){ campaignPlannerVm.addItem($data); }">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <div data-bind="text:name"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a class="number active"></a>
+                <a class="number"></a>
+                <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: campaignPlannerVm.pagedCampaigns().length < 1  -->
+        <div>
+            <br>
+            There are no configured Campaigns available.
+            <br><br>
+        </div>
+        <!-- /ko -->
+    </div>
+</script>
+
+
+<script type="text/html" id="pp_newCampaignTemplate">
+  <div class="ep-action-dropdown">
+    <div class="page active">
+      <div class="form-group">
+        <label class="sr-only" for="textInputEPA">Enter Name</label>
+        <input class="form-control" id="textInputEPA" placeholder="Click to add name" data-bind="textInput:$data.pendingCampaignName"/>
+      </div>
+      <div class="form-group text-right">
+        <a data-dismiss="popover" class="link-secondary font-small" data-bind="click:function(){ $data.pendingCampaignName('');}">Cancel</a>&nbsp;&nbsp;
+        <button data-dismiss="popover" class="btn btn-3" data-bind="click:$data.addNewCampaign">Add</button>
+      </div>
+    </div>
+  </div>
+</script>
+
+
+
+<script type="text/html" id="pp_confirm_changes_body">
+
+  <h3>To Delete:</h3>
+  <ul data-bind="foreach: $data.delete">
+    <li><span data-bind="text:$data.name"></span></li>
+  </ul>
+
+  <!-- ko if: ( $data.delete().length < 1 )-->
+  There are no campaigns that will be created.
+  <!-- /ko -->
+  <br/>
+  <h3>To Create:</h3>
+  <ul data-bind="foreach: $data.create">
+    <li><span data-bind="text:$data.name"></span></li>
+  </ul>
+  <br/>
+  <!-- ko if: ( $data.create().length < 1 )-->
+    There are no campaigns that will be deleted.
+  <!-- /ko -->
+
+  <!-- ko if: $data.approval().length > 0 -->
+  <hr/>
+  <br/>
+  <span class="warning-color">The following campaigns still require approval and will not be created at this time:</span>
+  <ul data-bind="foreach: $data.approval">
+    <li><span data-bind="text:$data.name"></span></li>
+  </ul>
+  <!-- /ko -->
+</script>
+
+
+<div class="modal-xl" data-bind="modal: {
+           visible: campaignPlannerVm.creativeBriefModalVisible,
+           dialogCss: 'modal-xl',
+           header: { name: 'settings_header', data: { 'title': 'Briefing Setup' }},
+           body: { name: 'creative_brief_setup_body', data: { 'visible':campaignPlannerVm.creativeBriefModalVisible, 'windowFolderLink': $root.selectedCourse().courseVM.windowFolderLink, 'iframeFolderLink':$root.selectedCourse().courseVM.iframeFolderLink, 'selectedBriefLink': campaignPlannerVm.creativeBriefLink}},
+           footer: { name: 'modal_footer', data: { save: campaignPlannerVm.saveCreativeBrief, saveText:'Save' } }}">
+</div>
+<div class="modal-xl" data-bind="modal: {
+             visible: campaignPlannerVm.programBriefModalVisible,
+             dialogCss: 'modal-xl',
+             header: { name: 'settings_header', data: { 'title': 'Program Briefing Setup' }},
+             body: { name: 'creative_brief_setup_body', data: {'visible': $root.selectedCourse().courseVM.programBriefModalVisible, 'windowFolderLink': $root.selectedCourse().courseVM.windowFolderLink, 'iframeFolderLink':$root.selectedCourse().courseVM.iframeFolderLink, 'selectedBriefLink': $root.selectedCourse().courseVM.programBriefLink}},
+             footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveCreativeBriefProgram, saveText:'Save' } }}">
+</div>
+
+<div data-bind="modal: {
+             visible: campaignPlannerVm.confirmChangesModalVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { 'title': 'Please Confirm Changes' }},
+             body: { name: 'pp_confirm_changes_body', data: { delete: campaignPlannerVm.pendingDeleteChanges, create: campaignPlannerVm.pendingCreateChanges, approval: campaignPlannerVm.pendingApproval }},
+             footer: { name: 'modal_footer_enabled_save', data: { enable: campaignPlannerVm.enableSavePlanButton, save: campaignPlannerVm.saveChanges, saveText:'Confirm', enable: campaignPlannerVm.enableSaveChanges } }}">
+</div>
+
+<!-- ko if: $root.selectedCourse() -->
+<!-- ko with: $root.selectedCourse().courseVM -->
+
+
+
+<div class="secondary" data-bind="modal: {
+             visible: touchpointCampaignAllocatorVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { title: 'Make your selection' }},
+             body: { name: 'tp_campaign_allocation_body', data: {layout: tpAllocatorLayout, name: toAllocatorTitle,  allocationRegion: allocationRegion, isPrimary: isPrimaryAllocation  } },
+             footer: { name: 'modal_footer', data: { save: saveTouchpointCampaignAllocation, saveText:'Save' } } }">
+</div>
+
+
+<div class="secondary" data-bind="modal: {
+             visible: dynamicCampaignSelectionVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'modal_header', data: { title: 'Make your selection' }},
+             body: { name: 'campaign_dynamic_selection_body', data: { name: toAllocatorTitle,  dynamicCampaign: dynamicCampaign  } },
+             footer: { name: 'modal_footer', data: { save: saveDynamicCampaignAllocation, saveText:'Save' } } }">
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+
+
+
+<div class="row main-container" data-bind="visible:campaignPlannerVm.campaignWfVisible">
+
+  <div class="col-md-12 col-lg-8">
+
+    <a data-bind="click: campaignPlannerVm.hideWf">
+      <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+      <span>Back</span>
+    </a>
+    <!-- ko with: campaignPlannerVm.campaignCreationVM -->
+      <div class="secondary" data-bind="modal: {
+           visible: MMModalVisible,
+           header: { data: { label: 'Select Multimedia' } },
+           dialogCss: 'modal-lg',
+           body: { name: 'multimediaManagementTemplBody', data: mmManagementVM },
+           footer: { name: 'settings_footer', data: {saveSettings: mmManagementVM.saveTags } }}">
+      </div>
+
+      <div class="secondary" data-bind="modal: {
+             visible: iconModalVisible,
+             header: { data: { label: 'Select Multimedia' } },
+             dialogCss: 'modal-lg',
+             body: { name: 'multimediaManagementTemplBody', data: mmManagementIconsVM },
+             footer: { name: 'settings_footer', data: {saveSettings: mmManagementIconsVM.saveTags } }}">
+      </div>
+
+
+
+
+    <!--<a data-bind="text: 'Back to '+ $data.parentBCiName(), click: hideCreate"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to (Merchandising Campaign)</a>-->
+      <h2 data-bind="text: 'Define '+ $data.currBCDef().singular + ': ' + $data.campaignName() "></h2>
+      <div class="col-sm-12 text-center" data-bind="css: loadCss">
+        <div class="loading-wrapper dashboard-loading-wrapper">
+          <i class="fa fa-spinner fa-pulse"></i>
+          <i class="loading-message">Loading</i>
+        </div>
+      </div>
+      <div data-bind="foreach: stepsVM">
+        <!-- campaign steps here -->
+        <div data-bind="template: { name: 'createBCiStepTempl'}"></div>
+        <hr>
+      </div>
+      <!-- ko if: editMode() === true && loaded() -->
+      <div class="clearfix">
+
+        <div class="pull-right">
+
+          <!--TODO: add duplicate campaign <button class="btn btn-lg btn-1 inverse">Duplicate Campaign</button>-->
+
+          <!-- ko ifnot: approved -->
+          <button class="btn btn-lg btn-1" data-bind="click:updateBCInstance, enable:changesMade">Save Changes</button>
+          <button class="btn btn-lg btn-1"
+                  data-bind="click:approveCampaign, text:'Approve ' + $data.currBCDef().singular,enable:enableCreate">Approve
+          </button>
+          <!-- /ko -->
+
+        </div>
+      </div>
+    <!-- /ko -->
+
+
+    <!-- end: for edit -->
+
+    <!-- for save -->
+    <!-- ko ifnot: editMode() === true -->
+    <div class="clearfix" data-bind="visible: showSummaryView">
+      <div class="pull-right">
+        <button class="btn btn-lg btn-1"
+                data-bind="click:addCampaign, text:'Save ' + $data.currBCDef().singular,enable:enableCreate">Save
+        </button>
+
+      </div>
+    </div>
+    <!-- /ko -->
+    <br><br>
+    <!-- Sample notification modal -->
+    <!-- TODO: this should be invoked when user deselects in edit  <a href="#newModal" data-toggle="modal">Launch Demo Modal</a> -->
+    <!-- Modal HTML -->
+    <div id="newModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><i class="fa fa-exclamation-triangle" aria-hidden="true"
+                                       data-bind="text:'Editing '+$data.currBCDef().singular"></i> Editing Merchandising
+              Campaign</h4>
+          </div>
+          <div class="modal-body">
+            <p>Deleting this option will cause some of your previously selected options in some of the other steps to
+              disappear. Are you sure you want to continue?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-1 inverse" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-lg btn-1">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification" data-bind="visible:showNotificationForEditAdd">
+      <div class="notification-inner">
+        <a data-bind="click:function(){showNotificationForEditAdd(false);}" class="notification-close"
+           aria-label="close">&times;</a>
+        <p><i class="fa fa-info-circle" aria-hidden="true"></i> Editing this step has added more options under
+          Touchpoints and Metrics.</p>
+      </div>
+    </div>
+
+    <br><br><br><br>
+    <!-- /ko -->
+  </div>
+
+</div>
+
+<div data-bind="visible:!(campaignPlannerVm.campaignWfVisible())">
+<div class="row main-container">
+    <div class="col-md-12">
+      <div class="form-group sm">
+        <a data-bind="click: $root.hideCreate">
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          <span data-bind="text: 'Go to '+ $root.selectedCourse().courseVM.previousName()">Back</span>
+        </a>
+      </div>
+    </div>
+    <div class="">
+      <!-- ko if: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'planning' -->
+
+        <h1 class="board-title text-grey">Planning Board:&nbsp;</h1>
+        <h1 class="board-title" data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.property.name"></h1>
+      <!-- /ko -->
+      <!-- ko ifnot: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'planning' -->
+        <h1 class="board-title text-grey">Publish Approval Board:&nbsp;</h1>
+        <h1 class="board-title"  data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.property.name"></h1>
+      <!-- /ko -->
+    </div>
+      <div class="">
+          <div class="form-group sm">
+            <a data-bind="click: campaignPlannerVm.close">
+              &#8226;
+              <span data-bind="text: 'Go to ' + $root.selectedCourse().courseVM.businessConceptInstance.property.name + ' Campaign Board' ">Go to Program Campaign Board</span>
+            </a>
+          </div>
+          <div class="col-lg-5 pull-right">
+              <div class="form-group sm text-right action-group">
+                  <button class="btn btn-lg btn-1 inverse" data-bind="click:campaignPlannerVm.showCreativeBriefProgram" type="button"><span class="fa fa-file"></span>&nbsp;&nbspPlan Brief</button>
+
+                <!-- ko if: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'planning' -->
+<!--                    <button class="btn btn-lg btn-1 inverse" data-bind="click: function() { campaignPlannerVm.refreshDiagram() }"><span class="fa fa-refresh"></span>Refresh</button>-->
+                  <button class="btn btn-lg btn-1" data-bind="enable:campaignPlannerVm.enableSaveButton, click: function() { campaignPlannerVm.save() }">Save</button>
+<!--                    <label for="toggleSaveDiagramOnly">Diagram Only</label>-->
+<!--                    <input id="toggleSaveDiagramOnly" type="checkbox" data-bind="checked: campaignPlannerVm.toggleSaveDiagramOnly" />-->
+
+                <!-- /ko -->
+
+              </div>
+
+
+
+          </div>
+        <!-- ko if: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'planning' -->
+
+          <div class="col-md-12 text-center">
+              <button data-target="pp_campaignPopoverTemplate" data-bind="popover: {template: 'pp_campaignPopoverTemplate', data:campaignPlannerVm, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-bullhorn" aria-hidden="true"></i>Campaigns</button>
+              <button data-target="pp_newCampaignTemplate" data-bind="popover: {template: 'pp_newCampaignTemplate', data:campaignPlannerVm, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-plus" aria-hidden="true"></i>Add New Campaign</button>
+          </div>
+
+        <!-- /ko -->
+      </div>
+<!--    </div>-->
+</div>
+
+
+<div id="pp-work-area" class="ep-work-area">
+
+    <div class="pp-start-msg"> </div>
+
+    <!--<div id="paper" class="drop-here paper"></div>-->
+
+</div>
+
+  <div id="menu-popover" class="menu-planner">
+    <ul class="menu-options">
+      <!-- ko if: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'planning' -->
+        <li id="planner-menu-option-delete" class="menu-option">Delete</li>
+        <li id="planner-menu-option-clone" class="menu-option">Clone</li>
+       <!-- /ko -->
+
+        <!-- ko if: campaignPlannerVm.showDynamicCampaign() -->
+        <li id="planner-menu-option-dynamic-campaign" class="menu-option">Dynamic Campaign Selection</li>
+       <!-- /ko -->
+
+      <!-- ko if: campaignPlannerVm.showTPAllocator() -->
+      <li id="planner-menu-option-region-allocator" class="menu-option">Allocator</li>
+      <!-- /ko -->
+
+
+        <!-- ko if: campaignPlannerVm.mode() && campaignPlannerVm.mode() === 'review' && campaignPlannerVm.showPublish()-->
+        <li id="planner-menu-option-preview" class="menu-option">Preview</li>
+        <li id="planner-menu-option-publish" class="menu-option">Publish</li>
+        <!-- /ko -->
+    </ul>
+  </div>
+
+
+</div>
+<!-- content loading -->
+<div class="widget-preloader hidden">
+  <div class="widget-preloader-message-wrapper text-center">
+    <i class="fa fa-spinner fa-pulse fa-2x"></i>
+    <p class="widget-preloader-text">Saving Plan, please wait...</p>
+    <button class="btn btn-success clear-error-message hidden" data-bind="click: function() { $root.bcAuthVM.closePreloader(); }">Got it!</button>
+  </div>
+</div>
+
+
+
+<!--<script type="text/html" id="eServiceEditTemplate">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6 active">Configure</button>-->
+                <!--<button type="button" class="btn btn-6">Input</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter question</label>-->
+                    <!--<input type="text" class="form-control" placeholder="Enter question">-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter answer(s)</label>-->
+                    <!--<div id="sortable">-->
+                        <!--<div class="input-with-btn sm">-->
+                            <!--<input type="text" class="form-control" placeholder="Enter answer">-->
+                            <!--<div class="handle btn btn-4 icon-btn"><i class="fa fa-arrows" aria-hidden="true"></i></div>-->
+                            <!--<button class="btn btn-4 icon-btn"><i class="fa fa-minus"></i></button>-->
+                        <!--</div>-->
+                        <!--<div class="input-with-btn sm">-->
+                            <!--<input type="text" class="form-control" placeholder="Enter answer">-->
+                            <!--<div class="handle btn btn-4 icon-btn"><i class="fa fa-arrows" aria-hidden="true"></i></div>-->
+                            <!--<button class="btn btn-4 icon-btn"><i class="fa fa-minus"></i></button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<a class="link-tertiary font-small"><i class="fa fa-plus" aria-hidden="true"></i> Add answer</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+
+
+<!--<script type="text/html" id="eServiceEditTemplateInput">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6">Input</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Transition Type</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>Timer</option>-->
+                        <!--<option>Click</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter time</label>-->
+                    <!--<div class="form-inline">-->
+                        <!--<input type="text" class="form-control" placeholder="Enter time">-->
+                        <!--<select class="form-control">-->
+                            <!--<option>Seconds</option>-->
+                            <!--<option>Minutes</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+
+
+
+<!--<script type="text/html" id="eServiceEditTemplateConfigure">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6">Configure</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Transition Type</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>Timer</option>-->
+                        <!--<option>Click</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter time</label>-->
+                    <!--<div class="form-inline">-->
+                        <!--<input type="text" class="form-control" placeholder="Enter time">-->
+                        <!--<select class="form-control">-->
+                            <!--<option>Seconds</option>-->
+                            <!--<option>Minutes</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+

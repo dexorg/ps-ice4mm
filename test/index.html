@@ -1,0 +1,132 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ice4m - Mocha Spec Runner</title>
+    <link rel="stylesheet" href="../test/lib/mocha/mocha.css">
+    <link id="main-styles" src='http://releases.dexit.co/dex-css-master/0.0.21/ice4m_main.css' rel='stylesheet'>
+</head>
+<body>
+<div id="mocha"></div>
+
+<script src="../test/lib/mocha/mocha.js"></script>
+<script>
+    mocha.setup({
+        ui: 'bdd',
+        ignoreLeaks: true,
+        globals: ['ko', 'scd']
+    });
+</script>
+
+<script src="../test/lib/blanket/dist/qunit/blanket.js"
+        data-cover-flags="debug"></script>
+<script type="text/javascript" src="../node_modules/grunt-blanket-mocha/support/mocha-blanket.js"></script>
+
+
+<!-- 3rd party libraries -->
+<script src="../test/lib/async/lib/async.js"></script>
+<script src="../test/lib/jquery/dist/jquery.min.js"></script>
+<script src="../test/lib/lodash/dist/lodash.min.js"></script>
+<script src="../test/lib/knockout/dist/knockout.js"></script>
+<script src="../test/lib/sockjs-client/dist/sockjs.min.js"></script>
+<script src="../test/lib/moment/min/moment.min.js"></script>
+<script src="../test/lib/pubsub-js/src/pubsub.js"></script>
+<script src="../test/lib/bootstrap/index.js"></script>
+<script src="../test/lib/knockout-sortable/build/knockout-sortable.min.js"></script>
+<script src="../test/lib/backbone/backbone-min.js"></script>
+<script src="../test/lib/jointjs/dist/joint.js"></script>
+<script src="../test/lib/grapesjs/index.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ajv/5.5.2/ajv.min.js"></script>
+<script src="../test/lib/lscache/lscache.min.js"></script>
+
+<!-- Testing dependenies -->
+<script src="../test/lib/chai/chai.js"></script>
+<!-- mock framework -->
+<script src="../test/lib/sinon-chai/lib/sinon-chai.js"></script>
+<script src="../test/lib/sinon/index.js"></script>
+
+
+
+<script src="../test/lib/ps-dcm/index.js"></script>
+<script src="../test/lib/ps-ice/index.js"></script>
+<script src="http://releases.dexit.co/dex-sdk/master/dex-sdk.js"></script>
+<!--<script src="../test/lib/ps-ucc/index.js"></script>-->
+<script src="../test/lib/ps-bcc/index.js"></script>
+<script src="../test/lib/sc-playback/index.js"></script>
+<script src="../test/lib/tinycolor/dist/tinycolor-min.js"></script>
+<!-- This module -->
+<script src="../public/js/app/build/ps-ice4mm.js" data-cover></script>
+<!-- This module -->
+<script src="../public/js/lib/knockout-sortable.min.js"></script>
+<!-- sample data -->
+
+<script src="./data/test_ep.js"></script>
+<script src="./data/test_widget.js"></script>
+<script src="./data/test_course.js"></script>
+<script src="./data/test_sc.js"></script>
+<script src="./data/test_gradable_sc.js"></script>
+<script src="./data/test_sc_with_intel.js"></script>
+<script src="./data/test-sc-epm.js"></script>
+<script src="./data/jointjs-samples.js"></script>
+
+
+
+<!-- polyfills for phantomJS -->
+<script src="scripts/polyfill.js"></script>
+
+
+<!-- include spec files here... -->
+<script src="spec/test-components-register.js"></script>
+<script src="spec/test_bcAuthoringVM.js"></script>
+<script src="spec/test_AddingBCElementsAuth.js"></script>
+<script src="spec/test_fm.js"></script>
+<script src="spec/test-share-ep.js"></script>
+<script src="spec/test_widget.js"></script>
+<script src="spec/test-bc-instance-vm.js"></script>
+<script src="spec/test_main.js"></script>
+<script src="spec/test_RetrievingBCElementsAuth.js"></script>
+<script src="spec/test_EditingBCElementsAuth.js"></script>
+<script src="spec/test_clientSideDomTests.js"></script>
+<script src="spec/test_scheduleVM.js"></script>
+<script src="spec/test_course_tp_rest.js"></script>
+<script src="spec/test_fb_group_rest.js"></script>
+<script src="spec/test_report_rest.js"></script>
+<script src="spec/test_course_management_rest.js"></script>
+<script src="spec/test_lecture_manager_rest.js"></script>
+<script src="spec/test_epa_auth.js"></script>
+<script src="spec/test-story-auth-integration.js"></script>
+<script src="spec/test-portal-vm.js"></script>
+<script src="spec/test-story_auth.js"></script>
+<script src="spec/test-ep-card-vm.js"></script>
+<script src="spec/test-bc-creation-vm.js"></script>
+<script src="spec/test-bc-creation-step-vm.js"></script>
+<script src="spec/test-em-vm.js"></script>
+<script src="spec/test-paged-items-vm.js"></script>
+<script src="spec/test-epm-integration.js"></script>
+<script src="spec/test-cd-cms-shell-hs.js"></script>
+
+<script>
+    console.log("phantomjs: " + window.PHANTOMJS);
+
+    if (window.PHANTOMJS) {
+        blanket.options("reporter", "../node_modules/grunt-blanket-mocha/support/grunt-reporter.js");
+
+    }
+
+    //mocha.checkLeaks();
+    mocha.globals(['jQuery','_','$']);
+    // Only tests run in real browser, injected script run if options.run == true
+    console.log("userAgent: " + navigator.userAgent);
+    console.log("phantomjs: " + (navigator.userAgent.indexOf('PhantomJS') < 0));
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+        console.log("Executing mocha!");
+        mocha.run();
+    }
+</script>
+
+<style>
+    #blanket-main { margin: 0 25px 0 65px; font-size: 12px }
+</style>
+
+</body>
+</html>

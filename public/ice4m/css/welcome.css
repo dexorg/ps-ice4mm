@@ -1,0 +1,127 @@
+/*@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,700,800&display=swap");*/
+#welcome-page {
+  font-family: "Open Sans", sans-serif;
+  color: #505050;
+  background: #f0f0f0;
+  height: 100vh;
+  line-height: 1.5;
+  /* line-height: 1.15; */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* _____________________________________
+
+     01. Welcome Styles
+     _____________________________________ */
+}
+#welcome-page h2 {
+  font-size: 3.25rem;
+  font-weight: 300;
+}
+#welcome-page h3 {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+#welcome-page h4, #welcome-page h5, #welcome-page h6 {
+  font-size: 1rem;
+}
+#welcome-page p {
+  font-size: 1rem;
+}
+#welcome-page a:hover,
+#welcome-page a:focus {
+  text-decoration: none;
+  color: #666;
+}
+#welcome-page button:hover,
+#welcome-page button:focus {
+  color: #428bca;
+}
+#welcome-page ul {
+  padding: 0;
+  list-style-type: none;
+}
+#welcome-page ul li a {
+  color: #428bca;
+  font-size: 2rem;
+}
+#welcome-page .centered-contents {
+  width: 70%;
+  margin: 0 auto;
+}
+#welcome-page .branding {
+  color: #428bca;
+}
+#welcome-page .padding-top {
+  padding-top: 4rem;
+}
+#welcome-page .padding-ul {
+  padding-top: 2rem;
+}
+#welcome-page .padding-ul-special {
+  padding-top: 2.7rem;
+}
+#welcome-page .padding-bottom {
+  padding-bottom: 1.75rem;
+}
+#welcome-page .padding-btn {
+  padding-top: 0.05rem;
+}
+#welcome-page .padding-logo {
+  padding-top: 1.5rem;
+}
+#welcome-page .padding-left {
+  padding-left: 4rem;
+}
+#welcome-page .margin-bottom {
+  margin-bottom: 4rem;
+}
+#welcome-page .hidden {
+  display: none;
+}
+#welcome-page .top-border {
+  border-top: 1px solid #565656;
+}
+#welcome-page .left-border {
+  border-left: 1px solid #919191;
+}
+#welcome-page .right-border {
+  border-right: 1px solid #919191;
+}
+#welcome-page .bottom-border {
+  border-bottom: 1px dotted #5a5a5a;
+}
+#welcome-page .logo {
+  display: block;
+  width: 30rem;
+}
+#welcome-page header {
+  background: #323232;
+}
+#welcome-page header h2, #welcome-page header h3 {
+  color: #fff;
+}
+#welcome-page .content .fa {
+  /* font-size: 3.5rem; */
+}
+#welcome-page .welcome {
+  padding-top: 6rem;
+}
+#welcome-page .btn {
+  border: 1px solid #656464;
+  background-color: transparent;
+  color: #9a9a9a;
+}
+#welcome-page .btn:hover,
+#welcome-page .btn:focus {
+  background-color: #428bca;
+  color: #fff;
+}
+#welcome-page .margin-footer {
+  position: absolute;
+  width: 100%;
+  margin: 0px auto;
+  bottom: 0px;
+  color: #656464;
+}
+
+/*# sourceMappingURL=welcome.css.map */

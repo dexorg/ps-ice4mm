@@ -1,0 +1,214 @@
+{
+  "id": "234709",
+  "revision": 1,
+  "pattern": {
+    "start": "2019-12-05T06:33:20.000Z",
+    "end": "never",
+    "epSchemaVersion": 2,
+    "element": [
+      {
+        "id": "449f3144-8f14-40c4-b92a-387f3eb953f1",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:48f54efe-8091-4e8e-b9a9-6c4a90734aa3:multimedia:4abfc4cc-afdc-4dba-82af-7aea3b975795#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "81080d54-d147-4c8a-a991-0c9ab63c878d",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:48f54efe-8091-4e8e-b9a9-6c4a90734aa3:multimedia:5e9c565d-157e-46de-8d1d-c6c10520fa91#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "7632f4d5-85f1-46af-b8bc-7a32add1bff0",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:48f54efe-8091-4e8e-b9a9-6c4a90734aa3:multimedia:716afc36-d508-4db8-b32f-43748483ea89#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "4b6ad828-91e3-4442-8808-c33b1c901e05",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:48f54efe-8091-4e8e-b9a9-6c4a90734aa3:multimedia:bc25040a-0507-4ad1-b10e-bb82ed646ba9#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      }
+    ],
+    "connection": [
+      {
+        "name": "start",
+        "from": "start",
+        "to": "449f3144-8f14-40c4-b92a-387f3eb953f1",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "81080d54-d147-4c8a-a991-0c9ab63c878d",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "7632f4d5-85f1-46af-b8bc-7a32add1bff0",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-3",
+        "from": "449f3144-8f14-40c4-b92a-387f3eb953f1",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-4",
+        "from": "81080d54-d147-4c8a-a991-0c9ab63c878d",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-5",
+        "from": "7632f4d5-85f1-46af-b8bc-7a32add1bff0",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "4b6ad828-91e3-4442-8808-c33b1c901e05",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-7",
+        "from": "4b6ad828-91e3-4442-8808-c33b1c901e05",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      }
+    ],
+    "touchpoints": [
+      "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+      "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2"
+    ],
+    "tp": [
+      {
+        "touchpoint": "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+        "layout": {
+          "layoutId": "cust-47705000-e0b5-4a59-8afb-6f478e7cd33a",
+          "id": "cust-47705000-e0b5-4a59-8afb-6f478e7cd33a",
+          "baseTemplate": "sadad-bcc-mobile-reg-welcome",
+          "modTemplate": "tem-47705000-e0b5-4a59-8afb-6f478e7cd33a",
+          "custom": true,
+          "layoutMarkup": "<div><div class=\"dark-blue-bg c4761\"><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"dark-blue-bg c4779\"><div class=\"auth-main-wrapper login-wrapper\"><div class=\"main-header-wrapper\"><div class=\"login-logo-wrapper\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-big.png\" alt=\"\"></div><div class=\"welcome-content\"><h4>welcome</h4><h2 data-gjs-type=\"data-region-text\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h2></div></div><div class=\"payment-form-wrap\"><div class=\"regiter-para\"><div class=\"regiter-para c4872\"><p data-gjs-type=\"data-region\" data-region=\"r2\" class=\"placeholder placeholder-text\"></p><br><br><p data-gjs-type=\"data-region\" data-region=\"r3\" class=\"placeholder placeholder-text\"></p><br></div><div class=\"main-content-buttons\"><button data-gjs-type=\"data-region\" data-region=\"r4\" class=\"pink-btn\"></button></div></div></div></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c4872{color:white;}.c4779{height:100%;}.c4761{height:100vh;}</style>",
+          "regions": {
+            "r1": [
+              "449f3144-8f14-40c4-b92a-387f3eb953f1"
+            ],
+            "r2": [
+              "81080d54-d147-4c8a-a991-0c9ab63c878d"
+            ],
+            "r3": [
+              "7632f4d5-85f1-46af-b8bc-7a32add1bff0"
+            ],
+            "r4": [
+              "4b6ad828-91e3-4442-8808-c33b1c901e05"
+            ]
+          },
+          "thumbnail": ""
+        }
+      },
+      {
+        "touchpoint": "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+        "layout": {
+          "layoutId": "cust-73ff2dae-3b56-44c5-b5db-0485c89a8536",
+          "id": "cust-73ff2dae-3b56-44c5-b5db-0485c89a8536",
+          "baseTemplate": "sadad-bcc-mobile-reg-welcome",
+          "modTemplate": "tem-73ff2dae-3b56-44c5-b5db-0485c89a8536",
+          "custom": true,
+          "layoutMarkup": "<div><div class=\"dark-blue-bg c356\"><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"dark-blue-bg c374\"><div class=\"auth-main-wrapper login-wrapper\"><div class=\"main-header-wrapper\"><div class=\"login-logo-wrapper\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-big.png\" alt=\"\"></div><div class=\"welcome-content\"><h4>welcome</h4><h2 data-gjs-type=\"data-region-text\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h2></div></div><div class=\"payment-form-wrap\"><div class=\"regiter-para\"><div class=\"regiter-para c467\"><p data-gjs-type=\"data-region\" data-region=\"r2\" class=\"placeholder placeholder-text\"></p><br><br><p data-gjs-type=\"data-region\" data-region=\"r3\" class=\"placeholder placeholder-text\"></p><br></div><div class=\"main-content-buttons\"><button data-gjs-type=\"data-region\" data-region=\"r4\" class=\"pink-btn\"></button></div></div></div></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c467{color:white;}.c374{height:100%;}.c356{height:100vh;}</style>",
+          "regions": {
+            "r1": [
+              "449f3144-8f14-40c4-b92a-387f3eb953f1"
+            ],
+            "r2": [
+              "81080d54-d147-4c8a-a991-0c9ab63c878d"
+            ],
+            "r3": [
+              "7632f4d5-85f1-46af-b8bc-7a32add1bff0"
+            ],
+            "r4": [
+              "4b6ad828-91e3-4442-8808-c33b1c901e05"
+            ]
+          },
+          "thumbnail": ""
+        }
+      }
+    ],
+    "mainScId": "9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "Welcome Registration",
+    "endConfiguration": {
+      "endId": "element_done_path",
+      "params": {
+        "id": "4b6ad828-91e3-4442-8808-c33b1c901e05"
+      }
+    },
+    "startDate": "2019-12-05T06:33:20.000Z",
+    "_scheduleSet": true,
+    "_currentActivity": "published",
+    "_cmsConfiguration": "internal"
+  },
+  "isActive": true,
+  "isStarted": false,
+  "updateTime": "2019-12-05T13:10:30.501Z"
+}

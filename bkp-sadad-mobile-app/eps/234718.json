@@ -1,0 +1,105 @@
+{
+  "id": "234718",
+  "revision": 1,
+  "pattern": {
+    "start": "2019-12-05T07:04:55.000Z",
+    "end": "never",
+    "epSchemaVersion": 2,
+    "element": [
+      {
+        "id": "b1d18604-3e7d-42f0-9342-cd9b54af9ecc",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:intelligence:fixme",
+        "args": {
+          "epId": "234711"
+        },
+        "presentationRef": "default",
+        "description": "Home",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Home"
+      }
+    ],
+    "connection": [
+      {
+        "name": "start",
+        "from": "start",
+        "to": "b1d18604-3e7d-42f0-9342-cd9b54af9ecc",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-1",
+        "from": "b1d18604-3e7d-42f0-9342-cd9b54af9ecc",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      }
+    ],
+    "touchpoints": [
+      "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+      "7390e26b-c240-4fba-83c4-e4dfcb8edb2e"
+    ],
+    "tp": [
+      {
+        "touchpoint": "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+        "layout": {
+          "id": "dexitco-bcc-with-recom",
+          "layoutId": "dexitco-bcc-with-recom",
+          "thumbnail": "http://resource.dexit.co/images/layout/layout_bcc_with_recommendation.svg",
+          "layoutMarkup": "<div class=\"container\" data-gjs-droppable=\"false\">\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div class=\"col-sm-6 media-div\" data-region=\"1\" data-gjs-droppable=\"true\"></div>\r\n    <div class=\"col-sm-6\" data-region=\"2\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div class=\"col-sm-6 media-div\" data-region=\"3\" data-gjs-droppable=\"true\"></div>\r\n    <div class=\"col-sm-6\" data-region=\"4\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div id=\"recommendation-container\" class=\"col-sm-12\" data-region=\"5\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n</div>",
+          "regions": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [
+              "b1d18604-3e7d-42f0-9342-cd9b54af9ecc"
+            ]
+          }
+        },
+        "presentationRef": {
+          "b1d18604-3e7d-42f0-9342-cd9b54af9ecc": "executable"
+        }
+      },
+      {
+        "touchpoint": "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+        "layout": {
+          "id": "dexitco-bcc-with-recom",
+          "layoutId": "dexitco-bcc-with-recom",
+          "thumbnail": "http://resource.dexit.co/images/layout/layout_bcc_with_recommendation.svg",
+          "layoutMarkup": "<div class=\"container\" data-gjs-droppable=\"false\">\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div class=\"col-sm-6 media-div\" data-region=\"1\" data-gjs-droppable=\"true\"></div>\r\n    <div class=\"col-sm-6\" data-region=\"2\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div class=\"col-sm-6 media-div\" data-region=\"3\" data-gjs-droppable=\"true\"></div>\r\n    <div class=\"col-sm-6\" data-region=\"4\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n  <div class=\"row\" data-gjs-droppable=\"false\">\r\n    <div id=\"recommendation-container\" class=\"col-sm-12\" data-region=\"5\" data-gjs-droppable=\"true\"></div>\r\n  </div>\r\n</div>",
+          "regions": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [
+              "b1d18604-3e7d-42f0-9342-cd9b54af9ecc"
+            ]
+          }
+        },
+        "presentationRef": {
+          "b1d18604-3e7d-42f0-9342-cd9b54af9ecc": "executable"
+        }
+      }
+    ],
+    "mainScId": "9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "Top up",
+    "startDate": "2019-12-05T07:04:55.000Z",
+    "_scheduleSet": true,
+    "_currentActivity": "published",
+    "_cmsConfiguration": "internal"
+  },
+  "isActive": true,
+  "isStarted": false,
+  "updateTime": "2019-12-05T13:10:54.613Z"
+}

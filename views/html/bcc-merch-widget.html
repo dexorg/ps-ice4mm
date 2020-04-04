@@ -1,0 +1,12 @@
+<template id="merch-channel-widget-template">
+    <div class="beh-element-wrapper text-center recharge-wrapper subscriber-panel" role="button" data-bind="click: $root.goToMerchandisingLayout.bind($data), style: {backgroundColor: colour, border: border}, disable: ">
+    	<!-- ko if: icon() -->
+        	<i class="service-main-icon" data-bind="css: icon"></i>
+        <!-- /ko -->
+
+        <!-- ko ifnot: icon() -->
+        	<img data-bind="attr: { src : image }" alt="service image" class="subscriber-product-icon">
+        <!-- /ko -->
+        <span class="beh-edit-message subscriber-message" data-bind="text:name, attr: { title: name }" class="name-only-fix" data-toggle="tooltip" data-placement="top"></span>
+    </div>
+</template>

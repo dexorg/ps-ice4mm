@@ -1,0 +1,113 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Mocha Spec Runner</title>
+  <link rel="stylesheet" href="../test/lib/mocha/mocha.css">
+</head>
+<body>
+<!-- polyfills for phantomJS -->
+<script src="../test/scripts/polyfill.js"></script>
+
+<div id="mocha"></div>
+
+<script src="../test/lib/mocha/mocha.js"></script>
+<script>
+  mocha.setup({
+    ui: 'bdd',
+    ignoreLeaks: true,
+    globals: ['ko', 'dexit']
+  });
+</script>
+
+<!-- included libraries -->
+<script src="../test/lib/async/lib/async.js"></script>
+<script src="../test/lib/jquery/dist/jquery.min.js"></script>
+<script src="../test/lib/lodash/dist/lodash.min.js"></script>
+<script src="../test/lib/knockout/dist/knockout.js"></script>
+<script src="../test/lib/sockjs-client/dist/sockjs.min.js"></script>
+<script src="../test/lib/moment/min/moment.min.js"></script>
+<script src="../test/lib/pubsub-js/src/pubsub.js"></script>
+<script src="../test/lib/bootstrap/index.js"></script>
+<script src="../test/lib/ps-dcm/index.js"></script>
+<script src="../test/lib/ps-ice/index.js"></script>
+<script src="../test/lib/ps-ucc/index.js"></script>
+<script src="../test/lib/ps-bcc/index.js"></script>
+<script src="../test/lib/chai/chai.js"></script>
+<script src="../test/lib/sinon/index.js"></script>
+<script src="../test/lib/sinon-chai/lib/sinon-chai.js"></script>
+<script src="../test/lib/knockout-sortable/build/knockout-sortable.min.js"></script>
+<script src="../test/lib/sc-playback/index.js"></script>
+<script src="../test/lib/dex-sdk/index.js"></script>
+<script src="../test/lib/tinycolor/dist/tinycolor-min.js"></script>
+<script src="../test/lib/backbone/backbone-min.js"></script>
+<script src="../test/lib/jointjs/dist/joint.js"></script>
+<script src="../test/lib/grapesjs/index.js"></script>
+<script src="../test/lib/lscache/lscache.min.js"></script>
+
+<!-- module under test -->
+<script src="../public/js/app/build/ps-ice4mm.js"></script>
+
+<script>
+  // initialization for should assertions
+  if (chai) {
+    var should = chai.should();
+  }
+</script>
+
+<!-- helper modules -->
+<script src="../test/data/test_widget.js"></script>
+<script src="../test/data/test_course.js"></script>
+<script src="../test/data/test_sc.js"></script>
+<script src="../test/data/test_sc_with_intel.js"></script>
+<script src="../test/data/test_gradable_sc.js"></script>
+<script src="../test/data/test_ep.js"></script>
+<script src="../test/data/test-sc-epm.js"></script>
+<script src="../test/data/jointjs-samples.js"></script>
+
+<!-- test specs -->
+<script src="../test/spec/test-bc-creation-step-vm.js"></script>
+<script src="../test/spec/test-bc-creation-vm.js"></script>
+<script src="../test/spec/test-bc-instance-vm.js"></script>
+<script src="../test/spec/test-cd-cms-shell-hs.js"></script>
+<script src="../test/spec/test-components-register.js"></script>
+<script src="../test/spec/test-em-vm.js"></script>
+<script src="../test/spec/test-ep-card-vm.js"></script>
+<script src="../test/spec/test-ep-timeline-vm.js"></script>
+<script src="../test/spec/test-epm-integration.js"></script>
+<script src="../test/spec/test-paged-items-vm.js"></script>
+<script src="../test/spec/test-portal-vm.js"></script>
+<script src="../test/spec/test-roles-management-rest.js"></script>
+<script src="../test/spec/test-share-ep.js"></script>
+<script src="../test/spec/test-story-auth-integration.js"></script>
+<script src="../test/spec/test-story_auth.js"></script>
+<script src="../test/spec/test_AddingBCElementsAuth.js"></script>
+<script src="../test/spec/test_EditingBCElementsAuth.js"></script>
+<script src="../test/spec/test_RetrievingBCElementsAuth.js"></script>
+<script src="../test/spec/test_bcAuthoringVM.js"></script>
+<script src="../test/spec/test_clientSideDomTests.js"></script>
+<script src="../test/spec/test_course_management_rest.js"></script>
+<script src="../test/spec/test_course_tp_rest.js"></script>
+<script src="../test/spec/test_epa_auth.js"></script>
+<script src="../test/spec/test_fb_group_rest.js"></script>
+<script src="../test/spec/test_fm.js"></script>
+<script src="../test/spec/test_lecture_manager_rest.js"></script>
+<script src="../test/spec/test_main.js"></script>
+<script src="../test/spec/test_report_rest.js"></script>
+<script src="../test/spec/test_scheduleVM.js"></script>
+<script src="../test/spec/test_widget.js"></script>
+
+<script>
+  console.log("phantomjs: " + JSON.stringify(window.PHANTOMJS));
+  mocha.globals(['jQuery','_','$']);
+  // Only tests run in real browser, injected script run if options.run == true
+  console.log("userAgent: " + navigator.userAgent);
+  console.log("phantomjs: " + (navigator.userAgent.indexOf('PhantomJS') >= 0));
+  if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+    console.log("Executing mocha!");
+    mocha.run();
+  }
+</script>
+
+</body>
+</html>

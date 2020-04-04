@@ -1,0 +1,61 @@
+{
+  "id": "userprofile",
+  "tenant": "dexit.co",
+  "name": "userprofile",
+  "type": "sql",
+  "records": [{
+    "name": "user",
+    "type": "table",
+    "fields": [{
+      "name": "id",
+      "type": "integer/key",
+      "doc": "text"
+    }, {
+      "name": "firstName",
+      "type": ["null", "string"],
+      "doc": "text"
+    }, {
+      "name": "lastName",
+      "type": ["null", "string"],
+      "doc": "text"
+    }, {
+      "name": "fullName",
+      "type": ["null", "string"],
+      "doc": "text"
+    }, {
+      "name": "discount",
+      "type": ["null", "number"],
+      "doc": "text"
+    }, {
+      "name": "picture",
+      "type": ["null", "string"],
+      "doc": "image"
+    }, {
+      "name": "accountUsage",
+      "type": ["null", "string"],
+      "doc": "image"
+    }, {
+      "name": "ageSegment",
+      "type": ["null", "number"],
+      "doc": "text"
+    }, {
+      "name": "incomeSegment",
+      "type": ["nulla", "number"],
+      "doc": "text"
+    }, {
+      "name": "serviceClassSegment",
+      "type": ["null", "string"],
+      "doc": "text"
+    },
+    {
+      "name": "usage",
+      "type": ["null", "string"],
+      "doc": "intelligence:report"
+    },
+    {
+      "name": "personalService",
+      "type": ["null", "string"],
+      "doc": "behaviour"
+    }]
+  }]
+}

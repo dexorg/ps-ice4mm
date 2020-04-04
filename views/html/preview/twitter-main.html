@@ -1,0 +1,202 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/twitter.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="screen">
+
+    </head>
+
+    <body class="bg-grey-light font-sans">
+    <div class="bg-white">
+    </div>
+    <div class="hero h-32 bg-cover h-112 text-center">
+        <h1 style="padding-top: 50px">Twitter Preview {{#title}} for {{title}} {{/title}}</h1>
+    </div>
+
+    <div class="bg-white shadow">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center lg:relative">
+
+        </div> <!-- end container -->
+
+    </div>
+
+    <div class="container mx-auto flex flex-col lg:flex-row mt-3 text-sm leading-normal">
+        <div class="w-full lg:w-1/4 pl-4 lg:pl-0 pr-6 mt-8 mb-4">
+            <h1><a href="#" class="text-black font-bold no-underline hover:underline">Preview </a></h1>
+            <div class="mb-4"><a href="#" class="text-grey-darker no-underline hover:underline">@preview_here</a></div>
+
+            <div class="mb-4">
+                Preview it likes it's really on Twitter <a href="#" class="text-teal no-underline hover:underline">@preview</a>
+            </div>
+
+        </div>
+
+
+        <div class="w-full lg:w-1/2 bg-white mb-4">
+
+            <div class="p-3 text-lg font-bold border-b border-solid border-grey-light">
+                <a href="#" class="text-black mr-6 no-underline hover-underline">Tweets</a>
+                <a href="#" class="mr-6 text-teal no-underline hover:underline">Tweets &amp; Replies</a>
+                <a href="#" class="text-teal no-underline hover:underline">Media</a>
+            </div>
+
+            {{#item}}
+              <div class="flex border-b border-solid border-grey-light">
+                <div class="w-1/8 text-right pl-3 pt-3">
+                  <div><a href="#"><img src="images/dex_logo.png" alt="avatar" class="rounded-full h-12 w-12 mr-2"></a></div>
+                </div>
+                <div class="w-7/8 p-3 pl-0">
+                  <div class="flex justify-between">
+                    <div>
+                      <span class="font-bold"><a href="#" class="text-black">Twitter handle</a></span>
+                      <span class="text-grey-dark">@preview</span>
+                      <span class="text-grey-dark">&middot;</span>
+                      <span class="text-grey-dark">1 Jan 2019</span>
+                    </div>
+                    <div>
+                      <a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="mb-4">
+                      <p class="mb-6"></p>
+
+                      {{#text}}
+                      <p class="mb-4">{{text}}</p>
+                      {{/text}}
+
+                      {{#link}}
+                      <p class="mb-6"><a href="#" class="text-teal">{{link}}</a></p>
+                      {{/link}}
+                      <!--<p class="mb-4">Enable/disable modules, focus and group-hover variants, new utilities, and more.</p>-->
+                      <!--<p class="mb-4">Learn more in our upgrade guide:</p>-->
+                      <!--<p class="mb-6"><a href="#" class="text-teal">github.com/tailwind/ta...</a></p>-->
+
+                      {{#image}}
+                      <p><a href="#"><img src="{{image}}" alt="tweet image" class="border border-solid border-grey-light rounded-sm"></a></p>
+                      {{/image}}
+
+
+                      {{#video}}
+                      <p><a href="#"><video style="width:100%" controls class="border border-solid border-grey-light rounded-sm">
+                        <source src="{{video}}" type="video/mp4">
+                      </video></a></p>
+                      {{/video}}
+
+                    </div>
+                    <div class="pb-2">
+                      <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i> 6</a></span>
+                      <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green"><i class="fa fa-retweet fa-lg mr-2"></i> 74</a></span>
+                      <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red"><i class="fa fa-heart fa-lg mr-2"></i> 206</a></span>
+                      <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{/item}}
+
+
+            <!--<div class="flex border-b border-solid border-grey-light">-->
+
+                <!--<div class="w-1/8 text-right pl-3 pt-3">-->
+                    <!--<div><a href="#"><img src="images/dex_logo.png" alt="avatar" class="rounded-full h-12 w-12 mr-2"></a></div>-->
+                <!--</div>-->
+
+                <!--<div class="w-7/8 p-3 pl-0">-->
+                    <!--<div class="flex justify-between">-->
+                        <!--<div>-->
+                            <!--<span class="font-bold"><a href="#" class="text-black">Twitter handle</a></span>-->
+                            <!--<span class="text-grey-dark">@preview</span>-->
+                            <!--<span class="text-grey-dark">&middot;</span>-->
+                            <!--<span class="text-grey-dark">1 Jan 2019</span>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<div class="mb-4">-->
+                            <!--<p class="mb-6">🎉 Tailwind CSS v0.3.0 is here!</p>-->
+                            <!--<p class="mb-4">Enable/disable modules, focus and group-hover variants, new utilities, and more.</p>-->
+                            <!--<p class="mb-4">Learn more in our upgrade guide:</p>-->
+                            <!--<p class="mb-6"><a href="#" class="text-teal">github.com/tailwind/ta...</a></p>-->
+                            <!--<p><a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_tweet3.jpg" alt="tweet image" class="border border-solid border-grey-light rounded-sm"></a></p>-->
+                        <!--</div>-->
+                        <!--<div class="pb-2">-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i> 6</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green"><i class="fa fa-retweet fa-lg mr-2"></i> 74</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red"><i class="fa fa-heart fa-lg mr-2"></i> 206</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="flex border-b border-solid border-grey-light">-->
+
+                <!--<div class="w-1/8 text-right pl-3 pt-3">-->
+                    <!--<div><i class="fa fa-retweet text-grey-dark mr-2"></i></div>-->
+                    <!--<div><a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_avatar_egghead.jpg" alt="avatar" class="rounded-full h-12 w-12 mr-2"></a></div>-->
+                <!--</div>-->
+
+                <!--<div class="w-7/8 p-3 pl-0">-->
+                    <!--<div class="text-xs text-grey-dark">Tailwind CSS Retweeted</div>-->
+                    <!--<div class="flex justify-between">-->
+                        <!--<div>-->
+                            <!--<span class="font-bold"><a href="#" class="text-black">egghead.io</a></span>-->
+                            <!--<span class="text-grey-dark">@eggheadio</span>-->
+                            <!--<span class="text-grey-dark">&middot;</span>-->
+                            <!--<span class="text-grey-dark">29 Nov 2017</span>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<div class="mb-4">-->
+                            <!--<p class="mb-6">Create a Responsive Card Component by Composing Tailwind's Utility Classes - <a href="#" class="text-teal">#html</a> lesson by <a href="#" class="text-teal">@simonswiss</a></p>-->
+                            <!--<div class="flex border border-solid border-grey rounded">-->
+                                <!--<div class="w-1/4">-->
+                                    <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_tweet4.jpg" alt="image">-->
+                                <!--</div>-->
+                                <!--<div class="w-3/4 p-3">-->
+                                    <!--<div class="font-bold mb-1">egghead Lesson: Abstract utility classes to ...</div>-->
+                                    <!--<p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus voluptate tempore itaque culpa hic qui nostrum, minus harum cupiditate a voluptatibus.-->
+                                    <!--<div class="text-grey-dark">egghead.io</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                        <!--<div class="pb-2">-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i> 2</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green"><i class="fa fa-retweet fa-lg mr-2"></i> 8</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red"><i class="fa fa-heart fa-lg mr-2"></i> 24</a></span>-->
+                            <!--<span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <div class="w-full lg:w-1/4 pl-4">
+            <div class="bg-white p-3 mb-3">
+            </div>
+            <div class="bg-white p-3 mb-3">
+                <div class="mb-3">
+                    <span class="fa fa-arrow-left"></span>
+                    <span class="text-lg font-bold">Look at the preview(s) in the middle</span>
+                    <span>&middot;</span>
+
+                    <span><a href="#" class="text-teal text-xs"></a></span>
+                </div>
+            </div>
+
+            <div class="mb-3 text-xs">
+            </div>
+        </div>
+
+    </div>
+
+    </body>
+</html>

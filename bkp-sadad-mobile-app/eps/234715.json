@@ -1,0 +1,341 @@
+{
+  "id": "234715",
+  "revision": 1,
+  "pattern": {
+    "start": "2019-12-05T06:52:34.000Z",
+    "end": "never",
+    "epSchemaVersion": 2,
+    "element": [
+      {
+        "id": "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:33b3310f-e55e-4d92-a140-44e36fd3ccd0:intelligence:fixme",
+        "args": {
+          "epId": "234711"
+        },
+        "presentationRef": "default",
+        "description": "Home",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Home"
+      },
+      {
+        "id": "16675690-e667-4f5d-a85f-d76ba0b7b7b6",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:ccf2a17f-9edb-4f97-8f8b-0f5bbbe6da39:intelligence:fixme",
+        "args": {
+          "epId": "234721"
+        },
+        "presentationRef": "default",
+        "description": "Help",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Help"
+      },
+      {
+        "id": "eae1392e-6c99-40dc-ba1c-70287672f809",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:7227211a-7275-45bd-bb4e-a907313030ba:intelligence:fixme",
+        "args": {
+          "epId": "234720"
+        },
+        "presentationRef": "default",
+        "description": "History",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "History"
+      },
+      {
+        "id": "b963aa7c-de3c-4e04-8f1b-f123301f4951",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc:e8394616-2579-46c8-be0d-3862127649aa:intelligence:fixme",
+        "args": {
+          "epId": "234719"
+        },
+        "presentationRef": "default",
+        "description": "Transactions",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "Transactions"
+      },
+      {
+        "id": "1d7c5638-bf39-43f4-92f9-0446a4084928",
+        "type": "intelligence",
+        "subType": "engagement-pattern",
+        "type_id": "sc::intelligence:fixme",
+        "args": {
+          "epId": "111114"
+        },
+        "presentationRef": "default",
+        "description": "logout",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "logout"
+      },
+      {
+        "id": "2bab3dd6-3d53-4416-a1da-2e065e31f69a",
+        "type": "behaviour",
+        "subType": "mpayment",
+        "type_id": "sc:9b8287a0-1753-4190-ac7a-67713d22f361:behaviour:7bad59a0-3a26-42e2-91b7-4ea0ba907601",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "353dab75-4b1a-4b84-8f4b-ff668e3926e4",
+        "type": "intelligence",
+        "subType": "dynamic-ept-params",
+        "type_id": "sc:9b8287a0-1753-4190-ac7a-67713d22f361:intelligence:{{ept.dynamic}}",
+        "args": {
+          "type": "tpAllocation"
+        },
+        "presentationRef": "embedded",
+        "description": "allocated",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null,
+        "name": "allocated"
+      }
+    ],
+    "connection": [
+      {
+        "name": "epa.FlowConnector-0",
+        "from": "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-1",
+        "from": "b963aa7c-de3c-4e04-8f1b-f123301f4951",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-2",
+        "from": "eae1392e-6c99-40dc-ba1c-70287672f809",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-3",
+        "from": "16675690-e667-4f5d-a85f-d76ba0b7b7b6",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-4",
+        "from": "1d7c5638-bf39-43f4-92f9-0446a4084928",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "b963aa7c-de3c-4e04-8f1b-f123301f4951",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "eae1392e-6c99-40dc-ba1c-70287672f809",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "16675690-e667-4f5d-a85f-d76ba0b7b7b6",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "1d7c5638-bf39-43f4-92f9-0446a4084928",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "2bab3dd6-3d53-4416-a1da-2e065e31f69a",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-10",
+        "from": "2bab3dd6-3d53-4416-a1da-2e065e31f69a",
+        "to": "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "353dab75-4b1a-4b84-8f4b-ff668e3926e4",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-12",
+        "from": "353dab75-4b1a-4b84-8f4b-ff668e3926e4",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      }
+    ],
+    "touchpoints": [
+      "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+      "7390e26b-c240-4fba-83c4-e4dfcb8edb2e"
+    ],
+    "tp": [
+      {
+        "touchpoint": "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+        "layout": {
+          "layoutId": "cust-16062d23-2d10-4d01-97d6-55557f83c620",
+          "id": "cust-16062d23-2d10-4d01-97d6-55557f83c620",
+          "baseTemplate": "sadad-bcc-mobile-purchase-alloc",
+          "modTemplate": "tem-16062d23-2d10-4d01-97d6-55557f83c620",
+          "custom": true,
+          "layoutMarkup": "<div><div><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"main-banner blue-bg shadow-banner small-banner\"><div class=\"top-content\"><div data-gjs-type=\"data-region\" data-region=\"r1\" class=\"logo-wrap placeholder placeholder-image-30\"></div><div class=\"welcome-text\"><h3>Payment Details</h3></div><div class=\"filter\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/ico-setting.png\" alt=\"\"></div><div class=\"middle-logo\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-hs/logo-md.png\" alt=\"\"></div></div></div><div data-gjs-type=\"data-region\" data-region=\"r2\" class=\"banner-placholer placeholder\"></div><div class=\"data-confirmation-wrap\"><div class=\"success-wrap\"><div class=\"complete-wrap\"><div data-gjs-type=\"data-region\" data-region=\"r3\" cass=\"placeholder placeholder-image\"></div><h4 data-gjs-type=\"data-region\" data-region=\"r4\" class=\"placeholder placeholder-text\"></h4></div></div></div><div class=\"payment-form-wrap\"><div data-gjs-type=\"data-region\" data-region=\"m1\" class=\"placeholder placeholder-image\"></div></div><div class=\"bottom-menu\"><div class=\"inner-bottom-wrap\"><ul><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm1\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-transfers.png\" alt=\"\">\n                        <span>Transfers</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm2\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-history.png\" alt=\"\">\n                        <span>History</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm3\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-help.png\" alt=\"\">\n                        <span>Help</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm4\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-logout.png\" alt=\"\">\n                        <span>Log out</span> --></button></li></ul></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c1575{width:max-content;}</style>",
+          "regions": {
+            "r1": [],
+            "r2": [
+              "353dab75-4b1a-4b84-8f4b-ff668e3926e4"
+            ],
+            "r3": [],
+            "r4": [],
+            "m1": [
+              "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4",
+              "2bab3dd6-3d53-4416-a1da-2e065e31f69a"
+            ],
+            "bm1": [
+              "b963aa7c-de3c-4e04-8f1b-f123301f4951"
+            ],
+            "bm2": [
+              "eae1392e-6c99-40dc-ba1c-70287672f809"
+            ],
+            "bm3": [
+              "16675690-e667-4f5d-a85f-d76ba0b7b7b6"
+            ],
+            "bm4": [
+              "1d7c5638-bf39-43f4-92f9-0446a4084928"
+            ],
+            "roverlay": []
+          },
+          "thumbnail": ""
+        },
+        "presentationRef": {
+          "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4": "executable"
+        }
+      },
+      {
+        "touchpoint": "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+        "layout": {
+          "layoutId": "cust-a8029f11-6524-4b6d-970c-ea69884584d2",
+          "id": "cust-a8029f11-6524-4b6d-970c-ea69884584d2",
+          "baseTemplate": "sadad-bcc-mobile-purchase-alloc",
+          "modTemplate": "tem-a8029f11-6524-4b6d-970c-ea69884584d2",
+          "custom": true,
+          "layoutMarkup": "<div><div><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"main-banner blue-bg shadow-banner small-banner\"><div class=\"top-content\"><div data-gjs-type=\"data-region\" data-region=\"r1\" class=\"logo-wrap placeholder placeholder-image-30\"></div><div class=\"welcome-text\"><h3>Payment Details</h3></div><div class=\"filter\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/ico-setting.png\" alt=\"\"></div><div class=\"middle-logo\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-hs/logo-md.png\" alt=\"\"></div></div></div><div data-gjs-type=\"data-region\" data-region=\"r2\" class=\"banner-placholer placeholder\"></div><div class=\"data-confirmation-wrap\"><div class=\"success-wrap\"><div class=\"complete-wrap\"><div data-gjs-type=\"data-region\" data-region=\"r3\" cass=\"placeholder placeholder-image\"></div><h4 data-gjs-type=\"data-region\" data-region=\"r4\" class=\"placeholder placeholder-text\"></h4></div></div></div><div class=\"payment-form-wrap\"><div data-gjs-type=\"data-region\" data-region=\"m1\" class=\"placeholder placeholder-image\"></div></div><div class=\"bottom-menu\"><div class=\"inner-bottom-wrap\"><ul><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm1\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-transfers.png\" alt=\"\">\n                        <span>Transfers</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm2\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-history.png\" alt=\"\">\n                        <span>History</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm3\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-help.png\" alt=\"\">\n                        <span>Help</span> --></button></li><li><button class=\"bottom-menu-btn\"><div data-gjs-type=\"data-region\" data-region=\"bm4\" class=\"placeholder placeholder-image-62\"></div><!-- <img src=\"images/menu-logout.png\" alt=\"\">\n                        <span>Log out</span> --></button></li></ul></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c3150{width:max-content;}</style>",
+          "regions": {
+            "r1": [],
+            "r2": [
+              "353dab75-4b1a-4b84-8f4b-ff668e3926e4"
+            ],
+            "r3": [],
+            "r4": [],
+            "m1": [
+              "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4",
+              "2bab3dd6-3d53-4416-a1da-2e065e31f69a"
+            ],
+            "bm1": [
+              "b963aa7c-de3c-4e04-8f1b-f123301f4951"
+            ],
+            "bm2": [
+              "eae1392e-6c99-40dc-ba1c-70287672f809"
+            ],
+            "bm3": [
+              "16675690-e667-4f5d-a85f-d76ba0b7b7b6"
+            ],
+            "bm4": [
+              "1d7c5638-bf39-43f4-92f9-0446a4084928"
+            ],
+            "roverlay": []
+          },
+          "thumbnail": ""
+        },
+        "presentationRef": {
+          "bb4e28dc-0c39-47fe-a151-0a0fa7c040e4": "executable"
+        }
+      }
+    ],
+    "mainScId": "9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "OTP Purchase",
+    "startDate": "2019-12-05T06:52:34.000Z",
+    "_scheduleSet": true,
+    "_currentActivity": "published",
+    "_cmsConfiguration": "internal"
+  },
+  "isActive": true,
+  "isStarted": false,
+  "updateTime": "2019-12-09T09:13:38.044Z"
+}

@@ -1,0 +1,66 @@
+{
+    "id": "7a1ebb39-cb7e-4933-9977-159402f868e5",
+    "name": "ep-klondike-template",
+    "start": "start",
+    "end": "end",
+    "element": [
+        {
+            "id": "1",
+            "type": "multimedia",
+            "type_id":"",
+            "label": "sample multimedia"
+        },
+        {
+            "id": "2",
+            "type": "behaviour",
+            "type_id":"",
+            "label": "sample behaviour"
+        },
+        {
+            "id": "3",
+            "type": "decision",
+            "type_id":"",
+            "label": "sample decision"
+        },
+        {
+            "id": "4",
+            "out_transition":["end"],
+            "type": "multimedia",
+            "type_id":"",
+            "label": "sample multimedia"
+        },
+        {
+            "id": "5",
+            "out_transition":["end"],
+            "type": "multimedia",
+            "type_id":"",
+            "label": "sample multimedia"
+        }
+    ],
+    "connection": [
+        {
+            "name": "start",
+            "from": "start",
+            "to": "1",
+            "time": ""
+        },
+        {
+            "name": "first",
+            "from": "1",
+            "to": "2",
+            "time": ""
+        },
+        {
+            "name": "second",
+            "from": "2",
+            "to": "3",
+            "time": ""
+        },
+        {
+            "name": "third",
+            "from": "3",
+            "time": "",
+            "to": ["end","end"]
+        }
+    ]
+}

@@ -1,0 +1,173 @@
+<!--flex epa templates => these can't have any spaces in them or else the sortable list will break (jquery UI bug) -->
+<script type="text/html" id="flex-image">
+    <div class="ep-item image html-element">
+        <img data-bind="attr: { src: $data.multiMediaList()[0].value() }" alt="selected image">
+        <!-- ko if: $data.multiMediaList()[0] && $data.multiMediaList()[0].label() -->
+          <div class="img-desc" data-bind="text:$data.multiMediaList()[0].label()"></div>
+        <!-- /ko -->
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="flex-video">
+    <div class="ep-item image html-element">
+        <video class="img-responsive">
+            <source data-bind="attr: { src: $data.multiMediaList()[0].value() }" type="video/mp4"/>
+        </video>
+        <!-- ko if: $data.multiMediaList()[0].label() -->
+          <div class="img-desc" data-bind="text:$data.multiMediaList()[0].label()"></div>
+        <!-- /ko -->
+        <!--<div class="img-desc" data-bind="text:$data.multiMediaList()[0].label()">-->
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="flex-link">
+    <div style="position: absolute; top: 10px; left: 340px" class="ep-item multimedia draggable-item html-element">
+        <div class="ep-edit"><i class="fa fa-pencil" data-bind="click: dpa_VM.editEntry"></i></div>
+        <i class="fa fa-file" aria-hidden="true"></i>
+
+
+        <!-- ko if: $data.multiMediaList()[0].label() -->
+          <div data-bind="trimmedLink: $data.multiMediaList()[0].label()">Link.</div>
+        <!-- /ko -->
+
+        <!-- ko ifnot: $data.multiMediaList()[0].label() -->
+          <div data-bind="trimmedLink: $data.multiMediaList()[0].value()">Link.</div>
+        <!-- /ko -->
+
+
+
+        <!--<div class="connect top"></div>-->
+        <!--<div class="connect right"></div>-->
+        <!--<div class="connect left"></div>-->
+        <!--<div class="connect bottom"></div>-->
+    </div>
+</script>
+
+<script type="text/html" id="flex-text">
+    <!--<div style="position: absolute; top: 10px; left: 340px" class="ep-item multimedia draggable-item html-element">-->
+    <div class="ep-item multimedia html-element">
+        <div class="ep-edit"><i class="fa fa-pencil" data-bind="click: dpa_VM.editEntry"></i></div>
+        <i class="fa fa-font" aria-hidden="true"></i>
+        <span data-bind="text:$data.prefix"></span>
+
+
+        <!-- ko if: $data.multiMediaList()[0].label() -->
+          <div class="img-desc" data-bind="text:$data.multiMediaList()[0].label().substring(0,10) + '...'"></div>
+        <!-- /ko -->
+
+        <!-- ko ifnot: $data.multiMediaList()[0].label() -->
+          <div data-bind="text: $data.multiMediaList()[0].value().substring(0, 10) + '...'">this is the t...</div>
+        <!-- /ko -->
+
+        <!--<div class="connect top"></div>-->
+        <!--<div class="connect right"></div>-->
+        <!--<div class="connect left"></div>-->
+        <!--<div class="connect bottom"></div>-->
+    </div>
+
+</script>
+
+<script type="text/html" id="flex-intelligence">
+    <div class="ep-item business-i html-element">
+        <div>
+<!--          <pre data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
+            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+            <div data-bind="text: ($data && $data.behRef ? $data.behRef.name: $data.name.replace('_',' '))">Intelligence</div>
+            <!-- ko if: $data.elementTag-->
+            <div class="img-desc" data-bind="text:$data.elementTag"></div>
+            <!-- /ko -->
+          </div>
+
+
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="dynamic-behaviour">
+    <div class="ep-item business-i html-element">
+        <div>
+            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+            <div data-bind="text:behRef.name">behaviour</div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="flex-behaviour">
+  <div class="ep-item business-i html-element">
+    <div>
+      <i class="fa fa-pie-chart" aria-hidden="true"></i>
+      <div data-bind="text:behRef.name">dynamic-behaviour</div>
+    </div>
+  </div>
+</script>
+
+
+
+<script type="text/html" id="dynamic-image">
+    <div class="ep-item image html-element">
+        <!-- ko if: ($data.multiMediaList()[0].label() === 'accountUsage' ||  ($data.multiMediaList()[0].label().indexOf('user.accountUsage') > -1)) -->
+        <img src="/img/pie-chart.png" alt="dynamic image">
+        <!-- /ko -->
+        <!-- ko if: ($data.multiMediaList()[0].label() !== 'accountUsage' && ($data.multiMediaList()[0].label().indexOf('user.accountUsage') === -1)) -->
+            <img src="/img/face_icon.png" alt="dynamic image">
+        <!-- /ko -->
+        <div class="img-desc" data-bind="text:$data.multiMediaList()[0].label">
+        </div>
+    </div>
+
+</script>
+
+<script type="text/html" id="dynamic-video">
+    <div class="ep-item image html-element">
+        <img src="/img/novideo.mp4" alt="dynamic video">
+        <div class="img-desc" data-bind="text:$data.multiMediaList()[0].label">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="dynamic-text">
+    <div class="ep-item multimedia html-element">
+        <div class="ep-edit"><i class="fa fa-pencil" data-bind="click: dpa_VM.editEntry"></i></div>
+        <i class="fa fa-font" aria-hidden="true"></i>
+        <div data-bind="text: $data.multiMediaList()[0].placeholder.substring(0, 15) + '...'">dynamic text...</div>
+    </div>
+
+</script>
+
+
+
+<!--<script type="text/html" id="erecharge-br">-->
+    <!--<div class="beh-element-wrapper text-center recharge-wrapper html-element">-->
+        <!--<i class="beh-main-icon fa fa-cogs"></i>-->
+        <!--<span class="beh-edit-message">eRecharge Business Rule</span>-->
+    <!--</div>-->
+<!--</script>-->
+<!-- survey BR element template -->
+<!--<script type="text/html" id="questionnaire">-->
+    <!--<div class="modal fade modal-dialog modal-content" id="questionnaire_setupForm" role="dialog"></div>-->
+    <!--<div class="beh-element-wrapper text-center qs-wrapper html-element">-->
+        <!--{{{epaElementToolbar}}}-->
+        <!--<i class="beh-main-icon fa fa-cogs"></i>-->
+        <!--<i class="fa fa-edit flex-beh-edit flex-setup"></i>-->
+        <!--<span class="beh-edit-message">Setup Details</span>-->
+    <!--</div>-->
+<!--</script>-->
+<!-- end of survey BR template -->
+<!-- edit current decision template -->
+<!--<script type="text/html" id="edit_decision">-->
+    <!--<h3>this is the edit decision template</h3>-->
+<!--</script>-->
+<!-- end edit decision template -->
+<!-- survey element template -->
+<!--<script type="text/html" id="survey">-->
+    <!--<div class="modal fade modal-dialog modal-content" id="survey_setupForm" role="dialog"></div>-->
+    <!--<div class="beh-element-wrapper text-center survey-wrapper html-element">-->
+        <!--{{{epaElementToolbar}}}-->
+        <!--<i class="beh-main-icon fa fa-question-circle"></i><i class="fa fa-edit flex-beh-edit flex-setup"></i><span-->
+        <!--class="beh-edit-message">Setup Details</span></div>-->
+<!--</script>-->
+<!-- end of survey template -->

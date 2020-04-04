@@ -1,0 +1,4 @@
+/*  hide template tags for email  */
+table {
+    color: transparent !important;
+}

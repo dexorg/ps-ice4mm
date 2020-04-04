@@ -1,0 +1,167 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,700,800&display=swap');
+
+#welcome-page {
+
+    font-family: 'Open Sans', sans-serif;
+    color: #505050;
+    background: #f0f0f0;
+    height: 100vh;
+    line-height:1.5;
+
+    /* line-height: 1.15; */
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    h2 {
+        font-size: 3.25rem;
+        font-weight: 300;
+    }
+
+    h3 {
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+
+    h4, h5, h6 {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    a:hover,
+    a:focus {
+        text-decoration: none;
+        color: #666;
+    }
+
+    button:hover,
+    button:focus {
+        color: #428bca;
+    }
+
+    ul {
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul li {
+
+    }
+
+    ul li a {
+        color: #428bca;
+        font-size:2rem;
+    }
+
+    .centered-contents {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .branding {
+        color: #428bca;
+    }
+
+    .padding-top {
+        padding-top: 4rem;
+    }
+
+    .padding-ul {
+        padding-top: 2rem;
+    }
+
+    .padding-ul-special {
+        padding-top: 2.7rem;
+    }
+
+    .padding-bottom {
+        padding-bottom: 1.75rem;
+    }
+
+    .padding-btn {
+        padding-top: .05rem;
+    }
+
+    .padding-logo {
+        padding-top: 1.5rem;
+    }
+
+    .padding-left {
+        padding-left: 4rem;
+    }
+
+    .margin-bottom {
+        margin-bottom: 4rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .top-border {
+        border-top: 1px solid #565656;
+    }
+
+    .left-border {
+        border-left: 1px solid #919191;
+    }
+
+    .right-border {
+        border-right: 1px solid #919191;
+    }
+
+    .bottom-border {
+        border-bottom: 1px dotted #5a5a5a;
+    }
+
+    /* _____________________________________
+
+       01. Welcome Styles
+       _____________________________________ */
+
+    .logo {
+        display: block;
+        width: 30rem;
+    }
+
+    header {
+        background: #323232;
+    }
+
+    header h2, header h3 {
+        color: #fff;
+    }
+
+    .content .fa {
+        /* font-size: 3.5rem; */
+    }
+
+    .welcome {
+        padding-top: 6rem;
+    }
+
+    .btn {
+        border: 1px solid #656464;
+        background-color: transparent;
+        color: #9a9a9a;
+    }
+
+    .btn:hover,
+    .btn:focus {
+        background-color: #428bca;
+        color: #fff;
+    }
+
+    .margin-footer {
+        position: absolute;
+        width: 100%;
+        margin: 0px auto;
+        bottom:0px;
+        color: #656464;
+    }
+
+
+}

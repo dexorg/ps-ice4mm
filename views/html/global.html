@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+{{{header}}}
+<body class="no-js">
+
+<script>
+    jQuery(document).ready(function() {
+        console.log( "document ready" );
+        var args = {};
+        args.functionality = '{{{functionality}}}';
+        args.currentRole =  '{{{currentRole}}}';
+        args.user = '{{{user}}}';
+        args.bucket = '{{{bucket}}}';
+        args.securedSchedule = '{{{securedSchedule}}}';
+        args.userRoles = '{{{roles}}}';
+        args.fbUserID = '{{{fbUserID}}}';
+        args.fbAppID = '{{{fbAppID}}}';
+        args.ice4mURL = '{{{ice4mURL}}}';
+        args.channelAuth = '{{{channelAuth}}}';
+        args.previewUrl = '{{{bccPreviewUrl}}}';
+        args.performanceDashboardMode = '{{performanceDashboardMode}}';
+        args.brLink = '{{{brLink}}}';
+        //ICEMM-296
+        //possibly remove
+        if(args.currentRole !== 'productManager' && args.currentRole !== 'marketingDirector'){
+            try {
+                args.sdkRequiredServices = JSON.parse('{{{sdkRequiredServices}}}');
+            }catch(ex) {}
+        }
+
+        args.ice4mBCs = '{{{bcLabels}}}';
+
+        try {
+            args.associatedBCDefinitions = JSON.parse('{{{reports}}}');
+        }catch(e) {
+            args.associatedBCDefinitions = [];
+        }
+
+        args.tpChannelTypes = {{{tpChannelTypes}}};
+        args.allowAddTouchpoint = '{{{allowAddTouchpoint}}}';
+        args.creativeBriefFolderId = '{{{creativeBriefFolderId}}}';
+
+        var main = new dexit.app.ice.edu.Main(args);
+        main.init();
+
+        /* get div for the view */
+        var viewDiv = document.getElementById('view');
+        ko.applyBindings(main, viewDiv);
+
+        document.body.classList.remove('no-js');
+
+        //TODO: update ps-ice
+        if (!_.unique) {
+            _.unique = _.uniq;
+        }
+
+    });
+</script>
+
+<div id="welcome-page" data-bind="visibleFade:$root.showLandingScreen">
+<header>
+  <div class="container-fluid bottom-border top-border padding-bottom">
+    <!-- Content here -->
+    <div class="container">
+      <h1 class="hidden">Welcome to ICE4M</h1>
+      <div class="row padding-logo">
+        <div class="col-md-4">
+          <img class="logo" src="img/DexLogo.svg">
+        </div>
+        <div class="col-md-8 padding-btn">
+          <div class="btn-group pull-right">
+            <button class="btn" data-target="#profileModal" type="button" data-toggle="modal" role="button">
+              <i class="circleI fa fa-user-circle" aria-hidden="true"></i>
+              <span class="">Profile</span>
+            </button>
+            <button class="btn" data-target="#logoutModal2" type="button" data-toggle="modal" role="button">
+              <i class="circleI fa fa-power-off" aria-hidden="true"></i>
+              <span class="">Log out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row padding-bottom welcome">
+      <div class="col-md-7" style="visibility:hidden" data-bind="style: { visibility: ($root.isKOLoaded() && $root.configLoaded() ? '' : 'hidden')}">
+
+<!--        <h1 data-bind="text: 'Welcome to ICE4M '+  + ' ' + $root.userProfile().attributes.lastName">Welcome to ICE4M</h1>-->
+
+        <h2>Welcome <span data-bind="text:$root.userProfile().attributes.firstName" class="branding">Jake</span> to ICE<span class="branding">4</span>M</h2>
+        <!-- ko if: $root.currentRole() -->
+        <h3>You're currently logged in as the <span class="branding" data-bind="text:$root.currentRole">Marketing Director</span></h3>
+        <!-- /ko -->
+
+        <!-- ko ifnot: $root.currentRole() -->
+        <h3 class="alert-message">
+          Warning you have no role configured.  Please contact support.
+        </h3>
+        <!-- /ko -->
+
+      </div>
+    </div>
+  </div>
+</header>
+<section class="content">
+  <div class="container padding-top">
+    <div class="row">
+      <div class="col-md-4 right-border">
+        <div class="centered-contents">
+        <h2 class="padding-bottom">Define</h2>
+        <i aria-hidden="true" role="button" class="fa fa-check-circle-o fa-3x"></i>
+          <ul data-bind="foreach: $root.bcAndPermissions" class="padding-ul">
+            <!-- ko if: ($data.permission && $data.permission.indexOf('manage') !== -1) -->
+            <li>
+              <a data-bind="text: ' ' + $data.label, click: function() { $root.showBCInstanceDefineFromLP($index); }"> </a>
+            </li>
+            <!-- /ko -->
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4 right-border padding-left">
+        <div class="centered-contents">
+          <h2 class="padding-bottom">View</h2>
+          <i aria-hidden="true" role="button" class="fa fa-eye fa-3x"></i>
+
+          <ul data-bind="foreach: $root.bcAndPermissions" class="padding-ul-special">
+            <!-- ko if: ($data.permission && $data.permission.indexOf('view') !== -1) -->
+            <li>
+              <a data-bind="text: ' ' + $data.label, click: function(){ $root.showBCInstancesFromLP($index) }"> </a>
+            </li>
+            <!-- /ko -->
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4 padding-left">
+        <div class="centered-contents">
+        <h2 class="padding-bottom">Manage</h2>
+        <i aria-hidden="true" role="button" class="fa fa-tasks fa-3x"></i>
+        <ul class="padding-ul" style="visibility:hidden" data-bind="style: { visibility: ($root.isKOLoaded() && $root.configLoaded() ? '' : 'hidden')}">
+          <!-- ko if: $root.showRMMenu() -->
+          <li >
+            <a data-bind="click: $root.goToRoleManagementPage"> Roles </a>
+          </li>
+          <!-- /ko -->
+
+          <!-- ko if: $root.showEMMenu() -->
+          <li >
+            <a data-bind="click: $root.goToEMPage"> Metrics </a>
+          </li>
+          <!-- /ko -->
+          <!-- ko if: $root.showBRMenu() -->
+          <li >
+            <a data-bind="click: $root.goToBRPage"> Rules </a>
+          </li>
+          <!-- /ko -->
+
+          <!-- ko if: $root.showTagMenu() -->
+          <li >
+            <a data-bind="click: $root.goToTagsPage"> Tags </a>
+          </li>
+          <!-- /ko -->
+
+          <!-- ko if: $root.showIntelConfigMenu() -->
+          <li >
+            <a data-bind="click: $root.goToIntelConfigurePage"> Intelligence </a>
+          </li>
+          <!-- /ko -->
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!--<div data-bind="visibleFade:$root.showLandingScreen" class="loader-screen col-md-12">-->
+<!--  <div class="loader-screen-spacer">-->
+<!--  </div>-->
+<!--  <div class="col-md-12 loader-screen-box">-->
+
+<!--    <div style="">-->
+<!--      <h1 data-bind="text: 'Welcome to ICE4M '+ $root.userProfile().attributes.firstName + ' ' + $root.userProfile().attributes.lastName">Welcome to ICE4M</h1>-->
+
+<!--      &lt;!&ndash; ko ifnot: $root.currentRole() &ndash;&gt;-->
+<!--      <h4 class="alert-message">-->
+<!--          Warning you have no role configured.  Please contact support.-->
+<!--      </h4>-->
+<!--      &lt;!&ndash; /ko &ndash;&gt;-->
+<!--      &lt;!&ndash; ko if: $root.currentRole() &ndash;&gt;-->
+<!--      <h4 class="alert-message" data-bind="text: 'Currently logged in as: ' + $root.currentRole()">Currently logged in as</h4>-->
+<!--      &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div data-bind="visible: $root.configLoaded()" class="container-fluid" style="margin-top:60px">-->
+<!--      <div class="loader-card col-md-3 col-md-offset-1" style="padding:10px;border-right: 1px solid #ffffff;">-->
+<!--        <div class="row" style="text-align:center">-->
+<!--          <i aria-hidden="true" role="button" class="fa fa-sticky-note-o fa-4x"></i>-->
+<!--        </div>-->
+<!--        <div style="margin-top:5px;text-align:center" class="row">-->
+<!--          <h2>Define</h2>-->
+<!--        </div>-->
+
+<!--        <div class="row loader-card-menu">-->
+<!--          <ul data-bind="foreach: $root.bcAndPermissions" style="padding-inline-start:unset">-->
+<!--            &lt;!&ndash; ko if: ($data.permission && $data.permission.indexOf('manage') !== -1) &ndash;&gt;-->
+<!--            <li>-->
+<!--              <a data-bind="text: ' ' + $data.label, click: function() { $root.showBCInstanceDefineFromLP($index); }"> </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="loader-card col-md-3" style="padding:10px;border-right: 1px solid #ffffff;">-->
+<!--        <div class="row" style="text-align:center">-->
+<!--          <i aria-hidden="true" role="button" class="fa fa-eye fa-4x"></i>-->
+<!--        </div>-->
+<!--        <div style="margin-top:5px;text-align:center" class="row">-->
+<!--          <h2 style="">View</h2>-->
+<!--        </div>-->
+
+<!--        <div class="row loader-card-menu">-->
+<!--          <ul data-bind="foreach: $root.bcAndPermissions" style="padding-inline-start:unset">-->
+<!--            &lt;!&ndash; ko if: ($data.permission && $data.permission.indexOf('view') !== -1) &ndash;&gt;-->
+<!--            <li>-->
+<!--              <a data-bind="text: ' ' + $data.label, click: function(){ $root.showBCInstancesFromLP($index) }"> </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="loader-card col-md-3" style="padding:10px">-->
+<!--        <div class="row" style="text-align:center">-->
+<!--          <i aria-hidden="true" role="button" class="fa fa-cog fa-4x"></i>-->
+<!--        </div>-->
+<!--        <div style="margin-top:5px;text-align:center" class="row">-->
+<!--          <h2>Manage</h2>-->
+<!--        </div>-->
+
+<!--        <div class="row loader-card-menu" style="'visibility:hidden" data-bind="style: { visibility: ($root.isKOLoaded() && $root.configLoaded() && $root.bcAndPermissions() && $root.bcAndPermissions().length > 0 ) ? '' : 'hidden' }">-->
+<!--          <ul style="padding-inline-start:unset">-->
+<!--          &lt;!&ndash; ko if: $root.showRMMenu() &ndash;&gt;-->
+<!--          <li style="list-style-type:none;padding-inline-start:0px;padding-top: 5px">-->
+<!--            <a data-bind="click: $root.goToRoleManagementPage"> Roles </a>-->
+<!--          </li>-->
+<!--          &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--            &lt;!&ndash; ko if: $root.showEMMenu() &ndash;&gt;-->
+<!--            <li style="list-style-type:none;padding-inline-start:0px;padding-top: 5px">-->
+<!--            <a data-bind="click: $root.goToEMPage"> Engagement Metrics </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+<!--            &lt;!&ndash; ko if: $root.showBRMenu() &ndash;&gt;-->
+<!--            <li style="list-style-type:none;padding-inline-start:0px;padding-top: 5px">-->
+<!--            <a data-bind="click: $root.goToBRPage"> Business Rules </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--            &lt;!&ndash; ko if: $root.showTagMenu() &ndash;&gt;-->
+<!--            <li style="list-style-type:none;padding-inline-start:0px;padding-top: 5px">-->
+<!--              <a data-bind="click: $root.goToTagsPage"> Tags </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+
+<!--            &lt;!&ndash; ko if: $root.showIntelConfigMenu() &ndash;&gt;-->
+<!--            <li style="list-style-type:none;padding-inline-start:0px;padding-top: 5px">-->
+<!--            <a data-bind="click: $root.goToIntelConfigurePage"> Dynamic Intelligence </a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; /ko &ndash;&gt;-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="btn-group pull-right">-->
+<!--    <button class="btn btn-1 inverse" data-target="#profileModal" type="button" data-toggle="modal" role="button">-->
+<!--      <i class="circleI fa fa-user-circle" aria-hidden="true"></i>-->
+<!--      <span class="sidebar-btn-label">Profile</span>-->
+<!--    </button>-->
+<!--    <button class="btn btn-1 inverse" data-target="#logoutModal2" type="button" data-toggle="modal" role="button">-->
+<!--      <i class="circleI fa fa-power-off" aria-hidden="true"></i>-->
+<!--      <span class="sidebar-btn-label">Log out</span>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!-- ko ifnot: $root.showLandingScreen() -->
+
+<div class="layout-container" style="visibility:hidden" data-bind="style: { visibility: $root.isKOLoaded() ? '' : 'hidden' }">
+    <!-- Sidebar -->
+    {{{sidebar}}}
+    <!-- End sidebar -->
+
+    <!-- main content  -->
+    <div class="bodyC" data-bind="css: { 'smallSideBar' : $root.smallSideBar() === true}">
+        {{{ice4mdashboard}}}
+    </div>
+
+    <!-- end main content -->
+
+</div>
+<!-- /ko -->
+
+
+<!-- all templates can go below here -->
+
+
+<!-- profile modal - for switching user roles -->
+<div id="profileModal" class="modal fade secondary sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Profile</h4>
+            </div>
+            <div class="modal-body">
+                <p data-bind="text: 'You are currently logged in as: ' + $root.currentRole()"></p>
+                <br>
+                <label for="changeRole">Change role</label>
+                <select style="max-width: 300px;" id="changeRole" class="form-control" data-bind="options:$root.roles, value: $root.selectedRole, optionsCaption: 'Choose role..'"></select>
+                <br>
+            </div>
+            <div class="modal-footer">
+
+                <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<!--                <button type="button" data-bind="attr:{href: '/user_setting/'+$root.selectedRole()}" class="btn btn-lg btn-1">Switch</button>-->
+
+              <!-- ko if: ($root.selectedRole() && $root.selectedRole()!=='') -->
+                <a class="btn btn-lg btn-1" role="button" data-bind="attr:{href: '/user_setting/'+$root.selectedRole()}">Switch</a>
+              <!-- /ko -->
+              <!-- ko ifnot: ($root.selectedRole() && $root.selectedRole()!=='') -->
+                <a class="btn btn-lg btn-1" disabled role="button">Switch</a>
+              <!-- /ko -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- logout modal -->
+<div id="logoutModal2" class="modal fade secondary sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Log out</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure you want to log out?</h3>
+            </div>
+            <div class="modal-footer">
+                <!-- todo: from config callbackUrl -->
+                <form method="get" action="/logout/confirm">
+                  <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="submit" class="btn btn-lg btn-1">Log out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/html" id="rejectPopoverTemplate">
+  <p class="mm-delete-item">
+    Are you sure you want to reject?
+  </p>
+  <a class="link-secondary font-small" data-dismiss="popover">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" data-bind="click: function() {$data.toRun(false, 'rejected')}" class="btn btn-lg btn-1">Yes</button>
+
+<!--  <div class="btn btn-lg btn-1 pull-left has-spinner" >Yes</div>-->
+<!--  <div class="btn btn-lg btn-1 inverse pull-right" data-dismiss="popover">No</div>-->
+</script>
+
+
+<script type="text/html" id="deleteMMPopoverTemplate">
+    <div class='profPop pull-left has-spinner' id="deleteMM" data-bind="click: $root.fmVM.deleteMM.bind('', $data)" >Yes</div>
+    <div class='profPop pull-right' data-dismiss="popover">No</div>
+</script>
+
+<!-- widget metrics popover template -->
+<script type="text/html" id="metricsPopover">
+    <div class="metrics-popover-container">
+        <div class="widget-chart"></div>
+        <div class="widget-chart-wrapper">
+            <div class="pie-chart"></div>
+            <p class="pie-chart-tag">Sales & Promos</p>
+        </div>
+    </div>
+</script>
+<!-- end metrics popover -->
+
+
+<!-- delete EP popvover -->
+<script type="text/html" id="deleteWidgetPopoverTemplate">
+    <div class='profPop pull-left has-spinner' id="deleteElement" data-bind="click: $root.deleteWidget.bind('', $data, $root.selectedCourse().courseVM)" >Yes</div>
+    <div class='profPop pull-right' data-dismiss="popover">No</div>
+</script>
+<!-- end delete EP popvover -->
+
+{{{bcInstanceCard}}}
+{{{merchandisingChannelWidget}}}
+{{{touchpointPopover}}}
+{{{scripts}}}
+{{{bccPlayerTemplate}}}
+
+<!-- delete BC template -->
+<script type="text/html" id="deleteItemTemplate">
+    <div class="mm-delete-wrapper">
+        <p class="mm-delete-item">
+            Are you absolutely sure you want to delete this item?
+        </p>
+        <hr>
+        <div class="mm-delete-buttons">
+            <span id="deleteElement" class="has-spinner mm-delete btn-success" role="button" data-bind="click: function(){$root.deleteBCInstance($data)}">Delete
+                <span class="spinner mm-delete-spinner"><i class="fa fa-spinner fa-spin"></i></span>
+            </span>
+            <span class="btn-danger" role="button" data-dismiss="popover">Cancel</span>
+        </div>
+    </div>
+</script>
+
+
+<!--<script type="text/html" id="selectCardColourTemplate">-->
+<!--  <div class="mm-delete-wrapper">-->
+<!--    <p class="mm-delete-item">-->
+<!--      Select a colour for the card-->
+<!--    </p>-->
+<!--    <hr>-->
+<!--    <div>-->
+<!--      <color-picker params="color:$data.courseVM.cardColour, colorPalette:$data.availableColours, extraColorPalette:$data.extraColours" ></color-picker>-->
+<!--    </div>-->
+<!--    <div class="mm-delete-buttons">-->
+
+<!--      <a class="link-secondary font-small" role="button" data-dismiss="popover">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--      &lt;!&ndash;<button type="button" class="btn btn-lg btn-1 inverse"  data-dismiss="popover">Cancel</button>&ndash;&gt;-->
+<!--      <button type="button" class="btn btn-lg btn-1" data-dismiss="popover" data-bind="click:courseVM.updateBCCardColour">Save</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</script>-->
+
+<!-- NEW delete BC modal -->
+<div id="deleteItemModal" class="modal fade secondary sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete program</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you absolutely sure you want to delete this program?</p>
+            </div>
+            <div class="modal-footer">
+                <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn btn-lg btn-1">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="deleteItemModalBody">
+  <p><span data-bind="text:'Are you absolutely sure you want to delete this '+name+'?'"></span></p>
+</script>
+
+
+
+<!-- NEW select card colour modal modal -->
+<!--<div id="selectCardColourModal" class="modal fade secondary sm">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                <h4 class="modal-title">Select a colour for the card</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div>-->
+<!--                  <color-picker params="color:$data.courseVM.cardColour, colorPalette:$data.availableColours, extraColorPalette:$data.extraColours" ></color-picker>-->
+<!--                  &lt;!&ndash; load colour picker here &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                <button type="button" data-bind="click:courseVM.updateBCCardColour" class="btn btn-lg btn-1">Save</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<script type="text/html" id="selectCardColourModalHeader">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Select a colour for the card</h4>
+</script>
+<script type="text/html" id="selectCardColourModalBody">
+  <div>
+
+
+
+    <color-picker params="color:$data.pendingCardColour, colorPalette:$root.availableColours, extraColorPalette:$root.extraColours" ></color-picker>
+    <!-- load colour picker here -->
+  </div>
+</script>
+
+<script type="text/html" id="selectCardColourModalFooter">
+  <a data-bind="click:function(){$root.cardColourPickerVisible(false)}" class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" data-dismiss="modal" data-bind="click:save" class="btn btn-lg btn-1">Save</button>
+</script>
+
+
+
+<!-- report layout -->
+<script type="text/html" id="metricCard">
+    <ul class="widget-metrics list-unstyled list-inline clearfix brandable-metric-icons">
+        <li class="text-center" data-bind="courseVM.intelligenceMetric1" data-region="m1">
+            <i data-bind="css: icon, attr: { title: name }" data-toggle="tooltip" data-placement="top"></i>
+            <p data-bind="text: value"></p>
+        </li>
+        <li class="text-center" data-bind="courseVM.intelligenceMetric2" data-region="m2">
+            <i data-bind="css: icon, attr: { title: name }" data-toggle="tooltip" data-placement="top"></i>
+            <p data-bind="text: value"></p>
+        </li>
+        <li class="text-center" data-bind="courseVM.intelligenceMetric3"  data-region="m3">
+            <i data-bind="css: icon, attr: { title: name }" data-toggle="tooltip" data-placement="top"></i>
+            <p data-bind="text: value"></p>
+        </li>
+    </ul>
+</script>
+
+<!--&lt;!&ndash; start CC/ED define template &ndash;&gt;-->
+<!--<script type="text/html" id="cced_create2">-->
+<!--  <div class="container-fluid">-->
+<!--    &lt;!&ndash; first part: select if CC or ED &ndash;&gt;-->
+<!--    <div class="form-group">-->
+<!--      <label>Select Intelligence Type</label>-->
+<!--      <select class="form-control" data-bind="options: intelligenceTypes, optionsCaption: 'Choose...', value: selectedIntelligenceType"></select>-->
+
+
+
+<!--      &lt;!&ndash; select metric &ndash;&gt;-->
+<!--      <div class="form-group">-->
+<!--        <label for="select_metric">Select Metric</label>-->
+<!--        <select id="select_metric" class="form-control" data-bind="enable: enableSelectMetrics,options: availableMetrics, optionsCaption:selectMetricCaption, optionsText:'metricName', optionsValue: 'metricId', value: selectedMetric"></select>-->
+<!--      </div>-->
+
+<!--      <div class="pull-right">-->
+<!--        <button data-bind="click: retrieveStructure, enable:selectedIntelligenceType()" class="btn btn-1">Next-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+
+<!--    &lt;!&ndash; second part: select dimensions &ndash;&gt;-->
+<!--    <div data-bind="visible:showSelectDimensions">-->
+<!--      <div class="form-group">-->
+<!--        <label for="select_dimension">Select Dimensions</label>-->
+<!--        <select id="select_dimension" class="form-control" data-bind="options: dimensions, optionsCaption:'Select a dimension..', value: selectedDimension"></select>-->
+<!--        &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimension"/>&ndash;&gt;-->
+
+<!--        <label for="select_dimension_data">Select Data </label>-->
+<!--        <select id="select_dimension_data"  multiple="multiple"-->
+<!--                data-bind="enable: selectedDimension, options: availableDimensionData,-->
+<!--                                        optionsText:'name',-->
+<!--                                        optionsValue:'value',-->
+<!--                                        selectedOptions:selectedDimensionValue,-->
+<!--                                        multiselect: {'multiple':false, 'numberDisplayed':1, nonSelectedText: nonSelectedText}">-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+<!--      &lt;!&ndash;<label>Select Dimensions</label>&ndash;&gt;-->
+<!--      &lt;!&ndash;<select class="form-control" data-bind="options: dimensionsX, value: selectedDimensionX, enable:selectedDimension"></select>&ndash;&gt;-->
+<!--      &lt;!&ndash;<div class="combobox clearfix" data-bind="combobox: { dataSource: getDataX, placeholder: 'Select item' }, comboboxValue: selectedDimensionX"></div>&ndash;&gt;-->
+
+<!--      &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimensionXFilter, enable:selectedDimensionX"/>&ndash;&gt;-->
+<!--      &lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--      &lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+<!--      &lt;!&ndash;<label>Select Y</label>&ndash;&gt;-->
+<!--      &lt;!&ndash;<select class="form-control" data-bind="options: dimensionsY, value: selectedDimensionY, enable:selectedDimension"></select>&ndash;&gt;-->
+<!--      &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimensionYFilter, enable:selectedDimensionY"/>&ndash;&gt;-->
+<!--      &lt;!&ndash;</div>&ndash;&gt;-->
+<!--      <div class="pull-right">-->
+<!--        <button data-bind="click: function() { showChartPreview(true) }, enable:selectedDimension" class="btn btn-1">Next-->
+<!--        </button>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--    &lt;!&ndash; third part: report tool &ndash;&gt;-->
+
+<!--    <div data-bind="visible:showChartPreview">-->
+<!--      <div class="row"> &lt;!&ndash; left side &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--          <label for="cced_chart_type">Chart Type</label>-->
+<!--          <select id="cced_chart_type" class="form-control" data-bind="options: chartTypes, value: selectedChartType"></select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label for="cced_chart_title">Title</label>-->
+<!--          <input id="cced_chart_title"  placeholder="Enter Title..." class="form-control"  data-bind="value: selectedChartTitle"/>-->
+<!--        </div>-->
+<!--        <div class="pull-right">-->
+<!--          <button data-bind="click: updateChartType, enable:enableSetChartType()" class="btn btn-1">Set Chart Type-->
+<!--          </button>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-4">-->
+<!--          &lt;!&ndash; preview area &ndash;&gt;-->
+<!--          <div id="cced_chart_preview"></div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-3" id="chartMarkup" data-bind="visible:enableChartMarkupOptions">-->
+<!--          <span>Chart Markup Options</span><i data-bind="click:toggleMarkup, css: showMarkupIcon"></i>-->
+<!--          <div data-bind="visible:showMarkup">-->
+<!--            <textarea data-bind="value:chartMarkup, enable: (chartMarkup() && chartMarkup().length > 0)" class="form-control" rows="3"></textarea>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</script>-->
+
+
+<!-- end CC/ED define template -->
+
+
+<!-- CC/ED creation layout -->
+
+
+<script type="text/html" id="cced_create">
+  <button data-bind="click: retrieveCubeLink, enable:selectedMetric" class="btn btn-1">Next</button>
+  <div class="col-md-12" style="max-height: calc(100vh - 220px);overflow-y: auto;">
+  <!-- select cube -->
+  <div class="form-group">
+    <label for="select_cube">Select Metric</label>
+    <select id="select_cube" class="form-control" data-bind="options: availableMetrics, optionsCaption:'select', optionsText:'metricName', optionsValue: 'metricId', value: selectedMetric"></select>
+  </div>
+
+
+  <div>
+  <!-- ko if: selectedMetric && showIFrameLink -->
+    <input placeholder="Enter Name" type="text"  data-bind="value:selectedChartTitle"/>
+  <iframe id="cced_report_iframe" width="100%" style="min-height:700px" data-bind="attr: { src: iframeLink}"></iframe>
+  <!-- /ko -->
+
+  </div>
+
+<!--  <input id="cced_chart_link_turnilo"  placeholder="Place" class="form-control"  data-bind="value: selectedChartLink"/>-->
+
+</div>
+</script>
+
+
+
+<script type="text/html" id="cced_create_superset">
+  <div class="container-fluid">
+
+
+
+    <!-- first part: select if CC or ED -->
+<!--    <div class="form-group">-->
+<!--      <label>Select Intelligence Type</label>-->
+<!--      <select class="form-control" data-bind="options: intelligenceTypes, optionsCaption: 'Choose...', value: selectedIntelligenceType"></select>-->
+<!--    </div>-->
+    <!-- first part: select if CC or ED -->
+
+      <!-- select cube -->
+      <div class="form-group">
+        <label for="select_cube">Select KPI</label>
+        <select id="select_cube" class="form-control" data-bind="options: availableMetrics, optionsCaption:'select', optionsText:'metricName', optionsValue: 'metricId', value: selectedMetric"></select>
+      </div>
+
+
+
+
+<!--      <div class="pull-right">-->
+<!--        <button data-bind="click: retrieveStructure, enable:selectedIntelligenceType()" class="btn btn-1">Next-->
+<!--        </button>-->
+<!--      </div>-->
+
+
+    <!-- second part: select dimension and filters -->
+    <div class="form-group">
+      <h2>Dimensions</h2>
+
+          <div class="col-sm-10">
+            <!-- channel type -->
+            <div class="form-group sm">
+              <label for="ct-selection">Channel Type:&nbsp;&nbsp;&nbsp;</label>
+              <select id="ct-selection"  multiple="multiple"
+                      data-bind="options:availableChannelTypes,
+                                        optionsText:'name',
+                                        optionsValue:'id',
+                                        selectedOptions: selectedChannelTypes,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Channel'}">
+              </select>
+            </div>
+            <!-- touchpoint -->
+            <div class="form-group sm">
+              <label for="tp-selection">Touchpoint:&nbsp;&nbsp;&nbsp;</label>
+              <select id="tp-selection"  multiple="multiple"
+                      data-bind="options:availableTouchpoints,
+                                        optionsText:'name',
+                                        optionsValue:'id',
+                                        selectedOptions: selectedTouchpoints,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Touchpoint'}">
+              </select>
+            </div>
+
+
+            <!-- Business Concept --todo filter at child of current BC -->
+            <div class="form-group sm">
+              <label for="ep-selection">Campaign:&nbsp;&nbsp;&nbsp;</label>
+              <select id="ep-selection"  multiple="multiple"
+                      data-bind="options:availableEPs,
+                                        optionsText:'name',
+                                        optionsValue:'id',
+                                        selectedOptions: selectedEPs,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Campaign'}">
+              </select>
+            </div>
+
+            <!-- user --segment  -->
+            <div class="form-group sm">
+              <label for="user-segment-selection">User Segment:&nbsp;&nbsp;&nbsp;</label>
+              <select id="user-segment-selection"  multiple="multiple"
+                      data-bind="options:availableUserSegments,
+                                        selectedOptions: selectedUserSegments,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select User Segment'}">
+              </select>
+            </div>
+            <!-- date granularity  -->
+            <div class="form-group sm">
+              <label for="date-granularity-selection">Time:&nbsp;&nbsp;&nbsp;</label>
+              <select id="date-granularity-selection"
+                      data-bind="options:availableTimeGranularity,
+                                        value: selectedTimeGranularity">
+              </select>
+            </div>
+
+            <!-- todo: figure out referrer  -->
+
+
+
+            <!-- go to next screen to  -->
+
+          </div>
+
+    </div>
+
+
+<!--    <div data-bind="visible:showSelectDimensions">-->
+    <div>
+<!--      <div class="form-group">-->
+<!--        <label for="select_dimension">Select Dimensions</label>-->
+<!--        <select id="select_dimension" class="form-control" data-bind="options: dimensions, optionsCaption:'Select a dimension..', value: selectedDimension"></select>-->
+<!--        &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimension"/>&ndash;&gt;-->
+
+<!--        <label for="select_dimension_data">Select Data </label>-->
+<!--        <select id="select_dimension_data"  multiple="multiple"-->
+<!--                data-bind="enable: selectedDimension, options: availableDimensionData,-->
+<!--                                        optionsText:'name',-->
+<!--                                        optionsValue:'value',-->
+<!--                                        selectedOptions:selectedDimensionValue,-->
+<!--                                        multiselect: {'multiple':false, 'numberDisplayed':1, nonSelectedText: nonSelectedText}">-->
+<!--        </select>-->
+<!--      </div>-->
+      <!--<div class="form-group">-->
+      <!--<label>Select Dimensions</label>-->
+      <!--<select class="form-control" data-bind="options: dimensionsX, value: selectedDimensionX, enable:selectedDimension"></select>-->
+      <!--<div class="combobox clearfix" data-bind="combobox: { dataSource: getDataX, placeholder: 'Select item' }, comboboxValue: selectedDimensionX"></div>-->
+
+      <input placeholder="Enter Name" type="text"  data-bind="value:selectedChartTitle"/>
+      </div>
+
+      <div class="pull-right">
+        <button data-bind="click: function() { saveQueryAndGoNext() }" class="btn btn-1">Next
+        </button>
+      </div>
+
+
+    <!-- third part: report tool -->
+
+        <div data-bind="visible:showPresentationSelection">
+          <a class="btn btn-default" target="_blank" data-bind="attr: { href: $data.externalUrl() }">Click Here to go to configure the presentation</a>
+          <div class="form-group">
+            <label for="cced_chart_link">Paste Link from Superset</label>
+            <input id="cced_chart_link"  placeholder="Paste here..." class="form-control"  data-bind="value: selectedChartLink"/>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</script>
+
+<!--<script type="text/html" id="cced_create">-->
+<!--  <div class="container-fluid">-->
+<!--  &lt;!&ndash; first part: select if CC or ED &ndash;&gt;-->
+<!--  <div class="form-group">-->
+<!--    <label>Select Intelligence Type</label>-->
+<!--    <select class="form-control" data-bind="options: intelligenceTypes, optionsCaption: 'Choose...', value: selectedIntelligenceType"></select>-->
+
+
+
+<!--    &lt;!&ndash; select metric &ndash;&gt;-->
+<!--    <div class="form-group">-->
+<!--      <label for="select_metric">Select Metric</label>-->
+<!--      <select id="select_metric" class="form-control" data-bind="enable: enableSelectMetrics,options: availableMetrics, optionsCaption:selectMetricCaption, optionsText:'metricName', optionsValue: 'metricId', value: selectedMetric"></select>-->
+<!--    </div>-->
+
+<!--    <div class="pull-right">-->
+<!--    <button data-bind="click: retrieveStructure, enable:selectedIntelligenceType()" class="btn btn-1">Next-->
+<!--    </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
+<!--  &lt;!&ndash; second part: select dimensions &ndash;&gt;-->
+<!--    <div data-bind="visible:showSelectDimensions">-->
+<!--    <div class="form-group">-->
+<!--      <label for="select_dimension">Select Dimensions</label>-->
+<!--      <select id="select_dimension" class="form-control" data-bind="options: dimensions, optionsCaption:'Select a dimension..', value: selectedDimension"></select>-->
+<!--      &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimension"/>&ndash;&gt;-->
+
+<!--      <label for="select_dimension_data">Select Data </label>-->
+<!--      <select id="select_dimension_data"  multiple="multiple"-->
+<!--              data-bind="enable: selectedDimension, options: availableDimensionData,-->
+<!--                                        optionsText:'name',-->
+<!--                                        optionsValue:'value',-->
+<!--                                        selectedOptions:selectedDimensionValue,-->
+<!--                                        multiselect: {'multiple':false, 'numberDisplayed':1, nonSelectedText: nonSelectedText}">-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+<!--      &lt;!&ndash;<label>Select Dimensions</label>&ndash;&gt;-->
+<!--      &lt;!&ndash;<select class="form-control" data-bind="options: dimensionsX, value: selectedDimensionX, enable:selectedDimension"></select>&ndash;&gt;-->
+<!--      &lt;!&ndash;<div class="combobox clearfix" data-bind="combobox: { dataSource: getDataX, placeholder: 'Select item' }, comboboxValue: selectedDimensionX"></div>&ndash;&gt;-->
+
+<!--      &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimensionXFilter, enable:selectedDimensionX"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+<!--      &lt;!&ndash;<label>Select Y</label>&ndash;&gt;-->
+<!--      &lt;!&ndash;<select class="form-control" data-bind="options: dimensionsY, value: selectedDimensionY, enable:selectedDimension"></select>&ndash;&gt;-->
+<!--      &lt;!&ndash;<input placeholder="Select filter" type="text"  data-bind="value:selectedDimensionYFilter, enable:selectedDimensionY"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;</div>&ndash;&gt;-->
+<!--    <div class="pull-right">-->
+<!--      <button data-bind="click: function() { showChartPreview(true) }, enable:selectedDimension" class="btn btn-1">Next-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--    &lt;!&ndash; third part: report tool &ndash;&gt;-->
+
+<!--    <div data-bind="visible:showChartPreview">-->
+<!--      <div class="row"> &lt;!&ndash; left side &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--          <label for="cced_chart_type">Chart Type</label>-->
+<!--          <select id="cced_chart_type" class="form-control" data-bind="options: chartTypes, value: selectedChartType"></select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label for="cced_chart_title">Title</label>-->
+<!--          <input id="cced_chart_title"  placeholder="Enter Title..." class="form-control"  data-bind="value: selectedChartTitle"/>-->
+<!--        </div>-->
+<!--        <div class="pull-right">-->
+<!--          <button data-bind="click: updateChartType, enable:enableSetChartType()" class="btn btn-1">Set Chart Type-->
+<!--          </button>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-4">-->
+<!--          &lt;!&ndash; preview area &ndash;&gt;-->
+<!--          <div id="cced_chart_preview"></div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-3" id="chartMarkup" data-bind="visible:enableChartMarkupOptions">-->
+<!--          <span>Chart Markup Options</span><i data-bind="click:toggleMarkup, css: showMarkupIcon"></i>-->
+<!--          <div data-bind="visible:showMarkup">-->
+<!--            <textarea data-bind="value:chartMarkup, enable: (chartMarkup() && chartMarkup().length > 0)" class="form-control" rows="3"></textarea>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</script>-->
+
+<script type="text/html" id="campaign_details_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" data-bind="text:businessConceptInstance.property.name">title</h4>
+</script>
+
+<script type="text/html" id="campaign_details_body">
+  <div>
+  <!-- ko foreach: displayedBCRelationships() -->
+  <p data-bind="text: 'Associated '+ $data.id"></p>
+  <!-- ko foreach: names -->
+  <span class="tag" data-bind="text:$data"></span>
+  <!-- /ko -->
+  <!-- /ko -->
+
+  <!-- ko if: $root.currBCType() !== 'Store' -->
+  <p>Touchpoints</p>
+  <!-- ko foreach: tpm -->
+  <span class="tag" data-bind="text:name">BBC Merc</span>
+  <!-- /ko -->
+  <!-- /ko -->
+
+  <p data-bind="text: numberOfSubcampaigns">12 Subcampaigns</p>
+  <span>
+        <b>Published: </b><span data-bind="text: numberPublished"></span><br>
+        <b>Scheduled: </b><span data-bind="text: numberScheduled"></span>
+  </span>
+  </div>
+</script>
+
+
+<script type="text/html" id="configure_ep_end_modal_body">
+  <p>Select Desired Behaviour to End EP</p>
+
+  <div class="col-md-10">
+    <div class="form-group sm">
+      <label>Select Termination Type</label>
+      <select class="form-control" data-bind="options: availableEndingCondition, optionsText: 'name',value: selectedEndingCondition">
+      </select>
+    </div>
+    <div class="clearfix">
+      <span data-bind="text: $data.selectedEndingCondition().description"></span>
+    </div>
+
+    <!-- ko if: $data.selectedEndingCondition() &&  $data.selectedEndingCondition().id === 'element_done_path' -->
+
+    <!-- ko if: $data.availableElements().length < 1  -->
+      <span> You need to add an element first </span>
+    <!-- /ko -->
+    <div class="form-group sm">
+      <label>Select Terminating Element</label>
+      <select class="form-control" data-bind="options: availableElements, optionsText: 'name',value: selectedEndingConditionOption">
+      </select>
+    </div>
+    <!-- /ko -->
+<!--    <pre data-bind="text:ko.toJSON($data, null, 2)"></pre>-->
+
+  </div>
+  <div class="clearfix"></div>
+
+
+</script>
+
+
+<!-- template for campaign page -->
+
+
+<script type="text/html" id="schedule_ep_modal_body">
+  <p>Schedule subcampaign</p>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="ep_timezone">Timezone</label>
+        <input id="ep_timezone"  type="text" disabled="true" data-bind="value:timeZone"/>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <label class="start-color">Start Date</label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ep_start_date">Date</label>
+            <input type="text" class="form-control" id="ep_start_date" placeholder="Date - defaults to now" data-bind="value:startDate">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ep_start_timetime">Time</label>
+            <input id="ep_start_timetime" type="time" data-bind="value:startTime"/>
+
+            <!--<select id="ep_start_timetime" placeholder="Time" class="form-control" data-bind="value:startTime">-->
+            <!--<option>1:00 am</option>-->
+            <!--<option>2:00 am</option>-->
+            <!--<option>3:00 am</option>-->
+            <!--<option>4:00 am</option>-->
+            <!--<option>5:00 am</option>-->
+            <!--<option>6:00 am</option>-->
+            <!--<option>7:00 am</option>-->
+            <!--<option>8:00 am</option>-->
+            <!--<option>9:00 am</option>-->
+            <!--<option>10:00 am</option>-->
+            <!--<option>11:00 am</option>-->
+            <!--<option>12:00 am</option>-->
+            <!--<option>1:00 pm</option>-->
+            <!--<option>2:00 pm</option>-->
+            <!--<option>3:00 pm</option>-->
+            <!--<option>4:00 pm</option>-->
+            <!--<option>5:00 pm</option>-->
+            <!--<option>6:00 pm</option>-->
+            <!--<option>7:00 pm</option>-->
+            <!--<option>8:00 pm</option>-->
+            <!--<option>9:00 pm</option>-->
+            <!--<option>10:00 pm</option>-->
+            <!--<option>11:00 pm</option>-->
+            <!--<option>12:00 pm</option>-->
+            <!--</select>-->
+          </div>
+        </div>
+      </div>
+      <div class="datepicker" data-bind="jquerydatepicker:startDate, datepickerOptions: startDateOptions "></div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <label class="end-color">End Date</label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ep_end_date">Date</label>
+            <input type="text" class="form-control" id="ep_end_date" placeholder="Date - defaults to never" data-bind="value:endDate">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ep_end_timetime">Time</label>
+            <input id="ep_end_timetime" type="time" data-bind="value:endTime"/>
+            <!--<select id="ep_end_timetime" placeholder="Time" class="form-control">-->
+            <!--<option>1:00 am</option>-->
+            <!--<option>2:00 am</option>-->
+            <!--<option>3:00 am</option>-->
+            <!--<option>4:00 am</option>-->
+            <!--<option>5:00 am</option>-->
+            <!--<option>6:00 am</option>-->
+            <!--<option>7:00 am</option>-->
+            <!--<option>8:00 am</option>-->
+            <!--<option>9:00 am</option>-->
+            <!--<option>10:00 am</option>-->
+            <!--<option>11:00 am</option>-->
+            <!--<option>12:00 am</option>-->
+            <!--<option>1:00 pm</option>-->
+            <!--<option>2:00 pm</option>-->
+            <!--<option>3:00 pm</option>-->
+            <!--<option>4:00 pm</option>-->
+            <!--<option>5:00 pm</option>-->
+            <!--<option>6:00 pm</option>-->
+            <!--<option>7:00 pm</option>-->
+            <!--<option>8:00 pm</option>-->
+            <!--<option>9:00 pm</option>-->
+            <!--<option>10:00 pm</option>-->
+            <!--<option>11:00 pm</option>-->
+            <!--<option>12:00 pm</option>-->
+            <!--</select>-->
+          </div>
+        </div>
+      </div>
+      <div class="datepicker" data-bind="jquerydatepicker:endDate, datepickerOptions: endDateOptions"></div>
+    </div>
+  </div>
+
+</script>
+
+
+<script type="text/html" id="modal_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" data-bind="text:title"></h4>
+</script>
+<script type="text/html" id="delete_ep_modal_body">
+  <span data-bind="text:name"></span>
+  <p>Are you sure you want to delete the subcampaign"<span data-bind="text:name"></span>"?</p>
+</script>
+
+<script type="text/html" id="copy_ep_modal_body">
+  <p>Would you like to create a clone of "<span data-bind="text:name"></span>"?<br>It will be placed under "Creation".</p>
+</script>
+
+
+<script type="text/html" id="modal_footer">
+  <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-lg btn-1" data-bind="click:save, text:saveText"></button>
+</script>
+
+
+
+<script type="text/html" id="modal_footer_enabled_save">
+  <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-lg btn-1" data-bind="enable: enable, click:save, text:saveText"></button>
+</script>
+
+
+
+<script type="text/html" id="settings_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Settings</h4>
+</script>
+
+
+<script type="text/html" id="grouped_settings_body">
+  <p><b><span data-bind="text:subTitle"></span></b></p>
+
+  <!-- ko if: remove -->
+  <button data-bind="click:$data.remove" data-toggle="tooltip" data-title="Delete" data-original-title="" title="" class="pull-right btn btn-danger"><i class="fa fa-trash"></i> Delete Selected</button>
+  <!-- /ko -->
+
+  <!-- ko foreach: groupedArray -->
+    <p data-bind="text:name" style="text-transform:uppercase"></p>
+    <div style="border-bottom:1px solid #ccc;">
+      <!-- ko foreach: items -->
+      <div class="checkbox">  <!-- data-bind="foreach:items"> -->
+        <label>
+          <input type="checkbox" data-bind="checkedValue: $data[$parents[1].idField], checked: $parents[1].selectedArray"/><span data-bind="text:$data.name"></span>
+        </label>
+      </div>
+      <!-- /ko -->
+    </div>
+  <!-- /ko -->
+
+  <!-- ko if: groupedArray().length < 1 -->
+    <p>There are none configured.  Click below to to add a new one.</p>
+  <!-- /ko -->
+
+</script>
+
+
+<script type="text/html" id="settings_body">
+  <p><b><span data-bind="text:subTitle"></span></b></p>
+  <div>
+    <!-- ko foreach: availableArray -->
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" data-bind="checkedValue: $data[$parent.idField], checked: $parent.selectedArray"/><span data-bind="text:$data.name"></span>
+      </label>
+    </div>
+    <!-- /ko -->
+  </div>
+</script>
+<script type="text/html" id="settings_footer">
+  <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-lg btn-1" data-bind="click:saveSettings">Save</button>
+</script>
+
+
+<script type="text/html" id="layout_selection_footer">
+  <a class="link-secondary font-small" data-dismiss="modal" data-bind="click:cancel">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-lg btn-1" data-bind="click:save">Save</button>
+</script>
+
+
+<script type="text/html" id="performance_settings_footer">
+  <a class="link-secondary font-small" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-lg btn-1" data-bind="click:saveSettings">Save</button>
+  <!-- ko if: showAddNew -->
+    <button type="button" class="btn btn-lg btn-1 inverse"  data-dismiss="modal"  data-bind="click:addNew">Add New</button>
+  <!-- /ko -->
+</script>
+
+
+
+<script type="text/html" id="report_modal_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <div style="text-align: center">
+    <h4 class="modal-title" data-bind="text:title"></h4>
+  </div>
+</script>
+
+
+<script type="text/html" id="report_modal_body">
+  <div style="text-align:center">
+    <!-- ko if: objectives -->
+    <!-- ko foreach: objectives -->
+    <span style="font-weight: bold;" data-bind="text:'The business objective of '+$data.name+' is ' + $data.target"></span>
+    <!-- /ko -->
+    <!-- /ko -->
+  </div>
+  <div id="large-kpi-chart" style="min-width: 600px"></div>
+  <!--<div data-bind="attr:{ id: $data.divId }"></div>-->
+</script>
+
+<script type="text/html" id="report_modal_footer">
+  <a class="link-secondary font-small" data-dismiss="modal">Done</a>&nbsp;&nbsp;&nbsp;&nbsp;
+</script>
+
+
+<!-- variables are: layoutSelectionMode (either 'layout' or template'  templates, layouts with ( layout.title(string), layout.thumbnail(url), layout.custom (boolean), layout.id(string) ). selectedLayout  -->
+<script type="text/html" id="layout_selection_modal_body">
+  <div class="row">
+    <div class="btn-group form-group" data-toggle="buttons" data-bind="radio: layoutSelectionMode">
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="layout" />
+        Layouts
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="template-sadad2" />
+        Templates - SADAD2
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="template-sadadb" />
+        Templates - SADAD Branded
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="template-sadad" />
+        Templates - Blue
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="template" />
+        Templates - All
+      </label>
+    </div>
+  </div>
+
+  <!-- ko if: layoutSelectionMode && layoutSelectionMode() === 'layout'  -->
+    <div class="row">
+      <div class="col-xs-12">
+        <h5>Select one of the following supported layouts. If supported by your touchpoint you may create a custom layout</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row" data-bind="foreach: { data: layouts, as: 'layout' }">
+            <!-- ko ifnot: layout.custom -->
+            <div class="col-xs-3 col-sm-3" style="height:300px">
+              <div class="panel panel-default" data-bind="css: { 'highlight-div': ($parent.selectedLayout() && $parent.selectedLayout().layoutId === layout.layoutId) }">
+                <div class="panel-heading text-center" data-bind="text:layout.layoutId">Layout Title</div>
+                <div class="panel-body text-center">
+                  <div class="col-xs-12">
+                    <img src=""
+                         data-bind="attr: { src: layout.thumbnail }" alt="available layout icon"
+                         class="img-responsive layout-icon" style="filter:invert(0.5);max-height:150px">
+                  </div>
+                  <div class="col-xs-12">
+                    <button class="btn btn-default" data-bind="click:function(){ $parent.selectedLayout(layout) }">
+                      <h5>Select</h5>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: (layout.custom && layout.custom === true) -->
+            <div class="col-xs-3 col-sm-3" style="height:300px">
+              <div class="panel panel-default">
+                <div class="panel-heading text-center">Custom</div>
+                <div class="panel-body text-center">
+                  <div class="col-xs-12">
+                    <div style="height: 135px">
+                      Custom
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <button class="btn btn-default" data-bind="click:function(){ $parent.selectedLayout(layout) }">
+                      <h5>Select</h5>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /ko -->
+
+        </div>
+      </div>
+    </div>
+  <!-- /ko -->
+  <!-- ko if: layoutSelectionMode && layoutSelectionMode().indexOf('template') !== -1  -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h5>Select one of the following supported tempaltes. If you wish to create create a custom layout (Must be supported by your touchpoint) please select 'Layout' mode above.</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row" data-bind="foreach: { data: templates, as: 'layout' }">
+        <div class="col-xs-3 col-sm-3" style="height:300px">
+          <div class="panel panel-default" data-bind="css: { 'highlight-div': ($parent.selectedLayout() && $parent.selectedLayout().layoutId === layout.layoutId) }">
+            <div class="panel-heading text-center" data-bind="text:layout.layoutId">Layout Title</div>
+            <div class="panel-body text-center">
+              <div class="col-xs-12">
+                <img src=""
+                     data-bind="attr: { src: layout.thumbnail }" alt="available layout icon"
+                     class="img-responsive layout-icon" style="filter:invert(0.5);max-height:150px">
+              </div>
+              <div class="col-xs-12">
+                <button class="btn btn-default" data-bind="click:function(){ $parent.selectedLayout(layout) }">
+                  <h5>Select</h5>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+
+</script>
+
+
+<script type="text/html" id="external_cms_modal_setup_body">
+  <div class="container-fluid">
+    <!-- Retrieve Page id -->
+    <div class="form-group">
+      <label> </label>
+      <input placeholder="Enter Page Identifier" type="text"  data-bind="value:selectedPageId"/>
+    </div>
+    <button class="btn btn-default" data-bind="click:save">Save</button>
+
+    <!--&lt;!&ndash; ko if: iframeSrc&ndash;&gt;-->
+    <!--<iframe id="cmsIframe" height="100px" data-bind="attr:{ src:iframeSrc}"></iframe>-->
+    <!--&lt;!&ndash; /ko &ndash;&gt;-->
+
+  </div>
+</script>
+
+
+<script type="text/html" id="cms_mode_configuration_body">
+  <div class="container-fluid">
+    <div class="form-group">
+      <label for="select_cms">Select CMS to use:</label>
+      <select id="select_cms" class="form-control" data-bind="options: available, optionsText:'name',optionsValue:'id', value: selected"></select>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/html" id="new_campaign_planning_body">
+  <div class="container-fluid">
+    <div class="form-group">
+      <label>Enter Name for your Campaign </label>
+      <input placeholder="Enter Name" type="text"  data-bind="value:campaignName"/>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/html" id="creative_brief_setup_body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="form-group">
+        <label>Enter link for your Brief </label>
+        <input placeholder="Enter link" type="text"  data-bind="value:selectedBriefLink"/>
+      </div>
+    </div>
+<!--    <div data-bind="text: ko.toJSON($data)"></div>-->
+
+    <!-- ko if: !$data.selectedBriefLink() -->
+      <span>Click here to open a new window</span>
+      <button data-bind="click:function(){ window.open($data.windowFolderLink(), '_blank');}" class="btn btn-1">Click here to open a new window to select your document</button>
+
+      <!-- ko if: $data.visible() -->
+      <div class="row">
+        <iframe data-bind="attr:{ src: $data.iframeFolderLink()  }" style="width:100%; height:600px; border:0;">
+        </iframe>
+      </div>
+      <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: $data.selectedBriefLink() -->
+    <div class="row">
+      <iframe data-bind="attr:{ src: $data.selectedBriefLink()  }" style="width:100%; height:600px; border:0;">
+      </iframe>
+    </div>
+    <div class="row">
+      <p>
+      If the embedded link to your document is not working you may be signed into the wrong account to access it.
+      <button data-bind="click:function(){ window.open($data.selectedBriefLink(), '_blank');}" class="btn btn-1">Alternatively, click here to open a new window to view document</button>
+      </p>
+    </div>
+    <!-- /ko -->
+  </div>
+</script>
+
+
+<script type="text/html" id="add_role_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Add Role</h4>
+</script>
+
+
+<script type="text/html" id="configure_user_role_header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" data-bind="text:roleName() + ': Configure Users'"></h4>
+</script>
+
+
+<script type="text/html" id="add_role_body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="form-group">
+        <label>Enter name</label>
+        <input placeholder="Enter name" type="text"  data-bind="value:nameToAdd"/>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- For region reserved allocation for template-->
+<script type="text/html" id="tp_campaign_allocation_body">
+  <h2 data-bind="text:name">Touchpoint Engagement Plan Name</h2>
+
+
+  Region Layout
+  <div class="row">
+    <div class="col-md-6">
+      <!-- ko if: layout() && layout().thumbnail -->
+      <img src=""
+           data-bind="attr: { src: layout().thumbnail }" alt="available layout icon"
+           class="img-responsive" style="max-height:300px"/>
+      <!-- /ko -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table id="tpAllocTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+        <thead>
+        <tr>
+          <th>Allocation Region</th>
+          <th>Program</th>
+          <th>Campaign</th>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach: allocationRegion">
+        <tr>
+          <!-- region name -->
+          <td data-bind="text: $data.name"></td>
+
+          <!-- program name -->
+          <td>
+            <select data-bind="options: $data.availablePrograms,
+            value: $data.selectedProgram,
+            optionsCaption: 'Choose...'"></select>
+          </td>
+
+          <!-- campaign name, availableCampaigns is a computed -->
+          <td>
+            <select data-bind="options: $data.availableCampaigns,
+            optionsText: 'name',
+            value: $data.selectedCampaign,
+            optionsCaption: 'Choose...'"></select>
+          </td>
+
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="col-sm-12 modal-loading text-center">
+      <div class="loading-wrapperr">
+        <i class="fa fa-spinner fa-pulse"></i>
+        <i class="loading-message">Loading...</i>
+      </div>
+    </div>
+
+  </div>
+</script>
+
+<!-- For region reserved allocation for template-->
+<script type="text/html" id="campaign_dynamic_selection_body">
+  <h2 data-bind="text:name">Engagement Plan Name</h2>
+
+
+<!--  Region Layout-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-6">-->
+<!--      &lt;!&ndash; ko if: layout &ndash;&gt;-->
+<!--      <img src=""-->
+<!--           data-bind="attr: { src: layout().thumbnail }" alt="available layout icon"-->
+<!--           class="img-responsive" style="max-height:300px"/>-->
+<!--      &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="row">
+    <div class="col-md-12">
+      <table id="campaignAllocTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+        <thead>
+        <tr>
+          <th>Dynamic Campaign #</th>
+          <th>Program/Campaign</th>
+<!--          <th>Campaign</th>-->
+        </tr>
+        </thead>
+        <tbody data-bind="foreach: dynamicCampaign">
+        <tr>
+          <!-- placeholdername name -->
+          <td data-bind="text: $data.dynamicPlaceholder"></td>
+
+
+          <!-- program name -->
+<!--          <td>-->
+<!--            <select data-bind="options: $data.availablePrograms,-->
+<!--            value: $data.selectedProgram,-->
+<!--            optionsCaption: 'Choose...'"></select>-->
+<!--          </td>-->
+
+<!--          &lt;!&ndash; campaign name, availableCampaigns is a computed &ndash;&gt;-->
+          <td>
+<!--            //selectedOptions:$data.selectedCampaigns,-->
+            <select  multiple="multiple" data-bind="options: $data.mappedProgCamps,
+            optionsText: 'name',
+            optionsValue: function(item) { return item.campaign.id },
+            selectedOptions:$data.selectedCampaignIds,
+            multiselect: {'numberDisplayed':1, nonSelectedText: 'Choose'}">"></select>
+          </td>
+
+
+        </tr>
+        </tbody>
+      </table>
+      <pre data-bind="text: ko.toJSON($data.availProgCamps, null, 2)"></pre>
+    </div>
+
+    <div class="col-sm-12 modal-loading text-center">
+      <div class="loading-wrapperr">
+        <i class="fa fa-spinner fa-pulse"></i>
+        <i class="loading-message">Loading...</i>
+      </div>
+    </div>
+
+  </div>
+</script>
+
+
+<script type="text/html" id="campaignCardActionsTemplate">
+
+  <ul class="popover-action-list">
+    <!-- ko if: showCMSConfiguration() === true && parentVM.bsb.clone() === true -->
+    <li data-bind="click: $root.selectedCourse().courseVM.showCMSCampaignConfigureModal" data-dismiss="popover" role="button">Configure CMS</li>
+    <!-- /ko -->
+    <!-- ko if: parentVM.bsb.configure() === true -->
+    <li data-bind="click: function(){$root.selectedCourse().courseVM.showEPCardColourPicker($data)}" data-dismiss="popover" role="button" >Edit card colour</li>
+    <!-- /ko -->
+
+
+    <!-- ko if: parentVM.bsb.clone() === true -->
+    <li data-bind="click:$root.selectedCourse().courseVM.showEPCopyModal" data-dismiss="popover" role="button">Clone</li>
+    <!-- /ko -->
+    <!-- ko if: parentVM.bsb.delete() === true -->
+    <li data-bind="click:$root.selectedCourse().courseVM.showDeleteEPModal" data-dismiss="popover"  role="button">Delete</li>
+    <!-- /ko -->
+    <!-- ko if: showDynamicCampaign() === true && parentVM.bsb.dynamicCampaign() && parentVM.bsb.dynamicCampaign() === true -->
+    <li data-bind="click:$root.selectedCourse().courseVM.showDynamicCampaignSelectionModal" data-dismiss="popover" role="button">Dynamic Campaign Selection</li>
+    <!-- /ko -->
+
+    <!-- ko if: showTPAllocator() === true && parentVM.bsb.allocator() && parentVM.bsb.allocator() === true -->
+    <li data-bind="click:$root.selectedCourse().courseVM.showTouchpointCampaignAllocatorModal" data-dismiss="popover" role="button">Allocator</li>
+    <!-- /ko -->
+
+
+  </ul>
+
+
+</script>
+
+
+<!-- colour picker template -->
+<template id="tmpl-colorPicker">
+  <div class="color-picker">
+    <div class="color-picker__colorbox" data-bind="style:{backgroundColor: color}, click: showPicker"><span style="border: 2px solid white; display: inline-block; width: 28px; height: 26px; position: absolute; left: 2px"></span><i class="fa fa-paint-brush" aria-hidden="true"></i></div>
+    <div class="color-picker__picker" data-bind="visible: isPickerVisible">
+      <div class="color-picker__colors" data-bind="foreach: {data:colors, as:'pickerColor'}">
+        <div class="color-picker__color" data-bind="style:{backgroundColor:pickerColor}, click: $parent.setColor, event: {mouseover: $parent.setTempColor}"></div>
+      </div>
+      <input class="color-picker__tempcolor" data-bind="value: tempColor, valueUpdate: 'input',style:{backgroundColor: tempColor, color: contrastTempColor}"><button class="color-picker__set" data-bind="click:confirmTempColor, style:{backgroundColor: tempColor}"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
+      <button class="color-picker__extraPalette" data-bind="click:toggleExtraPalette "><i class="fa fa-chevron-circle-up" aria-hidden="true" data-bind="visible: isExtraPaletteVisible"></i><i class="fa fa-chevron-circle-down" aria-hidden="true" data-bind="visible: !isExtraPaletteVisible()"></i></button>
+    </div>
+  </div>
+</template>
+
+
+
+
+
+<!-- template for Device Type name -->
+<script id="createDeviceNameTempl" type="text/html">
+
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.deviceName"></h4>
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="visible: isActive">
+    <label class="sr-only" for="deviceName">Name of the Device Profile</label>
+    <input type="text" placeholder="Enter name of the device" required="required" class="form-control" id="deviceName"
+           data-bind="value:inputFields.deviceName">
+  </div>
+</script>
+
+
+<script id="createDeviceAttributesTempl" type="text/html">
+
+  <!-- ko if: isEditable -->
+<!--  <h4 data-bind="text:inputFields.bcName"></h4>-->
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="visible: isActive">
+    <label class="sr-only" for="deviceAtts">Name of the Device Profile</label>
+    <select id="deviceAtts" />
+  </div>
+</script>
+
+
+<!-- Start Template for WF for BCs -->
+<script id="createBCiNameTempl" type="text/html">
+
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.bcName"></h4>
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="visible: isActive">
+    <label class="sr-only" for="bciName" data-bind="text:'Name of the '+ $parent.currBCDef().singular">Name</label>
+    <input type="text" required="required" class="form-control" id="bciName"
+           data-bind="value:inputFields.bcName, attr: {placeholder:'Enter name of the '+ $parent.currBCDef().singular">
+  </div>
+</script>
+
+<script id="createBCiDescriptionTempl" type="text/html">
+
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.bcDescription"></h4>
+  <!-- /ko -->
+
+
+  <div class="form-group" data-bind="visible: isActive">
+    <label class="sr-only" for="bciDescription"
+           data-bind="text:'Name of the '+ $parent.currBCDef().singular">Name</label>
+    <textarea required="required" class="form-control" rows="3" id="bciDescription"
+              data-bind="value:inputFields.bcDescription, attr: {placeholder:'Enter a description for the '+ $parent.currBCDef().singular"></textarea>
+  </div>
+
+</script>
+
+
+<script id="createBCiSchedulePeriodTempl" type="text/html">
+
+  <!-- ko if: isEditable -->
+
+
+  <span data-bind="text:inputFields.startDate" class="tag sm start-date">Apr 29 at 9:00 AM</span><br>
+  <span data-bind="text:inputFields.endDate" class="tag sm end-date">Apr 30 at 5:00 PM</span>
+
+<!--  <h4 data-bind="text:inputFields.startDate"></h4>-->
+
+<!--  <h4 data-bind="text:inputFields.endDate"></h4>-->
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="visible: isActive">
+
+    <!-- ko if: inputFields -->
+    <div class="secondary" data-bind="modal: {
+           visible: inputFields.scheduleModalVisible,
+           header: { name: 'modal_header', data: { title: 'Select' }},
+           body: { name: 'schedule_ep_modal_body',
+            data: { name: 'Schedule', timeZone: inputFields.timeZone, startTime: inputFields.selectedStartTime, endTime: inputFields.selectedEndTime, startDate: inputFields.selectedStartDate, endDate: inputFields.selectedEndDate, startDateOptions: inputFields.startDateOptions, endDateOptions: inputFields.endDateOptions }
+           },
+           footer: { name: 'modal_footer', data: { save: function(){ inputFields.saveSchedule($data) }, saveText: 'Save' } } }">
+    </div>
+
+    <!-- ko if: inputFields.startDate -->
+    <span data-bind="text:inputFields.startDate" class="tag sm start-date">Apr 29 at 9:00 AM</span><br>
+    <!-- /ko -->
+
+    <!-- ko if: inputFields.endDate -->
+    <span data-bind="text:inputFields.endDate" class="tag sm end-date">Apr 30 at 5:00 PM</span>
+    <!-- /ko -->
+    <br/>
+    <button data-bind="click:inputFields.showScheduleModal" class="btn btn-3">Set</button>
+
+    <!-- /ko -->
+
+  </div>
+</script>
+
+
+
+<!--  -->
+<script id="createBCiTPNatureTempl" type="text/html">
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.selectedMode"></h4>
+  <!-- /ko -->
+
+  <!--<div class="form-group" data-bind="visible: isActive">-->
+  <!--<label class="sr-only" for="tpMode"-->
+  <!--data-bind="text:'Name of the '+ $parent.currBCDef().singular">Name</label>-->
+  <!--<select required="required" class="form-control" rows="3" id="tpMode"-->
+  <!--data-bind="value:inputFields.bcDescription, attr: {placeholder:'Enter a description for the '+ $parent.currBCDef().singular"></select>-->
+  <!--</div>-->
+</script>
+
+<script id="createBCiOfferTempl" type="text/html">
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+  <div class="form-group" data-bind="foreach: { data: inputFields.availableAssociatedBCs, as: 'abc' }">
+    <button type="button" class="btn btn-2"
+            data-bind="text: abc.name, click: function() { $parent.inputFields.selectedAssociatedBC(abc); }, css:{'active': ( $parent.inputFields.selectedAssociatedBC() && abc.name === $parent.inputFields.selectedAssociatedBC().name) }"></button>
+  </div>
+
+  <!-- description field should show on here if present-->
+  <!-- ko if: inputFields.selectedAssociatedBC && inputFields.selectedAssociatedBC() -->
+  <em class="customMessage" data-bind="text: inputFields.selectedAssociatedBC().description" style="color:black;"></em>
+  <!-- /ko -->
+
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <div class="form-group">
+    <!-- ko if: inputFields.selectedAssociatedBC() -->
+    <span class="tag" data-bind="text: inputFields.selectedAssociatedBC().name"></span>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+</script>
+
+
+
+<script id="campaignSelectCMSTempl" type="text/html">
+
+
+<!--  <pre data-bind="text: ko.toJSON(inputFields, null, 2)"></pre>-->
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+  <div class="form-group">
+    <select class="form-control" data-bind="options: inputFields.availableCmsConfigurationModes, optionsText:'name',optionsValue:'id', value: inputFields.selectedCmsCampaignConfiguration"></select>
+  </div>
+
+<!-- /ko -->
+
+<!-- ko if: isEditable -->
+<!--  <div class="form-group" data-bind="foreach: { data: inputFields.availableCmsConfigurationModes, as: 'abc' }">-->
+
+    <!-- ko if: inputFields.selectedCmsCampaignConfiguration() -->
+    <span class="tag" data-bind="text: inputFields.selectedCmsCampaignConfiguration()"></span>
+    <!-- /ko -->
+
+
+<!--  </div>-->
+
+
+
+
+
+<!-- /ko -->
+</script>
+
+
+
+
+<script id="createBCiSelectMultipleBCsTempl" type="text/html">
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+  <!--<div class="form-group" data-bind="foreach: { data: inputFields.associatedBCs, as: 'abc' }">-->
+  <!--<button type="button"class="btn btn-2" data-bind="text: abc.name, click: function() { $parent.inputFields.selectedAssociatedBC(abc); }, css:{'active': ( $parent.inputFields.selectedAssociatedBC() && abc.name === $parent.inputFields.selectedAssociatedBC().name) }"></button>-->
+  <!--</div>-->
+
+
+  <div class="form-group" data-bind="foreach: { data: inputFields.availableAssociatedBCs}">
+    <button type="button" data-toggle="checkbox" class="btn btn-checkbox"
+            data-bind="attr: {'data-value':id }, checkedButtons: $parent.inputFields.selectedAssociatedBCs, event:{ mouseover: function(){$parent.inputFields.description(($data.description)}}">
+      <i class="fa fa-check" aria-hidden="true"></i><span data-bind="text: name"></span></button>
+  </div>
+
+
+  <!-- description field should show on here if present-->
+  <!-- ko if: inputFields.description() -->
+  <em class="customMessage" data-bind="text: inputFields.description()" style="color:black;"></em>
+  <!-- /ko -->
+
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+
+  <div class="form-group" data-bind="foreach: $parent.selectedAssociatedBCs">
+    <!-- ko if: type && type === 'MerchandisingCampaign' -->
+    <span class="tag" data-bind="text: name"></span>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+</script>
+
+
+<script id="createBCiTouchpointsTempl" type="text/html">
+
+  <!-- ko if: isActive -->
+  <!-- ko if: (inputFields.selectedTouchpoints() && inputFields.selectedTouchpoints().length > 0) -->
+  <h4>Touchpoints added:</h4>
+  <div class="form-group" data-bind="foreach: inputFields.selectedTouchpoints">
+    <div class="btn-group">
+      <button type="button" class="btn btn-5"><i data-bind="css: $root.touchpointTypes()[channelType].icon" aria-hidden="true"></i><span data-bind="text: (name || tpInfo.tpName)"></span></button>
+      <button type="button" class="btn btn-3" data-bind="click:function() {$parent.inputFields.removeSelectedTP($parent,$data);}"><i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <h4 data-bind="text: subTitle"></h4>
+  <!-- start: do not show during add/edit -->
+  <h5>BCC Touchpoints:</h5>
+  <div class="form-group">
+    <!-- ko if: $parent.existingBCCTPs() && $parent.existingBCCTPs().length > 0 -->
+
+    <!-- ko foreach: $parent.existingBCCTPs -->
+
+
+    <button type="button" data-bind="click: function(){ $parent.inputFields.saveSelectedExistingBCCTP($parent,$data); }"
+            class="btn btn-2 active"><i data-bind="css: $root.touchpointTypes()[tpType].icon"
+                                        aria-hidden="true"></i><span data-bind="text:tpName"></span></button>
+    <!-- /ko -->
+
+    <!-- /ko -->
+  </div>
+
+  <h5>BCC Enabled:</h5>
+  <div class="form-group">
+    <!-- ko if: $parent.existingTPs() && $parent.existingTPs().length > 0 -->
+    <!-- ko foreach: $parent.existingTPs -->
+    <button type="button" data-bind="click: function(){ $parent.inputFields.saveSelectedExistingTP($parent,$data); }"
+            class="btn btn-2 active"><i data-bind="css: $root.touchpointTypes()[tpType].icon"
+                                        aria-hidden="true"></i><span data-bind="text:tpName"></span></button>
+    <!--<button type="button" class="btn btn-2"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</button>-->
+    <!-- /ko -->
+    <span class="or">Or</span>
+    <!-- /ko -->
+    <div class="dropdown">
+      <button type="button" data-toggle="dropdown" class="btn btn-2"><i class="fa fa-plus" aria-hidden="true"></i> New
+        Touchpoint
+      </button>
+
+      <ul class="dropdown-menu" style="margin-top: 0; padding-top: 0" data-bind="foreach: inputFields.availableBCCEnabled">
+        <!--<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
+        <li>
+          <a href="#"
+             data-bind="tooltip: {title: $data.name + ' channel'}, click: function() { $parent.inputFields.showAddNewTouchpoint($parent, $data);}">
+            <i data-bind="css: $data.icon" aria-hidden="true"></i>
+            <span style="margin-left: 10px;" data-bind="text:$data.name"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- end: do not show during add/edit -->
+  <!--- show during add/edit part --->
+
+
+  <!--<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
+
+
+
+  <!-- ko if: (inputFields.showChannelAuthorization() && inputFields.showAddTouchpoint()) -->
+  <div class="row">
+    <span>Channel authorization</span>
+
+
+    <!-- todo: databind to button for third-party plugin -->
+    <a class="theThird btn btn-5" type="button" data-bind="click: function() { inputFields.showAuthorizationWindow($data, $('#authURL').val());  }, text: 'Click to authorize your '+ inputFields.selectedChannelType() +'channel', style: { color: inputFields.selectedChannelTypeObj().color }, css: inputFields.selectedChannelTypeObj().icon ">Click to authorize your third-party plugin</a>
+
+    <!--<pre data-bind="text: ko.toJSON(inputFields.selectedChannelTypeObj(), null, 2)"></pre>-->
+    <label id="authURL" hidden data-bind="value: inputFields.selectedChannelTypeObj().extendedInfo.authorizationUrl"></label>
+    <!-- on close of the oauthpopup attempt to populate the item to add -->
+
+
+    <!-- ko if: inputFields.availableChannelList() && inputFields.availableChannelList().length > 0 -->
+    <div id="status">
+
+    </div>
+    <div class="row" style="padding-top:20px">
+      <!-- if channel supports authorization and listing, then use that go get the value -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="touchpointUrlList">Channel URL</label>
+          <select data-bind="options: inputFields.availableChannelList, optionsValue:'channelUrl', optionsText:'name', value: inputFields.pendingChannelUrl" type="text" class="form-control" id="touchpointUrlList"
+                  placeholder="Enter Touchpoint URL"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="touchpointName">Touchpoint Name (optional)</label>
+          <input type="text" class="form-control" id="touchpointName" placeholder="Enter Touchpoint Name"
+                 data-bind="value:inputFields.pendingTouchpointName">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group pull-right">
+          <button data-bind="click: function(){ inputFields.showAddTouchpoint(false); inputFields.saveSelectedTP($data);}"
+                  type="button" class="btn btn-3 btn-lg">Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- /ko -->
+
+    <input id="tpAuthResult" type="hidden"/>
+
+  </div>
+  <!-- /ko -->
+
+
+  <!-- ko if: (inputFields.showAddTouchpoint() && !inputFields.showChannelAuthorization()) -->
+  <div class="row">
+    <!-- if channel supports authorization and listing, then use that go get the value -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="touchpointUrl">Touchpoint URL</label>
+        <input data-bind="value: inputFields.pendingChannelUrl" type="text" class="form-control" id="touchpointUrl"
+               placeholder="Enter Touchpoint URL">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="touchpointName">Touchpoint Name (optional)</label>
+        <input type="text" class="form-control" id="touchpointName" placeholder="Enter Touchpoint Name"
+               data-bind="value:inputFields.pendingTouchpointName">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group pull-right">
+        <button data-bind="click: function(){ inputFields.showAddTouchpoint(false); inputFields.saveSelectedTP($data);}"
+                type="button" class="btn btn-3 btn-lg">Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+
+
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <div class="form-group" data-bind="foreach: inputFields.selectedTouchpoints">
+    <span class="tag"><i data-bind="css: $root.touchpointTypes()[channelType].icon" aria-hidden="true"></i><span
+      data-bind="text: (name || tpInfo.tpName)"></span></span>
+  </div>
+  <!-- /ko -->
+
+
+</script>
+
+<script id="createBCiTouchpointsTempl_bkp" type="text/html">
+
+  <!-- ko if: isActive -->
+  <!-- ko if: (inputFields.selectedTouchpoints() && inputFields.selectedTouchpoints().length > 0) -->
+  <h4>Touchpoints added:</h4>
+  <div class="form-group" data-bind="foreach: inputFields.selectedTouchpoints">
+    <div class="btn-group">
+      <button type="button" class="btn btn-5"><i data-bind="css: $root.touchpointTypes()[channelType].icon"
+                                                 aria-hidden="true"></i><span
+        data-bind="text: (name || tpInfo.tpName)"></span></button>
+      <button type="button" class="btn btn-3"
+              data-bind="click:function() {$parent.inputFields.removeSelectedTP($parent,$data);}"><i class="fa fa-trash"
+                                                                                                     aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /ko -->
+
+
+
+  <h4 data-bind="text: subTitle"></h4>
+  <!-- start: do not show during add/edit -->
+  <div class="form-group">
+    <!-- ko if: $parent.existingTPs() && $parent.existingTPs().length > 0 -->
+    <!-- ko foreach: $parent.existingTPs -->
+    <button type="button" data-bind="click: function(){ $parent.inputFields.saveSelectedExistingTP($parent,$data); }"
+            class="btn btn-2 active"><i data-bind="css: $root.touchpointTypes()[tpType].icon"
+                                        aria-hidden="true"></i><span data-bind="text:tpName"></span></button>
+    <!--<button type="button" class="btn btn-2"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</button>-->
+    <!-- /ko -->
+    <span class="or">Or</span>
+    <!-- /ko -->
+    <div class="dropdown">
+      <button type="button" data-toggle="dropdown" class="btn btn-2"><i class="fa fa-plus" aria-hidden="true"></i> New
+        Touchpoint
+      </button>
+      <ul class="dropdown-menu" style="margin-top: 0; padding-top: 0" data-bind="foreach:$root.touchpointKeys">
+        <!-- skip twitter and ucc for now as they cannot be authorized -->
+        <!-- ko if: ($data !== 'ucc' && $data !== 'twitter') -->
+        <li><a href="#"
+               data-bind="tooltip: {title: $data + ' channel'}, click: function() { $parent.inputFields.pendingChannelUrl(''); $parent.inputFields.pendingTouchpointName('');  $parent.inputFields.showAddTouchpoint(true); $parent.inputFields.selectedChannelType($data); $parent.inputFields.selectedChannelTypeId($root.touchpointTypes()[$data].channelTypeId) }"><i
+          data-bind="css: $root.touchpointTypes()[$data].icon" aria-hidden="true"></i><span style="margin-left: 10px;"
+                                                                                            data-bind="text:$data"></span></a>
+        </li>
+        <!-- /ko -->
+      </ul>
+    </div>
+  </div>
+  <!-- end: do not show during add/edit -->
+  <!--- show during add/edit part --->
+  <div class="row" data-bind="visible: inputFields.showAddTouchpoint">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="touchpointUrl">Touchpoint URL</label>
+        <input data-bind="value: inputFields.pendingChannelUrl" type="text" class="form-control" id="touchpointUrl"
+               placeholder="Enter Touchpoint URL">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="touchpointName">Touchpoint Name (optional)</label>
+        <input type="text" class="form-control" id="touchpointName" placeholder="Enter Touchpoint Name"
+               data-bind="value:inputFields.pendingTouchpointName">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group pull-right">
+        <button data-bind="click: function(){ inputFields.showAddTouchpoint(false); inputFields.saveSelectedTP($data);}"
+                type="button" class="btn btn-3 btn-lg">Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <div class="form-group" data-bind="foreach: inputFields.selectedTouchpoints">
+    <span class="tag"><i data-bind="css: $root.touchpointTypes()[channelType].icon" aria-hidden="true"></i><span
+      data-bind="text: (name || tpInfo.tpName)"></span></span>
+  </div>
+  <!-- /ko -->
+
+
+</script>
+
+
+<script id="createBCCChannelTempl" type="text/html">
+
+
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.pendingChannelUrl"></h4>
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="visible: isActive">
+    <label for="channelUrl">Channel URL</label>
+    <input data-bind="value: inputFields.pendingChannelUrl" type="text" class="form-control" id="channelUrl"
+           placeholder="Enter URL" data-bind="disable:inputFields.disableInput">
+    <!-- ko if: inputFields.disableInput() === true -->
+    <em class="customMessage" style="color:black;">Updating the URL is not currently supported</em>
+    <!-- /ko -->
+  </div>
+
+</script>
+
+
+<script id="createBCiBehavioursTempl" type="text/html">
+
+  <!-- ko if: $parent.behavioursFromAssociatedBC().length > 0 -->
+  <h5 data-bind="text:'eServices from '+ $parent.selectedAssociatedOffer().name"></h5>
+  <div class="form-group" data-bind="foreach: $parent.behavioursFromAssociatedBC()">
+    <span class="tag" data-bind="text: display.icon_text"></span>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: isActive -->
+  <!-- show behaviours from BC -->
+  <h4 data-bind="text: subTitle"></h4>
+  <div class="form-group" data-bind="foreach: { data: inputFields.availableBehaviours()}">
+    <!--<div class="form-group" data-bind="foreach: { data: $parent.allBehaviours}">-->
+    <button type="button" data-toggle="checkbox" class="btn btn-checkbox"
+            data-bind="attr: {'data-value':name }, checkedButtons: $parent.inputFields.selectedBehaviours"><i
+      class="fa fa-check" aria-hidden="true"></i><span data-bind="text: display.icon_text"></span></button>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <div class="form-group" data-bind="foreach: $parent.selectedBehaviours">
+    <span class="tag" data-bind="text: $data.display.icon_text"></span>
+  </div>
+  <!-- /ko -->
+
+
+</script>
+
+
+<script id="createBCiSelectMultimediaFromOtherBCsTempl" type="text/html">
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+  <div class="form-group" data-bind="foreach: { data: inputFields.availableAssociatedBCs}">
+    <button type="button" data-toggle="checkbox" class="btn btn-checkbox"
+            data-bind="attr: {'data-value':id }, checkedButtons: $parent.inputFields.selectedAssociatedBCs, event:{ mouseover: function(){$parent.inputFields.description(($data.description)}}">
+      <i class="fa fa-check" aria-hidden="true"></i><span data-bind="text: name"></span></button>
+  </div>
+
+
+  <!-- description field should show on here if present-->
+  <!-- ko if: inputFields.description() -->
+  <em class="customMessage" data-bind="text: inputFields.description()" style="color:black;"></em>
+  <!-- /ko -->
+
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+
+  <div class="form-group" data-bind="foreach: $parent.selectedAssociatedBCs">
+    <!-- ko if: type && type === 'MerchandisingCampaign' -->
+    <span class="tag" data-bind="text: name"></span>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+</script>
+
+
+<script id="setIconMultimediaTempl" type="text/html">
+
+  <!-- ko if: isActive -->
+
+  <div class="form-group">
+    <label class="sr-only" for="iconText">Icon Text</label>
+    <input type="text" required="required" class="form-control" id="iconText"
+           data-bind="value:inputFields.iconText" placeholder="Enter Display Text">
+  </div>
+    <div class="form-group">
+
+
+
+      <div class="clearfix">
+        <!-- ko if: $root.mmIcon() -->
+        <div class="img-preview">
+<!--          <button class="btn btn-4 icon-btn" data-bind="click:function(){  $data.inputFields.removeIcon($data, 'image', $root.mmIcon() ); }"><i class="fa fa-trash"></i></button>-->
+          <img data-bind="attr:{src: $root.mmIcon }" src="images/defaultImage.png">
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+
+
+  <h4 data-bind="text: subTitle"></h4>
+    <div>
+      <button class="btn btn-lg btn-3 btn-file" data-bind="click: $parent.showIconModal">Assign</button>
+    </div>
+  <!-- /ko -->
+
+
+  <!-- ko if: isEditable -->
+  <h4 data-bind="text:inputFields.iconText"></h4>
+  <!-- /ko -->
+
+  <!-- ko if: isEditable && $root.mmIcon() -->
+
+    <div class="form-group">
+      <span data-bind="text: $root.mmIcon().substring($root.mmIcon().lastIndexOf('/') +1)"></span>
+<!--      <span data-bind="text: $root.mmIcon"></span>-->
+    </div>
+
+  <!-- /ko -->
+
+
+
+</script>
+
+
+<!-- TODO: add audio form group later similar to video -->
+<script id="createBCiMultimediaTempl" type="text/html">
+
+
+  <!-- ko if: isActive -->
+  <!-- ko if: ($root.videoMM() && $root.videoMM().length > 0) -->
+  <h4>Video files added:</h4>
+  <div class="form-group" data-bind="foreach: $root.videoMM">
+    <div class="btn-group">
+      <button type="button" class="btn btn-5" data-bind="text: $data.substring($data.lastIndexOf('/') +1)">
+        myvideofile.mp4
+      </button>
+      <button type="button" class="btn btn-3" data-bind="click:function(){  $parents[1].removeMMFromBC($data, 'video', $root.currentMMTag );}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: $root.imageMM() && $root.imageMM().length > 0 -->
+  <h4>Images added:</h4>
+  <div class="form-group">
+    <div class="clearfix" data-bind="foreach: $root.imageMM">
+      <div class="img-preview">
+        <button class="btn btn-4 icon-btn" data-bind="click:function(){  $parents[1].removeMMFromBC($data, 'image', $root.currentMMTag ); }"><i class="fa fa-trash"></i></button>
+        <img data-bind="attr:{src: $data}" src="images/defaultImage.png">
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: $root.docMM() && $root.docMM().length > 0 -->
+  <h4>Documents added:</h4>
+  <div class="form-group" data-bind="foreach: $root.docMM">
+    <div class="btn-group">
+      <button type="button" class="btn btn-5" data-bind="text: $data.substring($data.lastIndexOf('/') +1)">doc.pdf
+      </button>
+      <button type="button" class="btn btn-3" data-bind="click:function(){ $parents[1].removeMMFromBC($data, 'document', $root.currentMMTag ); }"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <h4 data-bind="text: subTitle"></h4>
+
+  <div>
+    <button class="btn btn-lg btn-3 btn-file" data-bind="click: $parent.showMMModal">Assign</button>
+
+  </div>
+
+  <!--<form class="flex-form">-->
+  <!--<div>-->
+  <!--<label class="btn btn-lg btn-3 btn-file" for="ep_1_imageVideo" style="color:white">Upload File</label>-->
+  <!--<input name="upload" class="hidden"-->
+  <!--data-bind="attr:{'id': 'ep_1_imageVideo', 'accept' : $root.fileTypeRestrictions().validFileTypes }, filesUpload: {property: 'fileName'}"-->
+  <!--type="file">-->
+  <!--</div>-->
+  <!--</form>-->
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <!-- ko if: ($root.videoMM() && $root.videoMM().length > 0) -->
+  <h4>Video files added:</h4>
+  <div class="form-group" data-bind="foreach: $root.videoMM">
+    <span data-bind="text: $data.substring($data.lastIndexOf('/') +1)"></span>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: $root.imageMM() && $root.imageMM().length > 0 -->
+  <h4>Images added:</h4>
+  <div class="form-group" data-bind="foreach:$root.imageMM">
+    <span data-bind="text: $data.substring($data.lastIndexOf('/') +1)"></span>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: ($root.docMM() && $root.docMM().length > 0) -->
+  <h4>Document files added:</h4>
+  <div class="form-group" data-bind="foreach: $root.docMM">
+    <span data-bind="text: $data.substring($data.lastIndexOf('/') +1)"></span>
+  </div>
+  <!-- /ko -->
+  <!-- /ko -->
+</script>
+
+
+
+<script id="multimediaManagementTemplBody" type="text/html">
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+
+        <!-- Panel including folder information and controls -->
+        <div class="panel-heading clearfix">
+          <!-- Options selection and breadcrumbs -->
+          <div class="btn-group pull-left">
+            <div class="pull-left">
+              File Manager
+            </div>
+            <!--&lt;!&ndash; Bucket selection &ndash;&gt;-->
+            <!--<div class="btn pull-left" id="bucket">-->
+            <!--<i id="bucket-chooser" style="cursor: pointer;" class="fas fa-cog fa-2x" title="Switch to a different S3 Bucket"></i>-->
+            <!--</div>-->
+            <!-- breadcrumbs -->
+          </div>
+          <!-- Folder radio group and progress spinner -->
+          <div class="btn-group pull-right">
+            <div class="checkbox pull-left">
+              <!-- Folder/Bucket radio group -->
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active" title="Go Up a folder" data-bind="click:toParentFolder">
+                  <i class="fa fa-level-up"></i>
+                  <input type="radio" name="optionsdepth" value="folder" id="optionfolder" checked>&nbsp;Up Folder
+                </label>
+
+                <div class="dropdown dropdown-lg">
+                  <button type="button" class="btn btn-primary dropdown-toggle" title="Add a folder" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-plus-circle"></i>&nbsp;Add Folder
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <form class="form-horizontal" style="display: inline" role="form">
+                      <div class="form-group">
+                        <label for="folderNameInp">Name</label>
+                        <input id="folderNameInp" class="form-control" type="text" data-bind="value:pendingFolderId" />
+                      </div>
+                      <button style="display: inherit" data-bind="click:addFolder" type="submit" class="btn btn-primary"><span>Save</span></button>
+                    </form>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <!-- Dual purpose: progress spinner and refresh button -->
+            <div class="btn-group pull-right" id="refresh">
+              <span id="bucket-loader" style="cursor: pointer;" class="btn fa fa-refresh fa-2x pull-left" title="Refresh" data-bind="click:reload"></span>
+              <span id="badgecount" class="badge pull-right" data-bind="text:currentFolderFileCount"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel including S3 object table -->
+        <div class="panel-body">
+          <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+            <thead>
+            <tr>
+              <th>Select</th>
+              <th>Name</th>
+              <th>FileType</th>
+              <th>Size</th>
+            </tr>
+            </thead>
+            <!-- databind here-->
+            <tbody data-bind="dataTablesForEach: {
+              data: allItems,
+              options: {
+                deferRender: true,
+                paging: true,
+                fixedColumns: {
+                  leftColumns: 2
+                },
+                scrollX: true
+              }
+            }">
+
+            <tr>
+              <td>
+                <input data-bind="disable:(fileType && fileType === 'folder'), checked: $parent.selectedItems, checkedValue: id" type="checkbox" />
+              </td>
+              <td data-bind="style:{cursor: fileType === 'folder' ? 'pointer' :'none' }, click: function(){ $parent.clickItem($data); }">
+                <!-- ko if: (fileType && fileType === 'folder') -->
+                <i class="fa fa-folder-o"></i>
+                <!-- /ko -->
+                <!-- ko if: (fileType && fileType !== 'folder') -->
+                <!-- ko if: mediaType && mediaType === 'image' -->
+                <img style="max-width: 100px" data-bind="attr:{src: url}" src="images/defaultImage.png">
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <span data-bind="text:fileName"></span>
+              </td>
+              <td data-bind="text: fileType"></td>
+              <td data-bind="text: size"></td>
+              <!--<td style="width: 1px" data-bind="text: id"></td>-->
+            </tr>
+
+
+
+          </table>
+        </div>
+
+        <div class="panel-footer">
+          <div class="pull-right">
+            <form class="flex-form">
+              <div>
+                <label class="btn btn-lg btn-3 btn-file" for="ep_1_imageVideo" style="color:white">Upload File</label>
+                <input id="ep_1_imageVideo" name="upload" class="hidden"
+                       data-bind="attr:{'id': 'ep_1_imageVideo', 'accept' : fileTypeRestrictions().validFileTypes }, filesUploadModal: {property: 'fileName'}"
+                       type="file">
+              </div>
+            </form>
+          </div>
+          <!--<button class="pull-right btn btn-lg btn-1">Review</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+
+
+<!-- TODO: add audio form group later similar to video -->
+<script id="tagBCiMultimediaTempl" type="text/html">
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+
+  <table id="emTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Tags</th>
+    </tr>
+    </thead>
+
+
+
+    <tbody>
+    <!-- ko foreach: {data: $data.inputFields.availableMM, as: 'mm'} -->
+    <tr>
+      <td data-bind="text:mm.type"></td>
+
+      <!-- ko if: mm.type() === 'Image' -->
+      <td>
+        <img style="max-width: 100px" data-bind="attr:{src: mm.fileName()}" src="images/defaultImage.png">
+      </td>
+      <!-- /ko -->
+
+      <!-- ko ifnot: mm.type() === 'Image' -->
+      <td data-bind="text: mm.fileName().substring(mm.fileName().lastIndexOf('/') +1)"></td>
+      <!-- /ko -->
+      <td>
+        <!--<pre data-bind="text: ko.toJSON(, null, 2)"></pre>-->
+        <select multiple="multiple"
+                data-bind="options:$parents[1].availableTags,
+                              selectedOptions: mm.selectedTags,
+                              multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Tag(s) - Optional'}">
+        </select>
+      </td>
+    </tr>
+    <!-- /ko -->
+
+    </tbody>
+  </table>
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+
+  <!--&lt;!&ndash; ko foreach: inputFields.availableMM &ndash;&gt;-->
+  <!--<h4 data-bind="text: type + ' tagged"></h4>-->
+  <!--<div class="form-group" >-->
+  <!--<span data-bind="text: fileName.substring(fileName.lastIndexOf('/') +1)"></span>-->
+  <!--</div>-->
+
+  <!--&lt;!&ndash; /ko &ndash;&gt;-->
+
+  <!-- /ko -->
+</script>
+
+
+<script id="createBCiBusinessIntelTempl" type="text/html">
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+  <!--<div class="form-group" data-bind="foreach: { data: $parent.allBusinessIntelligence}">-->
+  <!--<button data-bind="click: function() { $parents[1].highlightSelection($data, 'businessIntelligence'); }" type="button" class="btn btn-checkbox"><i class="fa fa-check" aria-hidden="true"></i> <span data-bind="text: name"></span></button>-->
+  <!--</div>-->
+
+  <div class="form-group" data-bind="foreach: { data: $parent.allBusinessIntelligence}">
+    <!--<button data-bind="click: function() { $parents[1].highlightSelection($data, 'businessIntelligence'); }" type="button" class="btn btn-checkbox"><i class="fa fa-check" aria-hidden="true"></i> <span data-bind="text: name"></span></button>-->
+    <button type="button" data-toggle="checkbox" class="btn btn-checkbox"
+            data-bind="attr: {'data-value':name }, checkedButtons: $parent.inputFields.selectedBI"><i
+      class="fa fa-check" aria-hidden="true"></i><span data-bind="text: name"></span></button>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: isEditable -->
+  <div class="form-group" data-bind="foreach: $parent.selectedBI">
+    <span class="tag" data-bind="text:name"></span>
+  </div>
+  <!-- /ko -->
+
+</script>
+
+<script id="createBCiBusinessRulesTempl" type="text/html">
+
+  <!-- ko if: $parent.brsFromAssociatedBC().length > 0 && $parent.selectedAssociatedOffer() -->
+  <h5 data-bind="text:'Business Rules from '+ $parent.selectedAssociatedOffer().name"></h5>
+  <div class="form-group" data-bind="foreach: $parent.behavioursFromAssociatedBC()">
+    <span class="tag" data-bind="text: display.icon_text"></span>
+  </div>
+  <!-- /ko -->
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+  <!--<h5><i class="fa fa-facebook" aria-hidden="true"></i> Store's facebook</h5> TODO: organize-->
+  <div class="form-group" data-bind="foreach: $parent.allBRs">
+    <button type="button" data-toggle="checkbox" class="btn btn-checkbox"
+            data-bind="attr: {'data-value':behRef }, checkedButtons: $parent.inputFields.selectedBRs"><i
+      class="fa fa-check" aria-hidden="true"></i><span data-bind="text: display.icon_text"></span></button>
+  </div>
+  <!-- ko if: $parent.allBRs().length < 1 -->
+  <h4>There are no additional business rules available</h4>
+  <!-- /ko -->
+
+  <!-- /ko -->
+  <!-- ko if: isEditable -->
+  <div class="form-group" data-bind="foreach: $parent.selectedBRs">
+    <span class="tag" data-bind="text: display.icon_text"></span>
+  </div>
+  <!-- /ko -->
+
+
+</script>
+
+<script id="createBCiMetricsTempl" type="text/html">
+  <!-- metrics from touchpoints: TODO -->
+
+  <!-- ko if: isEditable -->
+
+  <!-- metrics from BC -->
+  <h5><i class="fa fa-check" aria-hidden="true"></i>For Business Concept</h5>
+  <!-- ko if: (!$parent.availableMetricsForBC() || $parent.availableMetricsForBC().length < 1) -->
+  <span>There are no metrics configured for this Business Concept</span>
+  <br>
+  <!-- /ko -->
+
+
+  <div class="form-group" data-bind="foreach: $parent.availableMetricsForBC ">
+    <!-- ko if: $parent.inputFields.selectedMetricIds && $parent.inputFields.selectedMetricIds() && $parent.inputFields.selectedMetricIds().indexOf($data.metricId) !== -1 -->
+    <span class="tag" data-bind="text:metricName">Option 3</span>
+    <!-- /ko -->
+  </div>
+
+
+
+  <!-- metrics from behaviours -->
+  <!-- ko foreach: $parent.availableMetricsByBehaviours -->
+  <h5><i class="fa fa-check" aria-hidden="true" data-bind="text:behaviourName"></i></h5>
+
+  <!-- ko if: ($data.metrics() && $data.metrics().length < 1) -->
+  <span>There are no metrics configured for this behaviour</span>
+  <br>
+  <!-- /ko -->
+  <div class="form-group" data-bind="foreach: $data.metrics ">
+    <!-- ko if: $parents[1].inputFields.selectedMetricIds && $parents[1].inputFields.selectedMetricIds() && $parents[1].inputFields.selectedMetricIds().indexOf($data.metricId) !== -1 -->
+    <span class="tag" data-bind="text:metricName">Option 3</span>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+
+  <!-- /ko -->
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+  <!-- metrics from BC -->
+  <h5><i class="fa fa-check" aria-hidden="true"></i>For Business Concept</h5>
+  <!-- ko if: (!$parent.availableMetricsForBC() || $parent.availableMetricsForBC().length < 1) -->
+  <span>There are no metrics configured for this Business Concept</span>
+  <br>
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="foreach: $parent.availableMetricsForBC ">
+    <button type="button" class="btn btn-checkbox" data-toggle="checkbox"
+            data-bind="attr: {'data-value': metricId }, checkedButtons: $parent.inputFields.selectedMetricIds"><i
+      class="fa fa-check" aria-hidden="true"></i><span data-bind="text: metricName"></span></button>
+  </div>
+
+
+
+  <!-- metrics from behaviours -->
+
+  <!-- ko foreach: $parent.availableMetricsByBehaviours -->
+  <h5><i class="fa fa-check" aria-hidden="true" data-bind="text:behaviourName"></i></h5>
+
+  <!-- ko if: ($data.metrics() && $data.metrics().length < 1) -->
+  <span>There are no metrics configured for this behaviour</span>
+  <br>
+  <!-- /ko -->
+
+  <div class="form-group" data-bind="foreach: $data.metrics ">
+    <button type="button" class="btn btn-checkbox" data-toggle="checkbox"
+            data-bind="attr: {'data-value': metricId }, checkedButtons: $parents[1].inputFields.selectedMetricIds"><i
+      class="fa fa-check" aria-hidden="true"></i><span data-bind="text: metricName"></span></button>
+  </div>
+  <!-- /ko -->
+
+  <!-- /ko -->
+
+</script>
+
+
+<script id="createBCiBizObjTempl" type="text/html">
+
+
+  <!-- ko if: isEditable -->
+  <table class='table'>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+    <tbody data-bind="foreach:{data: inputFields.bizObjectives, as: 'bo'}">
+    <tr>
+      <td>
+        <!-- ko foreach: $parent.inputFields.selectedMetrics -->
+        <!-- ko if: $data.metricId === bo.selectedMetric -->
+        <span data-bind="text:$data.metricName"></span>
+        <!-- /ko -->
+        <!-- /ko -->
+      </td>
+      <td>
+        <span data-bind="text:bo.selectedThreshold"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<p>-->
+  <!--<button data-bind='click: function(){ inputFields.addBizObj();}'>Add an objective</button>-->
+  <!--</p>-->
+
+
+  <!-- /ko -->
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+  <table class='table'>
+    <tr>
+      <th>Measurement</th>
+      <th>Threshold</th>
+      <th></th>
+    </tr>
+    <tbody data-bind="foreach:inputFields.bizObjectives">
+    <tr>
+      <td>
+        <select data-bind="options: $parent.inputFields.selectedMetrics, optionsText:'metricName', caption:'Select...', optionsValue:'metricId', value:$data.selectedMetric"/>
+      </td>
+      <td>
+        <input data-bind="value:$data.selectedThreshold"/>
+      </td>
+      <td>
+        <button class="btn btn-4" data-bind='click: function(){ $parent.inputFields.removeObjective($data, $parent);}'>Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <button class="btn btn-1" data-bind='click: function(){ inputFields.addBizObj($data);}'>Add</button>
+  </p>
+
+
+  <!-- /ko -->
+
+</script>
+
+<!-- neew objectives template -->
+<script id="createBCiObjTempl" type="text/html">
+
+
+  <!-- ko if: isEditable -->
+  <table class='table'>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tbody data-bind="foreach:{data: inputFields.bizObjectives, as: 'bo'}">
+    <tr>
+      <td>
+
+
+        <span data-bind="text:name"></span>
+        <!-- ko foreach: $parent.inputFields.selectedMetrics -->
+        <!-- ko if: $data.metricId === bo.selectedMetric -->
+        <!--        <span data-bind="text:$data.metricName"></span>-->
+        <!-- /ko -->
+        <!-- /ko -->
+      </td>
+
+      <td>
+        <span data-bind="text:description"></span>
+        <!-- ko foreach: $parent.inputFields.selectedMetrics -->
+        <!-- ko if: $data.metricId === bo.selectedMetric -->
+        <!--        <span data-bind="text:$data.metricName"></span>-->
+        <!-- /ko -->
+        <!-- /ko -->
+      </td>
+      <td>
+        <span data-bind="text:bo.value"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<p>-->
+  <!--<button data-bind='click: function(){ inputFields.addBizObj();}'>Add an objective</button>-->
+  <!--</p>-->
+
+
+  <!-- /ko -->
+
+
+  <!-- ko if: isActive -->
+  <h4 data-bind="text: subTitle"></h4>
+
+
+  <table class='table'>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Value</th>
+      <th></th>
+    </tr>
+    <tbody data-bind="foreach:inputFields.bizObjectives">
+    <tr>
+      <td>
+        <input data-bind="value:$data.name"/>
+        <!--        <select data-bind="options: $parent.inputFields.selectedMetrics, optionsText:'metricName', caption:'Select...', optionsValue:'metricId', value:$data.selectedMetric"/>-->
+      </td>
+      <td>
+        <input type="text" size="30" data-bind="value:$data.description"/>
+        <!--        <select data-bind="options: $parent.inputFields.selectedMetrics, optionsText:'metricName', caption:'Select...', optionsValue:'metricId', value:$data.selectedMetric"/>-->
+      </td>
+      <td>
+        <input type="text" size="10" data-bind="value:$data.value"/>
+      </td>
+      <td>
+        <button class="btn btn-4" data-bind='click: function(){ $parent.inputFields.removeObjective($data, $parent);}'>Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <button class="btn btn-1" data-bind='click: function(){ inputFields.addObjective($data);}'>Add</button>
+  </p>
+
+
+  <!-- /ko -->
+
+</script>
+
+
+
+<!-- common template for any step-->
+<script id="createBCiStepTempl" type="text/html">
+  <div class="campaign-step" data-bind="css: stepStatusClass">
+    <div class="campaign-number" data-bind="text:stepNumber"></div>
+
+    <!-- ko if: isEditable -->
+      <!-- ko ifnot: hideEdit -->
+    <button data-bind="click: function(){ $parent.editStep(stepNumber());}" class="btn btn-4 campaign-edit-btn"><i
+      class="fa fa-pencil" aria-hidden="true"></i>Edit
+    </button>
+    <!-- /ko -->
+    <!-- /ko -->
+    <div class="toggle-switch" data-bind="visible:showToggle">
+      <span class="switch-label">Off</span>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <span class="switch-label">On</span>
+    </div>
+    <h3 data-bind="text: title">Name</h3>
+    <!-- template for step shown if current step is active -->
+    <div data-bind="template: { name: templateName }"></div>
+    <!-- ko if: isActive()  -->
+    <em class="customMessage" data-bind="visible: showValidationError, text: validationErrorMessage"
+        style="color:red;"></em>
+    <!-- /ko -->
+
+    <!-- ko if: isActive() && !isEditing() -->
+    <div class="clearfix campaign-action">
+      <div class="pull-right">
+        <a data-bind="visible:allowSkip, click: function() { $data.completed(true); $parent.nextStep($data,true);}">Skip
+          Step</a>
+        <button data-bind="click: function() { $data.completed(true); $parent.nextStep($data);}"
+                class="btn btn-lg btn-1">Next
+        </button>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isEditing -->
+    <div class="clearfix campaign-action">
+      <div class="pull-left">
+        <button data-bind="click: function() { $parent.cancelStep($data); }" class="btn btn-lg btn-1 inverse">Cancel
+        </button>
+      </div>
+      <div class="pull-right">
+        <button data-bind="click: function() { $data.completed(true); $parent.nextStep($data)}"
+                class="btn btn-lg btn-1">Confirm Change
+        </button>
+      </div>
+    </div>
+    <!-- /ko -->
+  </div>
+</script>
+
+<!-- End templates for workflow BCs -->
+
+
+
+</body>
+</html>

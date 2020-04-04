@@ -1,0 +1,15 @@
+<!-- Bottom Panel - hide until ko is loaded -->
+<section id="bottomPanel" class="row no-stretch" style="visibility:hidden" data-bind="style: { visibility: $root.isKOLoaded() ? '' : 'hidden' }">
+    <h2 class="hidden">Bottom Content</h2>
+        <!-- start block for no valid portal found -->
+        <div class="col-sm-12 myClasses content-section center-block">
+            <div class="col-sm-12 courses-loading text-center">
+                <div class="loading-wrapper dashboard-loading-wrapper">
+                    <i data-bind="css: $root.widgetClassName"></i>
+                    <i class="loading-message" data-bind="text: $root.thereAreWidgets"></i>
+                </div>
+            </div>
+        </div>
+        <!-- end block for no valid portal found -->
+</section>
+

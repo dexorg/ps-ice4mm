@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: npm-token
+  labels:
+    "jenkins.io/credentials-type": "secretFile"
+  annotations:
+    "jenkins.io/credentials-description" : "NPM Token from Kubernetes"
+type: Opaque
+data:
+  file: cmVnaXN0cnk9aHR0cDovL25wbS5kZXhpdC5jbzo0ODczCi8vbnBtLmRleGl0LmNvOjQ4NzMvOl9hdXRoVG9rZW49IlVIUDZSTm9YZnFwYU5kSG1IUDdnWWVBdTFzWFNSak9IcTJ0SjJmT2xTMDg9Ig==
+

@@ -1,0 +1,539 @@
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+#contentListContainer{
+    margin-top: 5px;
+}
+#contentWrapper{
+    min-height: 200px;
+
+}
+
+.boxShadow {min-height:20px;padding:19px;margin-bottom:20px;background-color:#fff;border:1px solid #e3e3e3;border-radius:4px;box-shadow: 0 1px 6px rgba(0,0,0,0.5);}
+.wellDCM {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px grey;
+    padding: 20px;
+    min-height: 610px;
+    max-height: 610px;
+    max-width: 1020px;
+}
+.wellDeployment {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px grey;
+    padding: 15px;
+    min-height: 610px;
+}
+.wellInner {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px grey;
+    z-index: 1;
+}
+.evenRows {
+    background: #e9edf0;
+    padding: 1%;
+}
+.itemListDCM {
+    font-size: 12px;
+    padding: 1%;
+}
+
+#thumb {
+    /*margin-bottom: 18px;*/
+    margin-left: 5px;
+    /*min-height: 300px;*/
+
+    /*overflow: hidden;*/
+}
+
+div.thumbnail {
+    /*border: 1px solid green;*/
+    height: 100%;
+}
+
+#thumb img {
+    /*border: 1px solid green;*/
+    height: 200px;
+    width: 300px;
+    /*width: 100%;*/
+    /*height: 80%;*/
+
+}
+
+#thumb video {
+    /*border: 1px solid green;*/
+    /*height: 200px;*/
+    width: 100%;
+}
+.subHeaderBlock{
+    background:#000000;
+    padding:3%;
+    color:white;
+    font-size: 14px;
+
+}
+
+.selected {
+    background: #acd8fb;
+    padding: 1%;
+}
+
+.selectedGroup {
+    background: #f0d0ff;
+    padding: 1%;
+}
+
+ul {
+    list-style-type:none;
+    /*margin-top: -2%;*/
+}
+
+.arrow-up {
+    position: absolute;
+    background: #ffffff;
+    border: 4px solid #ffffff;
+}
+.arrow-up:after, .arrow-up:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.arrow-up:before {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: white;
+    border-width: 15px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
+.layoutSpace{
+    background-color: #eeeced;
+    height: 540px;
+    width: 100%;
+
+}
+
+.overMM {
+    border: 1px solid #DDDDDD;
+    position:relative;
+    height: 540px;
+    width: 100%;
+    background-color: #000000
+}
+.imageLayer {
+    position:absolute;
+}
+.theSpan {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    z-index:5;
+}
+
+.buttonsLocText {
+    position: absolute;
+    left:0px;
+    top: 0px;
+    z-index:5;}
+
+
+.buttonsLoc {
+    position: absolute;
+    left:250px;
+    top: 60px;
+    z-index:5;
+}
+.buttonsLocEdit {
+    position: absolute;
+    left:200px;
+    top: 60px;
+    z-index:5;
+}
+
+
+.buttonBGEdit{
+    position: absolute;
+    left:93%;
+    top: 7%;
+    z-index:5;
+}
+.defaultBGImage{
+    position: absolute; margin:auto; top:0; left:0; right:0; bottom:0;
+}
+.bgMenuButton{
+    position:absolute;
+    top:65%;
+}
+
+.bgImage{
+    width: 100%;
+    height: 540px;
+}
+.previewArea {
+    width: 100%;
+    min-height: 180px;
+    max-height: 180px;
+}
+
+.buttonPreviewEdit{
+    position: absolute;
+    left:45%;
+    top: 22%;
+    z-index:5;
+}
+.bgVideo{
+    width: 100%;
+    height: 530px;
+}
+.panelMenu {
+    position: absolute;
+    left: 2%;
+    top: 85%;
+    width: 96%;
+    height: 13%;
+    background-color: white;
+}
+
+.panelMenuPredefined {
+    position: absolute;
+    left: 5%;
+    top: 82%;
+    width: 92%;
+    height: 11%;
+    background-color: white;
+}
+
+.panelDesc {
+    position:absolute;
+    left:0;
+    top:0;
+    height: 100%;
+    width: 12%;
+    background-color: lightgray;
+    border-right:1px solid darkgray;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+.panelItemsGroup {
+    position:absolute;
+    top:0;
+    left: 12%;
+    width: 80%;
+    height: 85%;;
+}
+
+.panelItemsGroupAE {
+    position:absolute;
+    top:0;
+    left: 15%;
+    width: 80%;
+    height: 85%;
+}
+
+.panelDivider{
+    position:relative;
+    height: 50%;
+    border-right:1px solid darkgray;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+}
+.panelItem {
+    font-size: 12px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.arrow_button {
+    min-width: 10px;
+    max-width: 10px;
+}
+
+.grey, .grey a {
+    color: #B0B0B0
+}
+
+.watermark {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity:0.5;
+}
+.watermarkElementImage {
+    width: 100%;
+    height: 170px;
+    position: absolute;
+    background-color: white;
+    opacity:0.5;
+}
+.rotateTextElementImage {
+    color:black;
+    font-size: 20px;
+    text-align: center;
+    line-height: 150px;
+    /* Safari */
+    -webkit-transform: rotate(45deg);
+
+    /* Firefox */
+    -moz-transform: rotate(45deg);
+
+    /* IE */
+    -ms-transform: rotate(45deg);
+
+    /* Opera */
+    -o-transform: rotate(45deg);
+}
+.rotateText {
+    color:black;
+    font-size: 34px;
+    text-align: center;
+    line-height: 350px;
+    width: 400px;
+
+
+
+    /* Safari */
+    -webkit-transform: rotate(45deg);
+
+    /* Firefox */
+    -moz-transform: rotate(45deg);
+
+    /* IE */
+    -ms-transform: rotate(45deg);
+
+    /* Opera */
+    -o-transform: rotate(45deg);
+}
+
+
+
+.watermarkMenuElementImage {
+    width: 180px;
+    height: 100px;
+    position: absolute;
+    background-color: white;
+    opacity:0.5;
+}
+.rotateTextMenuElementImage {
+    color:black;
+    font-size: 10px;
+    text-align: center;
+    line-height: 100px;
+    /* Safari */
+    -webkit-transform: rotate(45deg);
+
+    /* Firefox */
+    -moz-transform: rotate(45deg);
+
+    /* IE */
+    -ms-transform: rotate(45deg);
+
+    /* Opera */
+    -o-transform: rotate(45deg);
+}
+
+.panelBehaviour {
+    position: absolute;
+    top: -5%;
+    left:0;
+    margin-right: 10%;
+    width: 90%;
+    height: 70%;
+}
+
+.panelBehaviourMenu {
+    position: absolute;
+    top: 1%;
+    left:3%;
+    margin-right: 10%;
+    width: 60%;
+    height: 10%;
+    z-index:7;
+
+}
+
+.behaviourItem {
+    position:relative;
+    width: 35%;
+    height: 30%;
+
+}
+.behaviourTitle {
+    position:relative;
+    text-decoration: underline;
+    font-size:12px;
+    text-align: center;
+    white-space: nowrap;
+
+}
+
+.behaviourDecisions {
+    font-size:12px;
+    text-align:left;
+    cursor: auto;
+
+}
+
+
+.panelItemBehaviour{
+    position:relative;
+    left: 10%;
+    height: 40%;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+
+}
+
+.progress
+{
+    display: none;
+    position: relative;
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 1px;
+    border-radius: 3px;
+}
+.bar
+{
+    background-color: #B4F5B4;
+    width: 0%;
+    height: 20px;
+    border-radius: 3px;
+}
+.percent
+{
+    position: absolute;
+    display: inline-block;
+    top: 3px;
+    left: 48%;
+}
+.progressError
+{
+    display: none;
+    color: red;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.mmElementsPanel {
+    position: absolute;
+    width: 960px;
+    height: 540px;
+}
+
+#mmElementsPanelTemp {
+    width: 680px;
+    height: 370px;
+
+}
+
+.editableImageBox{
+    border:3px;
+    border-color: dimgrey;
+    border-style:dotted;
+    cursor:move;
+}
+.imageMaxSize{
+    width: 300px;
+    height: 170px;
+    position:relative;
+    top:0;
+    left:0;
+}
+.editableTextBox{
+    border:3px;
+    border-spacing: 10px;
+    border-color: rgba(197, 197, 197, 0.85);
+    border-style:dotted;
+    cursor:move;
+    font-family: "Lato", sans-serif;
+    font-size: 27px;
+    font-weight: normal;
+    color: white;
+}
+
+.wellImageBehaviours {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px grey;
+    padding: 10px;
+    font-size: 10px;
+    color: black;
+    width:10px;
+    height: 10px;
+}
+
+.enlargedBehaviour {
+    min-width:150px;
+    min-height: 100px;
+
+}
+
+.verticalheaderDivider {
+    border-left:1px solid #38546d;
+    border-right:1px solid #16222c;
+    height:80px;
+    position:absolute;
+    right:249px;
+    top:10px;
+}
+
+.spinner {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+
+    -webkit-transition: opacity 0.25s, width 0.25s;
+    -moz-transition: opacity 0.25s, width 0.25s;
+    -o-transition: opacity 0.25s, width 0.25s;
+    transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+    cursor:progress;
+}
+
+.has-spinner.active .spinner {
+    opacity: 1;
+    width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+
+[intel] {
+    border-bottom: 1px solid blue;
+    font-style: italic;
+
+}
+
+.itemListIntel {
+    font-size: 14px;
+    padding: 5%;
+}
+.intelListHeaderBlock{
+    background:#81b7e3;
+    padding:1%;
+    color:white;
+}
+
+.widgetHeaderBlock{
+    background:#81b7e3;
+    padding:1%;
+    color:white;
+}
+.widgetBlockWriting{
+
+    font-size: 14px;
+    padding: 0px;
+
+}

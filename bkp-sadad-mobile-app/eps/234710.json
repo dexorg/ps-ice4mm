@@ -1,0 +1,164 @@
+{
+  "id": "234710",
+  "revision": 1,
+  "pattern": {
+    "start": "2019-12-05T06:35:47.000Z",
+    "end": "never",
+    "epSchemaVersion": 2,
+    "element": [
+      {
+        "id": "47ded954-6d6d-4088-8920-2c607efee108",
+        "type": "behaviour",
+        "subType": "activate",
+        "type_id": "sc:9b8287a0-1753-4190-ac7a-67713d22f361:behaviour:7f740969-6b64-4ab0-ae99-62ca11b78397",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "795ae6f4-5eb7-49ea-bb58-cb0520be44a9",
+        "type": "behaviour",
+        "subType": "reactivate",
+        "type_id": "sc:9b8287a0-1753-4190-ac7a-67713d22f361:behaviour:57e1e669-019f-4b10-90c8-ef679e4bb913",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      },
+      {
+        "id": "5efdcd99-db30-44c5-9ed0-154653fb9677",
+        "type": "multimedia",
+        "subType": "",
+        "type_id": "sc:b8da6338-4de4-4a56-8691-4aadacb749e0:multimedia:c90ec48a-e6f2-4bfa-a69f-a7c4304d1785#text",
+        "args": {},
+        "presentationRef": "default",
+        "description": "",
+        "inEvent": {
+          "events": []
+        },
+        "eventListener": null
+      }
+    ],
+    "connection": [
+      {
+        "name": "start",
+        "from": "start",
+        "to": "5efdcd99-db30-44c5-9ed0-154653fb9677",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "start",
+        "from": "start",
+        "to": "795ae6f4-5eb7-49ea-bb58-cb0520be44a9",
+        "type": "flow",
+        "properties": {
+          "wait": ""
+        }
+      },
+      {
+        "name": "epa.FlowConnector-2",
+        "from": "795ae6f4-5eb7-49ea-bb58-cb0520be44a9",
+        "to": "47ded954-6d6d-4088-8920-2c607efee108",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-3",
+        "from": "47ded954-6d6d-4088-8920-2c607efee108",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      },
+      {
+        "name": "epa.FlowConnector-4",
+        "from": "5efdcd99-db30-44c5-9ed0-154653fb9677",
+        "to": "end",
+        "type": "flow",
+        "properties": {
+          "wait": "",
+          "name": "out"
+        }
+      }
+    ],
+    "touchpoints": [
+      "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+      "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2"
+    ],
+    "tp": [
+      {
+        "touchpoint": "7390e26b-c240-4fba-83c4-e4dfcb8edb2e",
+        "layout": {
+          "layoutId": "cust-8d282fdc-7005-4503-8a47-05710a05ec24",
+          "id": "cust-8d282fdc-7005-4503-8a47-05710a05ec24",
+          "baseTemplate": "sadad-bcc-mobile-reg-signin",
+          "modTemplate": "tem-8d282fdc-7005-4503-8a47-05710a05ec24",
+          "custom": true,
+          "layoutMarkup": "<div><div class=\"c5979\"><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"dark-blue-bg\"><div class=\"auth-main-wrapper login-wrapper\"><div class=\"main-header-wrapper\"><div class=\"login-logo-wrapper\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-big.png\" alt=\"\"></div><div class=\"welcome-content\"><h4>welcome</h4><h2 data-gjs-type=\"data-region-text\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h2></div></div><div class=\"payment-form-wrap\"><div data-gjs-type=\"data-region\" data-region=\"r2\" class=\"placeholder placeholder-image c6081\"></div><div class=\"regiter-para\"><div data-gjs-type=\"data-region\" data-region=\"r3\" class=\"placeholder placeholder-text\"></div></div></div></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c6081{min-width:10px;min-height:10px;}.c5979{height:100vh;}.c6494{width:max-content;}.c6549{width:max-content;}</style>",
+          "regions": {
+            "r1": [
+              "5efdcd99-db30-44c5-9ed0-154653fb9677"
+            ],
+            "r2": [
+              "47ded954-6d6d-4088-8920-2c607efee108",
+              "795ae6f4-5eb7-49ea-bb58-cb0520be44a9"
+            ],
+            "r3": []
+          },
+          "thumbnail": ""
+        }
+      },
+      {
+        "touchpoint": "2bd08442-3a08-4ed0-a3f0-d24c0e74b1f2",
+        "layout": {
+          "layoutId": "cust-ff23fc90-d482-46b5-99d2-5d1b16df373d",
+          "id": "cust-ff23fc90-d482-46b5-99d2-5d1b16df373d",
+          "baseTemplate": "sadad-bcc-mobile-reg-signin",
+          "modTemplate": "tem-ff23fc90-d482-46b5-99d2-5d1b16df373d",
+          "custom": true,
+          "layoutMarkup": "<div><div class=\"c1574\"><link rel=\"stylesheet\" href=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/style.css\"><div class=\"dark-blue-bg\"><div class=\"auth-main-wrapper login-wrapper\"><div class=\"main-header-wrapper\"><div class=\"login-logo-wrapper\"><img src=\"https://s3.us-east.cloud-object-storage.appdomain.cloud/dex-resource/layouts/dexitco-bcc-mobile-nice/logo-big.png\" alt=\"\"></div><div class=\"welcome-content\"><h4>welcome</h4><h2 data-gjs-type=\"data-region-text\" data-region=\"r1\" class=\"placeholder placeholder-text\"></h2></div></div><div class=\"payment-form-wrap\"><div data-gjs-type=\"data-region\" data-region=\"r2\" class=\"placeholder placeholder-image c1676\"></div><div class=\"regiter-para\"><div data-gjs-type=\"data-region\" data-region=\"r3\" class=\"placeholder placeholder-text\"></div></div></div></div></div></div></div>\n<style>* { box-sizing: border-box; } body {margin: 0;}.c1676{min-width:10px;min-height:10px;}.c1574{height:100vh;}.c2154{width:max-content;}.c2209{width:max-content;}</style>",
+          "regions": {
+            "r1": [
+              "5efdcd99-db30-44c5-9ed0-154653fb9677"
+            ],
+            "r2": [
+              "47ded954-6d6d-4088-8920-2c607efee108",
+              "795ae6f4-5eb7-49ea-bb58-cb0520be44a9"
+            ],
+            "r3": []
+          },
+          "thumbnail": ""
+        }
+      }
+    ],
+    "mainScId": "9b8287a0-1753-4190-ac7a-67713d22f361",
+    "name": "Registration",
+    "endConfiguration": {
+      "endId": "element_done_path",
+      "params": {
+        "id": "47ded954-6d6d-4088-8920-2c607efee108"
+      }
+    },
+    "startDate": "2019-12-05T06:35:47.000Z",
+    "_scheduleSet": true,
+    "_currentActivity": "published"
+  },
+  "isActive": true,
+  "isStarted": false,
+  "updateTime": "2019-12-05T13:10:34.432Z"
+}

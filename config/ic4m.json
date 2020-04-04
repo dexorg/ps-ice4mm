@@ -1,0 +1,38 @@
+{
+  "ice4m": {
+    "touchpoints": [
+      {
+        "tpName": "Marketing",
+        "tpId": "46261b44-cce1-42c9-b806-9c3db01dfc27-2",
+        "tpType": "ucc",
+        "bcType": "MarketingCampaign",
+        "segment": [
+          "subscriber",
+          "wholesaler",
+          "retailer"
+        ]
+      },
+      {
+        "tpName": "Subscriber",
+        "tpId": "46261b44-cce1-42c9-b806-9c3db01dfc27-2",
+        "tpType": "ucc",
+        "bcType": "MerchandisingCampaign",
+        "segment": "all"
+      },
+      {
+        "tpName": "Wholesaler",
+        "tpId": "46261b44-cce1-42c9-b806-9c3db01dfc27-2",
+        "tpType": "ucc",
+        "bcType": "MerchandisingCampaign",
+        "segment": "all"
+      },
+      {
+        "tpName": "Retailer",
+        "tpId": "46261b44-cce1-42c9-b806-9c3db01dfc27-2",
+        "tpType": "ucc",
+        "bcType": "MerchandisingCampaign",
+        "segment": "all"
+      }
+    ]
+  }
+}

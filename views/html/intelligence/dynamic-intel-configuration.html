@@ -1,0 +1,126 @@
+<div class="row" data-bind="with: $root.intelConfigVM">
+
+<!--  <div class="btn-group form-group" data-toggle="buttons" data-bind="radio: screenValue">-->
+<!--    <label class="btn btn-primary">-->
+<!--      <input type="radio" name="options" value="list" />-->
+<!--      Available-->
+<!--    </label>-->
+<!--    <label class="btn btn-primary">-->
+<!--      <input type="radio" name="options" value="permission" />-->
+<!--      Configure Dynamic-->
+<!--    </label>-->
+<!--  </div>-->
+
+  <!--  start available intelligence listing  -->
+  <section class="col-sm-12 courseInfo add-top-margin" data-bind="visible: screenValue() === 'list'">
+
+
+    <h3 class="office-hours-header">
+      <span>Configurable Intelligence</span>
+    </h3>
+    <table id="intelTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody data-bind="foreach: intelligenceList">
+      <tr>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: description"></td>
+        <td>
+          <!-- ko if: $data.supportsConfiguration -->
+
+          <i role="button" class="fa fa-pencil-square-o"
+               data-bind="click:function(){$parent.goToConfigure($data);}"></i>
+          <!-- /ko -->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    <div>
+      <!-- ko if: $data.externalUrl() -->
+        <a class="btn btn-default" target="_blank" data-bind="attr: { href: $data.externalUrl() }">Click Here to go to Data Studio</a>
+      <!-- /ko -->
+      <!-- ko ifnot: $data.externalUrl() -->
+        <span class="warning">No link to data studio is configured.  Please contact your system administrator.</span>
+      <!-- /ko -->
+    </div>
+
+
+  </section>
+  <!--  end available intelligence listing  -->
+
+
+  <!--  start available intelligence listing  -->
+  <section class="col-sm-12 courseInfo add-top-margin" data-bind="visible: screenValue() === 'configure'">
+
+    <button class="btn btn-danger add-lesson-lozenge pull-right" data-bind="click: goToList">
+      Cancel
+    </button>
+    <!-- issue with computed not firing for change -->
+    <button class="btn btn-success add-lesson-lozenge pull-right"
+            data-bind="click: save">
+      Save
+    </button>
+
+    <h2 class="office-hours-header">
+      <span data-bind="text: 'Configure: '+$data.name()">Configure</span>
+    </h2>
+
+    <form class="form-horizontal add-top-margin">
+
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="description">Description</label>
+        <div class="col-sm-10">
+          <textarea disabled id="description" data-bind="text:description"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 control-label" for="mlEngine">Integration</label>
+        <div class="col-sm-10">
+          <select disabled id="mlEngine"><option value="watson">IBM Watson</option></select>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 control-label" for="watsonEndpoint">ML Endpoint</label>
+        <div class="col-sm-10">
+          <input type="text" id="watsonEndpoint"
+                 data-bind="value:watsonEndpoint">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 control-label" for="watsonApiKey">API Key</label>
+        <div class="col-sm-10">
+          <input type="text" id="watsonApiKey"
+                 data-bind="value:apiKey">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="watsonInstanceId">Instance ID  (Click <a href="https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-get-wml-credentials.html">here</a> for instructions)</label>
+        <div class="col-sm-10">
+          <input type="text" id="watsonInstanceId"
+                 data-bind="value:watsonInstanceId">
+        </div>
+      </div>
+
+
+    </form>
+  </section>
+  <!--  end available intelligence listing  -->
+
+
+
+
+</div>

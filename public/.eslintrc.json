@@ -1,0 +1,49 @@
+{
+  "root": true,
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 5
+  },
+  "globals": {
+    "_":false,
+    "dexit":true,
+    "dpa_VM": true,
+    "ko":false,
+    "$":false,
+    "async":false,
+    "console":false,
+    "bccLib":false,
+    "Base64":false
+  },
+  "rules": {
+    "indent": [
+      "error",
+      4,
+      { "SwitchCase": 1 }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "should|expect"
+      }
+    ],
+    "no-console": [
+      "error", { "allow": ["log","warn", "error"] }
+    ]
+  }
+}

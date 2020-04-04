@@ -1,0 +1,344 @@
+#%RAML 0.8
+title: ICE4E Service API
+version: v0.40.0
+protocols: [ HTTP, HTTPS ]
+baseUri: http://ps-ice4e-{environment}.herokuapp.com/
+#baseUri: http://localhost:5050/
+baseUriParameters:
+    environment:
+        description: Environment to run the API against, eg. latest, a1
+mediaType: application/json
+securitySchemes:
+    - oauth_2_0: !include oauth2.raml
+securedBy: [ oauth_2_0 ]
+/course:
+    /group:
+        Description: create current group URL as a touch point of course
+        post:
+            headers:
+                Authorization:
+                type: string
+                body:
+                    application/json:
+                    schema: |
+                          {
+                            "$schema": "http://json-schema.org/draft-04/schema#",
+                            "type": "object",
+                            "properties": {
+                                "groupURL": {"type": "string"},
+                                "name": {"type": "string"}
+                                },
+                                "required": ["groupURL", "name"]
+                            }
+                  responses:
+                      200:
+                          description: group has been assigned as a touchpoint
+                          body:
+                              application/json:
+                              schema: |
+                                  {
+                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                    "type": "object",
+                                    "properties": {
+                                                    "id": {"type": "string"}
+                                                  },
+                                                  "required": ["id"]
+                                    }
+                      404:
+                          description: touchpoint creation failed
+
+
+    /{course_id}:
+        uriParameters:
+            course_id:
+                description: ID of a specific course
+                type: string
+        /lectures:
+            get:
+                queryParameters:
+                    shared:
+                        type: string
+                        description: decide if we need to list all lectures or only shared ones.
+                        required: false
+                headers:
+                    Authorization:
+                        type: string
+                responses:
+                    200:
+                        description: Questionnaire deployment state retrieved
+                        body:
+                            application/json:
+                                schema: |
+                                    {
+                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                        "type": "object",
+                                        "properties": {
+                                            "courseId": {"type": "string"},
+                                            "Lectures": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {"type": "string"},
+                                                        "property": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                date: {"type": "string"},
+                                                                date_modified: {"type": "string"},
+                                                                isAssignedTo: {"type": "string"},
+                                                                name: {"type": "string"},
+                                                                type: {"type": "string"},
+                                                                version: {"type": "string"},
+                                                            }
+                                                        },
+                                                    },
+                                                    "required": ["id", "property"]
+                                                }
+                                            },
+                                            "Touchpoints": {
+                                                "type": "array"
+                                                "items": {
+                                                    "type":"object",
+                                                    "properties": {
+                                                        "tpId":   {"type": "string"},
+                                                        "tpType": {"type": "string"},
+                                                        "tpURL":  {"type": "string"},
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "required": ["courseId", "Lectures", "Touchpoints"]
+                                    }
+                    404:
+                        description: Course with specified ID was not found
+/lecture:
+    /{lecture_id}:
+        uriParameters:
+            lecture_id:
+                description: ID of a specific lecture
+                type: string
+        /touchpoint:
+            /{touchpoint_type}:
+                uriParameters:
+                    touchpoint_type:
+                        description: type of touchpoint
+                        type: string
+                /link:
+                    /post:
+                    headers:
+                        Authorization:
+                            type: string
+                    body:
+                        application/json:
+                            schema: |
+                                {
+                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {"type": "string"},
+                                        "id": {"type": "string"},
+                                        "type": {"type": "string"},
+                                    },
+                                    "required": ["url", "id", "type"]
+                                }
+                    responses:
+                        200:
+                            description: link id retrieved
+                            body:
+                                application/json:
+                                    schema: |
+                                        {
+                                            "$schema": "http://json-schema.org/draft-04/schema#",
+                                            "type": "object",
+                                            "properties": {
+                                                "linkURL": {"type": "link"},
+                                            },
+                                            "required": ["linkURL"]
+                                        }
+                        404:
+                            description: specific lecture id or touchpoint type was not found
+    /{lecture_id}:
+            uriParameters:
+                lecture_id:
+                    description: ID of a specific lecture
+                    type: string
+            /get:
+                headers:
+                    Authorization:
+                        type: string
+                responses:
+                    200:
+                        description: link id retrieved
+                        body:
+                            application/json:
+                                schema: |
+                                    {
+                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {"type": "string"},
+                                            "property": "{"type": "object"}
+                                                {"name":{"type":"string"}
+                                            "ePatterns": "{"type":"array"}
+                                            "isPatternActive" :"{"type":"boolean"}
+                                            "patternStart":{"type":"string"}
+                                            "patternEnd":"{"type":"string"
+                                        }
+                                    }
+                    404:
+                        description: specific lecture id or touchpoint type was not found
+/facebook:
+    /group:
+        /post:
+            description: This is the old operation combining the FB group member checking, user group authoring and touchpoint creation together
+                        if the tenant config channelAuth is true, this service will be used
+            headers:
+                Authorization:
+                type: string
+            body:
+                application/json:
+                schema: |
+                      {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "type": "object",
+                        "properties": {
+                            "groupURL": {"type": "string"},
+                            "name": {"type": "string"}
+                            },
+                            "required": ["groupURL", "name"]
+                        }
+              responses:
+                  200:
+                      description: group has been assigned as a touchpoint
+                      body:
+                          application/json:
+                              schema: |
+                                  {
+                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                    "type": "object",
+                                    "properties": {
+                                                    "id": {"type": "string"}
+                                                  },
+                                                    "required": ["id"]
+                                    }
+                  404:
+                      description: touchpoint creation failed
+
+    /{group_id}/members:
+                  uriParameters:
+                  group_id:
+                  : ID of a Facebook user group
+                  type: string
+                  /get:
+                      Description: this service is used to check if current use is one member of the FB group
+                      headers:
+                      Authorization:
+                          type: string
+                      responses:
+                          200:
+                          description: if current user is a member of Facebook group, return member details
+                          body:
+                              application/json:
+                                  schema: |
+                                      {
+                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                        "type": "array",
+                                        "properties": [{
+                                                        "administrator": {"type": "boolean"},
+                                                        "id": {"type": "string"},
+                                                        "name": {"type": "string"}
+                                                      }]
+                                                      "required": []
+                                        }
+                        403:
+                            description: failed to get Facebook member
+    /{group_id}/allmembers:
+                    uriParameters:
+                    group_id:
+                    : ID of a Facebook user group
+                    type: string
+                    /get:
+                        Description: this API will be used for admin to retrieve all admin members
+                        headers:
+                        Authorization:
+                            type: string
+                        responses:
+                            200:
+                            description: if current user is the group admin, return all group members in an array
+                            body:
+                                application/json:
+                                    schema: |
+                                        {
+                                          "$schema": "http://json-schema.org/draft-04/schema#",
+                                          "type": "array",
+                                          "properties": [{
+                                                          "administrator": {"type": "boolean"},
+                                                          "id": {"type": "string"},
+                                                          "name": {"type": "string"}
+                                                        }]
+                                                        "required": []
+                                          }
+                              403:
+                                  description: failed to get Facebook member
+
+    /usergroup:
+          /post:
+              description: this is the decoupled api to authorized all passed members of the FB user group so that the members are able to post in that group
+                      if tenant config channelAuth is false, this service will be
+              headers:
+                  Authorization:
+                  type: string
+              body:
+                  application/json:
+                  schema: |
+                        {
+                          "$schema": "http://json-schema.org/draft-04/schema#",
+                          "type": "object",
+                          "properties": {
+                              "groupID": {"type": "string"},
+                              "members": {"type": "array"}
+                              },
+                              "required": ["groupURL", "members"]
+                          }
+                    responses:
+                        200:
+                            description: user has been authorized to this group
+                            body:""
+                        404:
+                            description: failed to authorize the user
+/engagementPoint:
+    /chatservice:
+        /post:
+            description: This is service to generate chat room URL
+            headers:
+                Authorization:
+                type: string
+                description: This API is for external execution through behaviour, so the authrization token is from dex-authentication - token.authenticator
+            body:
+                application/json:
+                schema: |
+                    {
+                      "$schema": "http://json-schema.org/draft-04/schema#",
+                      "type": "object",
+                      "properties": {
+                                      "service_id": {"type": "string"},
+                                      "chat_room_id": {"type": "string"}
+                                    },
+                                    "required": ["service_id", "chat_room_id"]
+                    }
+            responses:
+                200:
+                    description: URL should be generated with chat service endpoint+roomId
+                    body:
+                        application/json:
+                        schema: |
+                            {
+                              "$schema": "http://json-schema.org/draft-04/schema#",
+                              "type": "object",
+                              "properties": {
+                                              "url": {"type": "string"}
+                                            },
+                                            "required": ["url"]
+                            }
+                404:
+                    description: chat service URL can not be created

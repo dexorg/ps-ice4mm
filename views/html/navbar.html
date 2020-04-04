@@ -1,0 +1,79 @@
+<div>
+<nav class="navbar navbar-inverse navbar-fixed-top brandable-navbar">
+  <div class="container-fluid">
+    <div class="navbar-header ice4e-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- pull logo from tenant config -->
+
+      <img src="{{{tenantLogo}}}" alt="main logo" class="navbar-logo pull-left">
+
+      <span class="navbar-brand ice4e-brand">
+        <!-- ko if: ($root.userProfile()) -->
+          <span data-bind="text:$root.userProfile().attributes.firstName + ' ' + $root.userProfile().attributes.lastName"></span>
+        <!-- /ko -->
+      </span>
+    </div>
+
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-right text-uppercase text-muted">
+        <li>
+          <a data-toggle="collapse" data-target=".navbar-collapse" href="#" data-bind="click: $root.showNotifications">
+            <span class="notification-count badge" data-bind="text: $root.notificationMessages().length, visible: $root.notificationMessages().length > 0"></span>
+
+            <i class="circleI fa fa-bell" aria-hidden="true"></i>
+
+            <span>Notifications</span>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" data-target=".navbar-collapse"  href="#" data-bind="visible:$root.viewProfile, click: function() { $root.showAlertStrip('.profile-modal'); }">
+            <i class="circleI fa fa-user" aria-hidden="true"></i>
+
+            <span>Profile</span>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" data-target=".navbar-collapse" href="#" data-bind="click: function() { $root.showAlertStrip('.logout-modal'); }">
+            <i class="circleI fa fa-power-off" aria-hidden="true"></i>
+            <span>Log Out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+
+<div class="container-fluid notification-wrapper clearfix">
+	<div class="row">
+		<div class="col-sm-11 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<div id="logoutModal" class="logout-modal alert alert-danger alert-strip"></div>
+
+			<div class="alert alert-danger profile-modal alert-strip">
+				<h3 class="alert-message" data-bind="text: 'Currently logged in as: ' + $root.currentRole()">Currently logged in as</h3>
+
+				<select class="form-control" data-bind="options:$root.roles, value: $root.selectedRole, optionsCaption: 'Choose role..'"></select>
+
+				 <div class="logout-buttons clearfix">
+					<button type="button" class="btn btn-danger">Cancel</button>
+					<!-- ko if: ($root.selectedRole() && $root.selectedRole()!=='')-->
+						<a class="btn btn-success" role="button" data-bind="attr:{href: '/user_setting/'+$root.selectedRole()}">Switch</a>
+					<!-- /ko -->
+
+					<!-- ko if: (!$root.selectedRole() || $root.selectedRole()=='')-->
+						<button class="btn btn-success" disabled>Switch</button>
+					<!-- /ko -->
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

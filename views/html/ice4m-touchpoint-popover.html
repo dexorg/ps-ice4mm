@@ -1,0 +1,73 @@
+<script type="text/html" id="add_tp_popover">
+    <ul class="tp-title-controls list-unstyled list-inline pull-right">
+        <li>
+            <i class="fa fa-times close-tp-popover pull-right" role="button" data-bind="click: function() { $root.closePopover(); $root.selectedCourse().courseVM.removeGroup(); }"></i>
+        </li>
+
+        <li>
+            <!--<i data-bind="click: $root.selectedTPType() == null ? null : $root.toggleTPInfo.bind($data, $element), css: { 'activate-help-button' : $root.selectedTPType() !== null }" class="fa fa-question-circle pull-right more-tp-info" role="button"></i>-->
+        </li>
+    </ul>
+
+    <!--<div class="add-tp-wrapper" data-bind="foreach:$root.selectedCourse().courseVM.tpm">-->
+    <div class="add-tp-wrapper">
+        <ul class="add-tp-steps list-unstyled list-inline" style="left: 0">
+            <li>
+                <h4 class="add-tp-heading text-center">Select touchpoint type:</h4>
+                <div class="tp-select-wrapper text-center" data-bind="foreach: $root.touchpointKeys">
+                    <i data-bind="style: $data.color, click: $root.tpTypeSelected.bind($data), css: $root.touchpointTypes()[$data].icon, attr: { title: $root.touchpointTypes()[$data].name }"></i>
+                </div>
+            </li>
+
+            <li>
+                <div class="tp-url-input" data-validationwarning="temp warning" data-bind="visible:$root.selectedTPType() !== 'ucc' && $root.selectedTPType() !== 'twitter'">
+                    <input data-bind="value: $root.selectedCourse().courseVM.pendingChannelUrl , event: { keyup: $root.selectedCourse().courseVM.validateTP($element, event) }" class="form-control" placeholder="Add touchpoint URL">
+                </div>
+
+                <div class="tp-url-input" data-validationwarning="temp warning" data-bind="visible:$root.selectedTPType() === 'ucc' || $root.selectedTPType() === 'twitter'">
+                    <select class="form-control" data-bind="options:$root.tpNameList(), event: {click: $root.selectedCourse().courseVM.skipValidation($element, event)}, clickBubble: false, value: $root.selectedTP, optionsCaption: 'Choose channel..'"></select>
+                </div>
+
+                <div class="add-tp-controls">
+                    <i class="fa fa-arrow-circle-left pull-left" aria-hidden="true" data-bind="click: $root.resetTpType" role="button"></i>
+
+                    <button class="btn btn-danger pull-right" data-bind="click: function() { $root.closePopover(); $root.selectedCourse().courseVM.clearPendingTouchpoint(); }">
+                        <i class="fa fa-times"></i>
+                    </button>
+
+                    <button data-bind="click: function() { $root.selectedCourse().courseVM.createTouchpoint(); }, enable: $root.selectedCourse().courseVM.validTPURL()" class="btn btn-success pull-right">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+
+        <div class="add-tp-help">
+            <ul class="list-unstyled list-inline tp-help">
+                <li>
+                    <h4><span class="tp-steps">1</span>Go to Group Page</h4>
+                    <p>
+                        If you haven&#39;t already done so, go to your group page. If you don&#39;t have a <span data-bind="text: $root.selectedTPType" class="selected-tp-type">Facebook</span> group page to add as a touchpoint, you will need to create one.
+                        <!-- ko if: $root.selectedTPType() -->
+                        <a data-bind="attr: {href : $root.touchpointTypes()[$root.selectedTPType()].helpUrl, target: '_blank' }">Learn how here.</a>
+                        <!-- /ko -->
+                    </p>
+                </li>
+
+                <li>
+                    <h4><span class="tp-steps">2</span>Get the Touchpoint URL</h4>
+                    <p>
+                        Copy the group page URL in the address bar. Note that it must be a unique URL (you can only add a Facebook Group URL as a touchpoint once).
+                    </p>
+                </li>
+
+                <li>
+                    <h4><span class="tp-steps">3</span>Add the Group Page</h4>
+                    <p>
+                        Paste the unique URL into the field above. Address any validation errors, and click the Save icon. Your touchpoint will be added to the list.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>

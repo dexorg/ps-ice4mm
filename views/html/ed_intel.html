@@ -1,0 +1,18 @@
+
+<section data-bind="visible: $root.selectedCourse() && $root.selectedCourse().courseVM && dpa_VM.chosenTouchpoints() && dpa_VM.chosenTouchpoints().length > 0">
+    <span>Engagement Driven</span>
+    <table class="table table-bordered table-responsive table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach:$root.selectedCourse().courseVM.ecTPIntel()">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: value"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,64 @@
+.gjs-dashed {
+}
+
+.gjs-dashed [class*="col-"], .gjs-dashed div[class*="col-"] {
+    min-height: 120px;
+    /*margin: 5px 15px;*/
+    /*background-color: white;*/
+    /*border: thin dashed #333;*/
+    /*border-radius: 8px*/
+}
+
+.gjs-dashed div[class*="region-container"] {
+    min-height: 120px;
+    min-width: 100px;
+}
+
+
+
+.gjs-dashed [class*="video-overlay"], .gjs-dashed div[class*="video-overlay"] {
+    min-height: 120px;
+    min-width: 100px;
+    /*margin: 5px 15px;*/
+    /*background-color: white;*/
+    /*border: thin dashed #333;*/
+    /*border-radius: 8px*/
+}
+
+.gjs-dashed [class*="videoregion"], .gjs-dashed div[class*="videoregion"] {
+    min-height: 400px;
+    min-width: 400px;
+    /*margin: 5px 15px;*/
+    /*background-color: white;*/
+    /*border: thin dashed #333;*/
+    /*border-radius: 8px*/
+}
+
+.gjs-dashed [class*="col-"] > div, .gjs-dashed div[class*="col-"] > div {
+    display: inline-block;
+    /*margin: 9px*/
+}
+
+.gjs-dashed [class*="col-"]:after, .gjs-dashed div[class*="col-"]:after {
+    /*position: absolute;*/
+    /*top: 40%;*/
+    /*color: #ccc;*/
+    /*left: 32%*/
+}
+
+.gjs-dashed .col-sm-6 {
+    /*width: 46% !important*/
+}
+
+.gjs-dashed .col-sm-12 {
+    /*width: 96% !important*/
+}
+
+gjs-dashed :not([contenteditable]) > *[data-highlightable] {
+    /*outline: unset !important*/
+}
+.gjs-dashed :not([contenteditable]) > *[data-highlightable] {
+    /*outline: unset !important*/
+}
+
+

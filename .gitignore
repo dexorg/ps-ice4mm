@@ -1,0 +1,38 @@
+#############################################################################################################
+# User Specific WebStorm IDE Files                                                                          #
+# .idea directory based format                                                                              #
+# Share all the files under .idea directory in the project root except the workspace.xml                    #
+# and tasks.xml files which store user specific settings, also share all the .iml module files.             #
+#############################################################################################################
+.idea/
+
+######################
+# Other environments #
+######################
+*.komodoproject
+*.swp
+
+######################
+# Test output        #
+######################
+results
+qmreports
+
+######################
+# NPM Modules        #
+######################
+node_modules
+
+####################################
+# OS generated files, config files #
+####################################
+.DS_Store
+config.rb
+
+######################
+#  Lib Build folder  #
+######################
+
+# ignore generated files
+public/js/app/build/
+test/lib

@@ -1,0 +1,154 @@
+<div class="row" data-bind="with: $root.roleMngVM">
+
+    <div data-bind="modal: {
+             visible: $data.addRoleVisible,
+             header: { name: 'add_role_header' },
+             body: { name: 'add_role_body', data: { nameToAdd: $data.addRoleNameValue } },
+             footer: {name: 'modal_footer', data: {save: $data.saveRole, saveText: 'Save'} } }">
+    </div>
+
+
+    <div data-bind="modal: {
+               visible: $data.configureRoleUserVisible,
+               header: { name: 'configure_user_role_header', data: { roleName: $data.selectedRole } },
+               body: { name: 'configure_role_user_body', data: { availableUsers: $data.availableUsers, role: $data.selectedRole, selectedRoleUsers: $data.selectedRoleUsers } },
+               footer: {name: 'modal_footer', data: {save: $data.saveRoleUser, saveText: 'Save'} } }">
+    </div>
+
+
+    <div class="btn-group form-group" data-toggle="buttons" data-bind="radio: roleScreenValue">
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="role" />
+        Roles
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" value="permission" />
+        Role-Permissions
+      </label>
+    </div>
+
+    <!--  start role-permission listing  -->
+    <section class="col-sm-12 courseInfo add-top-margin" data-bind="visible: roleScreenValue() === 'permission'">
+
+
+
+      <div class="form-group sm">
+        <label for="ep-tp-selection">Roles:&nbsp;&nbsp;&nbsp;</label>
+        <select id="ep-tp-selection"  multiple="multiple"
+                data-bind="options:$data.availableRoles,
+                                        selectedOptions:$data.selectedRoles,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Role'}">
+        </select>
+
+        <button class="btn btn-1 add-lesson-lozenge" data-bind="click: loadPermissionRoleTable">
+          Select
+        </button>
+      </div>
+
+        <button class="btn btn-success add-lesson-lozenge pull-right" data-bind="disable:disableRolePermissionSave, click: saveRolePermission">
+            Save Changes
+        </button>
+
+        <!-- ko if: showPermissionTable() && showPermissionTable() === true -->
+          <table id="rolePermissionTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+              <thead>
+              <tr>
+                  <th style="color:black;border-right-style:solid;border-right-width:thin">Permission</th>
+                  <!-- ko foreach: selectedRoles -->
+                    <th data-bind="text:$data"></th>
+                  <!-- /ko -->
+              </tr>
+              </thead>
+              <tbody data-bind="foreach: permissionRole">
+              <tr>
+                  <!-- permission name -->
+                  <td style="color:black;border-right-style:solid;border-right-width:thin" data-bind="text: ($data.bcLabel + ':'+ $data.name) "></td>
+
+                  <!-- ko foreach: $data.roleSelection  -->
+                    <td>
+                      <input type="checkbox" data-bind="checkedValue: $data.roleName, checked: $data.selected">
+                    </td>
+                  <!-- /ko -->
+              </tr>
+              </tbody>
+          </table>
+        <!-- /ko -->
+    </section>
+    <!--  end role-permission listing -->
+
+  <!--  start role listing  -->
+  <section class="col-sm-12 courseInfo add-top-margin" data-bind="visible: roleScreenValue() === 'role'">
+
+    <button class="btn btn-success add-lesson-lozenge pull-right" data-bind="click: showAddRole">
+      Add Role
+    </button>
+
+    <table id="roleTable" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th style="color:black">Role</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody data-bind="foreach: availableRoles">
+      <tr>
+        <!-- permission name -->
+        <td data-bind="text: $data "></td>
+
+        <td>
+          <i role="button" class="fa fa-address-book-o" data-bind="click: $parent.showRoleUser"></i>
+        </td>
+        <td>
+          <i role="button" class="fa fa-trash" data-target="deleteRoleTemplate"
+             data-bind="popover: {template: 'deleteRoleTemplate', data: $data, options:{placement:'auto top'}}"></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--  end role listing -->
+
+</div>
+<script type="text/html" id="deleteRoleTemplate">
+    <div class="mm-delete-wrapper">
+        <p class="mm-delete-item">
+            Are you absolutely sure you want to delete this role?
+            (doing so may affect assigned users)
+        </p>
+        <hr>
+        <div class="mm-delete-buttons">
+            <span id="deleteElement" class="has-spinner mm-delete btn-success" role="button"
+                  data-bind="click: function(){$root.roleMngVM().deleteRole($data)}">Delete
+                <span class="spinner mm-delete-spinner"><i class="fa fa-spinner fa-spin"></i></span>
+            </span>
+            <span class="btn-danger" role="button" data-dismiss="popover">Cancel</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="configure_role_user_body">
+  <div class="container-fluid">
+    <div class="row">
+      <table id="userRoleTable" class="table table-striped" data-search="true" data-sort-name="name" data-sort-order="asc">
+        <thead>
+        <tr>
+          <th>User</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody data-bind="foreach: availableUsers">
+        <tr>
+          <!-- user name -->
+          <td data-bind="text: $data "></td>
+          <td>
+            <input type="checkbox" data-bind="checkedInArray: { array: $parent.selectedRoleUsers, value: $data }" />
+<!--            <input type="checkbox" data-bind="checkedValue: $data.name, checked: $data.selected">-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</script>
+

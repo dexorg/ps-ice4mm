@@ -1,0 +1,284 @@
+<!-- Bottom Panel - hide until ko is loaded -->
+<section id="bottomPanel" class="row no-stretch" style="visibility:hidden" data-bind="style: { visibility: $root.isKOLoaded() ? '' : 'hidden' }">
+
+  <h2 class="hidden">Bottom Content</h2>
+
+
+
+    <!-- ko if: ($root.bcloaded() && $root.showDashboard()) -->
+
+
+      <!-- ko if: ($root.portalVM.createPermission()) -->
+      <div class="row" data-bind="visible: $root.showBCCreationPage() === false">
+        <div class="col-sm-12">
+          <div class="addCard" data-bind="click: function() { $data.showCreateCampaign();}">
+            <i class="fa fa-plus"></i>
+          </div>
+<!--          <div class="form-group sm text-right action-group" style="margin-top: 20px">-->
+<!--            <button data-bind="click: function() { $data.showCreateCampaign();}"-->
+<!--                    class="btn btn-lg btn-1">-->
+<!--              <span data-bind="text: 'Define '+ $data.currBCDef().singular"></span>-->
+<!--            </button>-->
+<!--          </div>-->
+        </div><!-- end column -->
+      </div><!-- end row -->
+      <!-- /ko-->
+      <div class="col-md-12" data-bind="visible: ($root.showBCCreationPage() === false && ($root.campaignWfVisible() === false)">
+        <div class="text-center action-group">
+          <div class="tabs">
+            <!-- TODO: notify css -->
+            <a data-bind="css: {'active': $root.selectedSection() === 'mybcs'}, click: $root.goToMyBCs"><span class="fa fa-th"></span><span data-bind="text: '   My '+ $root.currBCDef().plural"></span></a>
+            <!-- ko if: ($root.portalVM.KPIPermission()) -->
+            <a data-bind="css: {'active': $root.selectedSection() === 'performance'}, click: $root.goToPerformance"><span class="fa fa-pie-chart"></span> Performance</a>
+            <!-- /ko -->
+          </div>
+        </div>
+
+      </div>
+
+        <!-- ko if: ($root.portalVM.createPermission()) -->
+          {{{bc_ins_create}}}
+        <!-- /ko-->
+
+        <!-- ko if: ($root.selectedSection() === 'mybcs'  && (!$root.campaignWfVisible())) -->
+        <div class="row" data-bind="visible:$root.showBCCreationPage() === false">
+            {{{bcInsListNew}}}
+        </div>
+        <!-- /ko -->
+
+    <!-- ko if: ($root.campaignWfVisible()) -->
+    <div class="row main-container" data-bind="visible:$root.campaignWfVisible">
+
+      <div class="col-md-12 col-lg-8">
+
+        <a data-bind="click:$root.hideWf">
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          <span>Back</span>
+        </a>
+        <!-- ko with: $root.tpCampaignCreationVM -->
+        <div class="secondary" data-bind="modal: {
+             visible: MMModalVisible,
+             header: { data: { label: 'Select Multimedia' } },
+             dialogCss: 'modal-lg',
+             body: { name: 'multimediaManagementTemplBody', data: mmManagementVM },
+             footer: { name: 'settings_footer', data: {saveSettings: mmManagementVM.saveTags } }}">
+        </div>
+
+
+
+        <!--<a data-bind="text: 'Back to '+ $data.parentBCiName(), click: hideCreate"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to (Merchandising Campaign)</a>-->
+        <h2 data-bind="text: 'Define '+ $data.currBCDef().singular + ': ' + $data.campaignName() "></h2>
+        <div class="col-sm-12 text-center" data-bind="css: loadCss">
+          <div class="loading-wrapper dashboard-loading-wrapper">
+            <i class="fa fa-spinner fa-pulse"></i>
+            <i class="loading-message">Loading</i>
+          </div>
+        </div>
+        <div data-bind="foreach: stepsVM">
+          <!-- campaign steps here -->
+          <div data-bind="template: { name: 'createBCiStepTempl'}"></div>
+          <hr>
+        </div>
+        <!-- ko if: editMode() === true && loaded() -->
+        <div class="clearfix">
+
+          <div class="pull-right">
+
+            <!--TODO: add duplicate campaign <button class="btn btn-lg btn-1 inverse">Duplicate Campaign</button>-->
+
+            <!-- ko ifnot: approved -->
+            <button class="btn btn-lg btn-1" data-bind="click:updateBCInstance, enable:changesMade">Save Changes</button>
+            <button class="btn btn-lg btn-1"
+                    data-bind="click:approveCampaign, text:'Approve ' + $data.currBCDef().singular,enable:enableCreate">Approve
+            </button>
+            <!-- /ko -->
+
+          </div>
+        </div>
+        <!-- /ko -->
+
+
+        <!-- end: for edit -->
+
+        <!-- for save -->
+        <!-- ko ifnot: editMode() === true -->
+        <div class="clearfix" data-bind="visible: showSummaryView">
+          <div class="pull-right">
+            <button class="btn btn-lg btn-1"
+                    data-bind="click:addCampaign, text:'Save ' + $data.currBCDef().singular,enable:enableCreate">Save
+            </button>
+
+          </div>
+        </div>
+        <!-- /ko -->
+        <br><br>
+        <!-- Sample notification modal -->
+        <!-- TODO: this should be invoked when user deselects in edit  <a href="#newModal" data-toggle="modal">Launch Demo Modal</a> -->
+        <!-- Modal HTML -->
+        <div id="newModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-exclamation-triangle" aria-hidden="true"
+                                           data-bind="text:'Editing '+$data.currBCDef().singular"></i> Editing Merchandising
+                  Campaign</h4>
+              </div>
+              <div class="modal-body">
+                <p>Deleting this option will cause some of your previously selected options in some of the other steps to
+                  disappear. Are you sure you want to continue?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-1 inverse" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-lg btn-1">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notification" data-bind="visible:showNotificationForEditAdd">
+          <div class="notification-inner">
+            <a data-bind="click:function(){showNotificationForEditAdd(false);}" class="notification-close"
+               aria-label="close">&times;</a>
+            <p><i class="fa fa-info-circle" aria-hidden="true"></i> Editing this step has added more options under
+              Touchpoints and Metrics.</p>
+          </div>
+        </div>
+
+        <br><br><br><br>
+        <!-- /ko -->
+      </div>
+
+    </div>
+    <!-- /ko -->
+
+
+  <!-- /ko-->
+
+    <!-- ko if: ($root.showEMPage() && $root.emVM()) -->
+      {{{emPage}}}
+    <!-- /ko-->
+
+    <!-- ko if: ($root.showRMPage() && $root.roleMngVM()) -->
+      {{{rmPage}}}
+    <!-- /ko-->
+
+
+    <!-- ko if: ($root.showIntelConfigurePage() && $root.intelConfigVM()) -->
+      {{{dynamicIntelPage}}}
+    <!-- /ko-->
+
+    <!-- ko if: ($root.showTagsPage() && $root.mmTagVM()) -->
+    {{{tagsPage}}}
+    <!-- /ko-->
+
+
+    <!-- ko if: ($root.showBRPage() && $root.brMngVM()) -->
+    <div class="col-md-12" style="margin-left:10px;" data-bind="with: $root.brMngVM()">
+      <div class="row">
+        <h2 class="office-hours-header">
+          <span>Configure your Business Rules</span>
+        </h2>
+      </div>
+
+      <div class="btn-group form-group" data-toggle="buttons" data-bind="radio: $root.brScreenValue">
+        <label class="btn btn-primary">
+          <input type="radio" name="options" value="brms" />
+          Business Rule Management System
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="options" value="brms" />
+          Assignment
+        </label>
+      </div>
+
+      <div class="row">
+
+        <!-- ko if : $root.brScreenValue() && $root.brScreenValue() === 'brms' -->
+
+          <!-- ko if: $data.brLink() -->
+
+
+            <div>
+              <a class="btn btn-default pull-left" target="_blank" data-bind="attr: { href: $data.brLink() }">Click Here to go to BR System</a>
+            </div>
+
+
+<!--            <iframe style="position: relative; height: 600px; width: 100%;" frameborder="0" scrolling="no" data-bind="attr: { src: $root.brLink }"></iframe>-->
+          <!-- /ko -->
+          <!-- ko ifnot: $data.brLink() -->
+            <span class="warning">No External Business Rule Management System Has Been Configured</span>
+          <!-- /ko -->
+        <!-- /ko -->
+
+
+        <!-- ko if : $root.brScreenValue() && $root.brScreenValue() === 'assignment' -->
+          <div>
+            <div class="form-group">
+<!--              <input>-->
+            </div>
+
+
+          </div>
+
+        <!-- /ko -->
+
+      </div>
+    </div>
+    <!-- /ko-->
+
+
+
+    <!-- ko if: ($root.showBCInstancePage() === true) -->
+
+      <!-- ko ifnot: $root.createEngagementPlan() === true  -->
+
+
+        <!-- ko ifnot: $root.selectedCourse().courseVM.showPlannerView -->
+          {{{campaignPage}}}
+        <!-- /ko -->
+
+        <!-- ko if: $root.selectedCourse().courseVM.showPlannerView -->
+          {{{campaignPlanner}}}
+        <!-- /ko -->
+      <!-- /ko -->
+
+      <!-- for EPA and CD -->
+      <!-- ko if: $root.createEngagementPlan() === true -->
+        <div class="row">
+
+          <!-- ko if: $root.selectedCourse().courseVM.epAuthoringState() === "story" -->
+          <div class="col-sm-12">
+          {{{storyboard}}}
+          </div>
+          <!-- /ko -->
+
+          <!-- ko if: $root.selectedCourse().courseVM.epAuthoringState() === "pattern" -->
+          <div class="col-sm-12 authoring">
+            <div class="ep-auth-container" data-bind="css: { 'show-ep-auth' : $root.createEngagementPlan() === true }">
+
+              {{{engagement}}}
+
+              <!-- content loading -->
+              <div class="widget-preloader hidden">
+                <div class="widget-preloader-message-wrapper text-center">
+                  <i class="fa fa-spinner fa-pulse fa-2x"></i>
+                  <p class="widget-preloader-text">Adding content, please wait...</p>
+                  <button class="btn btn-success clear-error-message hidden" data-bind="click: function() { $root.bcAuthVM.closePreloader(); $root.bcAuthVM.clearFields(); }">Got it!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /ko -->
+        </div>
+        <!-- /ko-->
+
+
+    <!-- /ko-->
+
+</section>
+
+
+<!-- EPts templates -->
+{{{EPtTemplates}}}
+<!-- end EPts templates-->

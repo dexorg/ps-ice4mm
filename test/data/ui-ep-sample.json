@@ -1,0 +1,203 @@
+{
+  "cells": [{
+    "type": "epa.StartElement",
+    "size": {
+      "width": 30,
+      "height": 30
+    },
+    "position": {
+      "x": 20,
+      "y": 20
+    },
+    "angle": 0,
+    "timer": "aaaaaa",
+    "id": "c3ec189b-4f78-4792-8d19-7496f40d181d",
+    "z": 1,
+    "attrs": {
+      "circle": {
+        "fill": "#4b4a67",
+        "stroke": "none"
+      }
+    }
+  }, {
+    "type": "epa.Element",
+    "name": "state 1",
+    "position": {
+      "x": 100,
+      "y": 100
+    },
+    "size": {
+      "width": 200,
+      "height": 100
+    },
+    "angle": 0,
+    "id": "85866ab1-1d81-45fe-9fe7-9f387348e7fb",
+    "z": 2,
+    "attrs": {
+    }
+  }, {
+    "type": "epa.Element",
+    "name": "state 2",
+    "events": ["entry / create()", "exit / kill()", "A / foo()", "B / bar()"],
+    "position": {
+      "x": 400,
+      "y": 200
+    },
+    "size": {
+      "width": 300,
+      "height": 300
+    },
+    "angle": 0,
+    "id": "b3a51469-e6a3-4a27-9bb1-821af683759c",
+    "z": 3,
+    "embeds": ["7d223497-a945-46ad-b142-be374b5aaf75"],
+    "attrs": {
+    }
+  }, {
+    "type": "epa.Element",
+    "name": "state 3",
+    "events": ["entry / create()", "exit / kill()"],
+    "position": {
+      "x": 130,
+      "y": 400
+    },
+    "size": {
+      "width": 160,
+      "height": 60
+    },
+    "angle": 0,
+    "id": "8e1ee276-949f-4d20-a268-ef02190dd7ed",
+    "z": 4,
+    "attrs": {
+    }
+  }, {
+    "type": "epa.Element",
+    "name": "sub state 4",
+    "position": {
+      "x": 530,
+      "y": 400
+    },
+    "size": {
+      "width": 160,
+      "height": 50
+    },
+    "angle": 0,
+    "id": "7d2 23497-a945-46ad-b142-be374b5aaf75",
+    "z": 5,
+    "parent": "b3a51469-e6a3-4a27-9bb1-821af683759c",
+    "attrs": {
+    }
+  }, {
+    "type": "epa.EndElement",
+    "size": {
+      "width": 30,
+      "height": 30
+    },
+    "position": {
+      "x": 750,
+      "y": 550
+    },
+    "angle": 0,
+    "id": "9d06414c-9f4f-468c-a203-9b41844a5cc0",
+    "z": 6,
+    "attrs": {
+      ".outer": {
+        "stroke": "#4b4a67",
+        "stroke-width": 2
+      },
+      ".inner": {
+        "fill": "#4b4a67"
+      }
+    }
+  }, {
+    "type": "epa.FlowConnection",
+    "source": {
+      "id": "c3ec189b-4f78-4792-8d19-7496f40d181d"
+    },
+    "target": {
+      "id": "85866ab1-1d81-45fe-9fe7-9f387348e7fb"
+    },
+    "id": "0125a0a3-1457-45fb-b4ae-9d2b4d7eb8ba",
+    "z": 7,
+    "attrs": {
+      ".connection": {
+        "stroke": "#4b4a67",
+        "fill": "none",
+        "stroke-linejoin": "round",
+        "stroke-width": "2"
+      }
+    }
+  }, {
+    "type": "epa.FlowConnection",
+    "source": {
+      "id": "85866ab1-1d81-45fe-9fe7-9f387348e7fb"
+    },
+    "target": {
+      "id": "b3a51469-e6a3-4a27-9bb1-821af683759c"
+    },
+    "id": "76290016-fe7d-461d-b28e-7128caccb409",
+    "z": 8,
+    "attrs": {
+      ".connection": {
+        "stroke": "#4b4a67",
+        "fill": "none",
+        "stroke-linejoin": "round",
+        "stroke-width": "2"
+      }
+    }
+  }, {
+    "type": "epa.FlowConnection",
+    "source": {
+      "id": "85866ab1-1d81-45fe-9fe7-9f387348e7fb"
+    },
+    "target": {
+      "id": "8e1ee276-949f-4d20-a268-ef02190dd7ed"
+    },
+    "id": "49463333-87f6-47c1-9ee9-4d948ad1ed3e",
+    "z": 9,
+    "attrs": {
+      ".connection": {
+        "stroke": "#4b4a67",
+        "fill": "none",
+        "stroke-linejoin": "round",
+        "stroke-width": "2"
+      }
+    }
+  }, {
+    "type": "epa.FlowConnection",
+    "source": {
+      "id": "8e1ee276-949f-4d20-a268-ef02190dd7ed"
+    },
+    "target": {
+      "id": "7d223497-a945-46ad-b142-be374b5aaf75"
+    },
+    "id": "20b8403a-4285-4210-b406-5a0397e37141",
+    "z": 10,
+    "attrs": {
+      ".connection": {
+        "stroke": "#4b4a67",
+        "fill": "none",
+        "stroke-linejoin": "round",
+        "stroke-width": "2"
+      }
+    }
+  }, {
+    "type": "epa.FlowConnection",
+    "source": {
+      "id": "b3a51469-e6a3-4a27-9bb1-821af683759c"
+    },
+    "target": {
+      "id": "9d06414c-9f4f-468c-a203-9b41844a5cc0"
+    },
+    "id": "a0b36e88-9629-446e-8387-b26e7796eb4b",
+    "z": 11,
+    "attrs": {
+      ".connection": {
+        "stroke": "#4b4a67",
+        "fill": "none",
+        "stroke-linejoin": "round",
+        "stroke-width": "2"
+      }
+    }
+  }]
+}

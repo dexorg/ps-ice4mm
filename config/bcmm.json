@@ -1,0 +1,2383 @@
+{
+  "reports": {
+    "intelligenceReport": [
+      {
+        "role": "subscriber",
+        "definition": {
+          "data": [
+            {
+              "label": "Balance",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1170
+              }
+            },
+            {
+              "label": "Amount Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1170
+              }
+            },
+            {
+              "label": "Minutes",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "Minutes Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "Data",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "Data Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            }
+          ],
+          "presentation": {
+            "title": "almardar subscriber summary",
+            "options": [
+              {
+                "label": [
+                  "Balance",
+                  "Amount Used"
+                ],
+                "type": "bar"
+              },
+              {
+                "label": [
+                  "Minutes",
+                  "Minutes Used"
+                ],
+                "type": "pie"
+              },
+              {
+                "label": [
+                  "data",
+                  "Data Used"
+                ],
+                "type": "pie"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "role": "retailer",
+        "definition": {
+          "data": [
+            {
+              "label": "Balance",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1170
+              }
+            },
+            {
+              "label": "Amount Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1170
+              }
+            },
+            {
+              "label": "Minutes",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "Minutes Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "data",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            },
+            {
+              "label": "Data Used",
+              "metric": {
+                "bcId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+                "bcType": "MerchandisingCampaign",
+                "metricId": 1660
+              }
+            }
+          ],
+          "presentation": [
+            {
+              "label": [
+                "Balance",
+                "Amount Used"
+              ],
+              "type": "bar",
+              "title": "current Usage"
+            },
+            {
+              "label": [
+                "Minutes",
+                "Minutes Used"
+              ],
+              "type": "pie",
+              "title": "current Usage"
+            },
+            {
+              "label": [
+                "data",
+                "Data Used"
+              ],
+              "type": "pie",
+              "title": "current Usage"
+            }
+          ]
+        }
+      }
+    ],
+    "segmentReport": [
+      {
+        "role": "subscriber",
+        "name": "1-subscriber-report",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "Label",
+            "Value"
+          ],
+          "data": [
+            [
+              "Minutes",
+              1170
+            ],
+            [
+              "Data",
+              1660
+            ],
+            [
+              "Balance",
+              1660
+            ]
+          ]
+        }
+      },
+      {
+        "role": "retailer",
+        "name": "1-retailer-report",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "Label",
+            "Value"
+          ],
+          "data": [
+            [
+              "Minutes",
+              1170
+            ],
+            [
+              "Data",
+              1660
+            ],
+            [
+              "Balance",
+              1660
+            ]
+          ]
+        }
+      },
+      {
+        "role": "retailer",
+        "name": "2-retailer-report",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "Label",
+            "Value"
+          ],
+          "data": [
+            [
+              "Minutes",
+              1170
+            ],
+            [
+              "Data",
+              1660
+            ],
+            [
+              "Balance",
+              1660
+            ]
+          ]
+        }
+      },
+      {
+        "role": "wholesaler",
+        "name": "1-wholesaler-report",
+        "definition": [
+          {
+            "metricId": 342,
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 352,
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 362,
+            "icon": "fa fa-percent"
+          }
+        ]
+      },
+      {
+        "role": "subscriber",
+        "name": "2-subscriber-report",
+        "definition": [
+          {
+            "metricId": 282,
+            "icon": "fa fa-bolt"
+          },
+          {
+            "metricId": 292,
+            "icon": "fa fa-hourglass-half"
+          },
+          {
+            "metricId": 302,
+            "icon": "fa fa-usd"
+          }
+        ]
+      },
+      {
+        "role": "wholesaler",
+        "name": "2-wholesaler-report",
+        "definition": [
+          {
+            "metricId": 342,
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 352,
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 362,
+            "icon": "fa fa-percent"
+          }
+        ]
+      }
+    ],
+    "widgetReport": [
+      {
+        "role": "productManager",
+        "bcType": "Product",
+        "name": "widgetReport for eRecharge",
+        "seSInstanceId": "EREC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 82,
+            "name": "total_users",
+            "icon": "fa fa-user-plus"
+          },
+          {
+            "metricId": 72,
+            "name": "total_rechargeamount",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 62,
+            "name": "total_rechargecount",
+            "icon": "fa fa-bolt"
+          }
+        ]
+      },
+      {
+        "role": "productManager",
+        "bcType": "Product",
+        "name": "widgetReport for eVoucher",
+        "seSInstanceId": "EVOU",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 182,
+            "name": "total_orders_processed",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 192,
+            "name": "total_dollars_retail",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 202,
+            "name": "total_dealers",
+            "icon": "fa fa-user-plus"
+          }
+        ]
+      },
+      {
+        "role": "productManager",
+        "bcType": "Product",
+        "name": "widgetReport for eOrder",
+        "seSInstanceId": "EORD",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 142,
+            "name": "total_orders",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 242,
+            "name": "total_dollars",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 132,
+            "name": "average_commission",
+            "icon": "fa fa-percent"
+          }
+        ]
+      },
+      {
+        "role": "productManager",
+        "bcType": "Offer",
+        "name": "widgetReport for eRecharge",
+        "seSInstanceId": "EREC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 82,
+            "name": "total_users",
+            "icon": "fa fa-user-plus"
+          },
+          {
+            "metricId": 72,
+            "name": "total_rechargeamount",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 62,
+            "name": "total_rechargecount",
+            "icon": "fa fa-bolt"
+          }
+        ]
+      },
+      {
+        "role": "productManager",
+        "bcType": "Offer",
+        "name": "widgetReport for eVoucher",
+        "seSInstanceId": "EVOU",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 182,
+            "name": "total_orders_processed",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 192,
+            "name": "total_dollars_retail",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 202,
+            "name": "total_dealers",
+            "icon": "fa fa-user-plus"
+          }
+        ]
+      },
+      {
+        "role": "productManager",
+        "bcType": "Offer",
+        "name": "widgetReport for eOrder",
+        "seSInstanceId": "EORD",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 142,
+            "name": "total_orders",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 242,
+            "name": "total_dollars",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 132,
+            "name": "average_commission",
+            "icon": "fa fa-percent"
+          }
+        ]
+      },
+      {
+        "role": "salesManager",
+        "bcType": "MerchandisingCampaign",
+        "name": "widgetReport for EREC",
+        "seSInstanceId": "EREC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 82,
+            "name": "total_users",
+            "icon": "fa fa-user-plus"
+          },
+          {
+            "metricId": 62,
+            "name": "total_rechargecount",
+            "icon": "fa fa-tags"
+          },
+          {
+            "metricId": 72,
+            "name": "total_rechargeamount",
+            "icon": "fa fa-usd"
+          }
+        ],
+        "subBCDefinition": {
+          "role": "salesManager",
+          "bcType": "EngagementPlan",
+          "name": "widgetReport for EREC",
+          "seSInstanceId": "EREC",
+          "level": "EPA",
+          "definition": [
+            {
+              "metricId": 272,
+              "name": "total_recharge_users_per_pattern",
+              "icon": "fa fa-user-plus"
+            },
+            {
+              "metricId": 252,
+              "name": "total_recharge_count_per_pattern",
+              "icon": "fa fa-tags"
+            },
+            {
+              "metricId": 262,
+              "name": "total_recharge_amount_per_pattern",
+              "icon": "fa fa-usd"
+            }
+          ]
+        }
+      },
+      {
+        "role": "salesManager",
+        "bcType": "MerchandisingCampaign",
+        "name": "widgetReport for EVOU",
+        "seSInstanceId": "EVOU",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 182,
+            "name": "total_orders_processed",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 192,
+            "name": "total_dollars_retail",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 202,
+            "name": "total_dealers",
+            "icon": "fa fa-user-plus"
+          }
+        ],
+        "subBCDefinition": {
+          "role": "salesManager",
+          "bcType": "EngagementPlan",
+          "name": "widgetReport for EVOU",
+          "seSInstanceId": "EVOU",
+          "level": "EPA",
+          "definition": [
+            {
+              "metricId": 212,
+              "name": "total_orders_processed_per_pattern",
+              "icon": "fa fa-shopping-cart"
+            },
+            {
+              "metricId": 222,
+              "name": "total_dollars_retail_per_pattern",
+              "icon": "fa fa-usd"
+            },
+            {
+              "metricId": 232,
+              "name": "total_dealers_per_pattern",
+              "icon": "fa fa-user-plus"
+            }
+          ]
+        }
+      },
+      {
+        "role": "salesManager",
+        "bcType": "MerchandisingCampaign",
+        "name": "widgetReport for EORD",
+        "seSInstanceId": "EORD",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 142,
+            "name": "total_orders",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 242,
+            "name": "total_dollars",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 132,
+            "name": "average_commission",
+            "icon": "fa fa-percent"
+          }
+        ],
+        "subBCDefinition": {
+          "role": "salesManager",
+          "bcType": "EngagementPlan",
+          "name": "widgetReport for EORD",
+          "seSInstanceId": "EORD",
+          "level": "EPA",
+          "definition": [
+            {
+              "metricId": 162,
+              "name": "total_orders_per_pattern",
+              "icon": "fa fa-shopping-cart"
+            },
+            {
+              "metricId": 172,
+              "name": "total_dollars_per_pattern",
+              "icon": "fa fa-usd"
+            },
+            {
+              "metricId": 152,
+              "name": "average_commission_per_pattern",
+              "icon": "fa fa-percent"
+            }
+          ]
+        }
+      },
+      {
+        "role": "marketingManager",
+        "bcType": "MarketingCampaign",
+        "name": "Report for ECAM",
+        "seSInstanceId": "ECAM",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ],
+        "subBCDefinition": {
+          "role": "marketingManager",
+          "bcType": "Promotion",
+          "name": "Promotion Report for ECAM",
+          "seSInstanceId": "ECAM",
+          "level": "EPA",
+          "definition": [
+            {
+              "metricId": 22,
+              "name": "shares",
+              "icon": "fa fa-share-alt"
+            },
+            {
+              "metricId": 32,
+              "name": "likes",
+              "icon": "fa fa-thumbs-up"
+            },
+            {
+              "metricId": 52,
+              "name": "comments",
+              "icon": "fa fa-comments"
+            }
+          ]
+        }
+      },
+      {
+        "role": "marketingManager",
+        "bcType": "MarketingCampaign",
+        "name": "Report for MSOC",
+        "seSInstanceId": "MSOC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ],
+        "subBCDefinition": {
+          "role": "marketingManager",
+          "bcType": "Promotion",
+          "name": "Promotion Report for ECAM",
+          "seSInstanceId": "ECAM",
+          "level": "EPA",
+          "definition": [
+            {
+              "metricId": 22,
+              "name": "shares",
+              "icon": "fa fa-share-alt"
+            },
+            {
+              "metricId": 32,
+              "name": "likes",
+              "icon": "fa fa-thumbs-up"
+            },
+            {
+              "metricId": 52,
+              "name": "comments",
+              "icon": "fa fa-comments"
+            }
+          ]
+        }
+      },
+      {
+        "role": "marketingManager",
+        "bcType": "Promotion",
+        "name": "Promotion Report for ECAM",
+        "seSInstanceId": "ECAM",
+        "level": "EPA",
+        "definition": [
+          {
+            "metricId": 22,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 32,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 52,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "marketingDirector",
+        "seSInstanceId": "ECAM",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "marketingDirector",
+        "seSInstanceId": "MSOC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "marketingDirector",
+        "seSInstanceId": "MSUB",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "marketingDirector",
+        "seSInstanceId": "MWS",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "marketingDirector",
+        "seSInstanceId": "MRS",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "EREC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 82,
+            "name": "total_users",
+            "icon": "fa fa-user-plus"
+          },
+          {
+            "metricId": 62,
+            "name": "total_rechargecount",
+            "icon": "fa fa-tags"
+          },
+          {
+            "metricId": 72,
+            "name": "total_rechargeamount",
+            "icon": "fa fa-usd"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "EVOU",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 182,
+            "name": "total_orders_processed",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 192,
+            "name": "total_dollars_retail",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 202,
+            "name": "total_dealers",
+            "icon": "fa fa-user-plus"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "EORD",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 142,
+            "name": "total_orders",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 242,
+            "name": "total_dollars",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 132,
+            "name": "average_commission",
+            "icon": "fa fa-percent"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "ECAM",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "MSOC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "MWS",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "MRS",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "executive",
+        "seSInstanceId": "MSUB",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 112,
+            "name": "shares",
+            "icon": "fa fa-share-alt"
+          },
+          {
+            "metricId": 102,
+            "name": "likes",
+            "icon": "fa fa-thumbs-up"
+          },
+          {
+            "metricId": 122,
+            "name": "comments",
+            "icon": "fa fa-comments"
+          }
+        ]
+      },
+      {
+        "role": "salesManager",
+        "bcType": "EngagementPlan",
+        "name": "widgetReport for EREC",
+        "seSInstanceId": "EREC",
+        "level": "EPA",
+        "definition": [
+          {
+            "metricId": 272,
+            "name": "total_recharge_users_per_pattern",
+            "icon": "fa fa-user-plus"
+          },
+          {
+            "metricId": 252,
+            "name": "total_recharge_count_per_pattern",
+            "icon": "fa fa-tags"
+          },
+          {
+            "metricId": 262,
+            "name": "total_recharge_amount_per_pattern",
+            "icon": "fa fa-usd"
+          }
+        ]
+      },
+      {
+        "role": "salesManager",
+        "bcType": "EngagementPlan",
+        "name": "widgetReport for EVOU",
+        "seSInstanceId": "EVOU",
+        "level": "EPA",
+        "definition": [
+          {
+            "metricId": 212,
+            "name": "total_orders_processed_per_pattern",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 222,
+            "name": "total_dollars_retail_per_pattern",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 232,
+            "name": "total_dealers_per_pattern",
+            "icon": "fa fa-user-plus"
+          }
+        ]
+      },
+      {
+        "role": "salesManager",
+        "bcType": "EngagementPlan",
+        "name": "widgetReport for EORD",
+        "seSInstanceId": "EORD",
+        "level": "EPA",
+        "definition": [
+          {
+            "metricId": 162,
+            "name": "total_orders_per_pattern",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 172,
+            "name": "total_dollars_per_pattern",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 152,
+            "name": "average_commission_per_pattern",
+            "icon": "fa fa-percent"
+          }
+        ]
+      },
+      {
+        "role": "subscriber",
+        "bcType": "MerchandisingCampaign",
+        "seSInstanceId": "EREC",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 282,
+            "name": "total_recharges_for_user",
+            "icon": "fa fa-bolt"
+          },
+          {
+            "metricId": 292,
+            "name": "total_minutes_for_user",
+            "icon": "fa fa-hourglass-half"
+          },
+          {
+            "metricId": 302,
+            "name": "total_dollars_for_user",
+            "icon": "fa fa-usd"
+          }
+        ]
+      },
+      {
+        "role": "retailer",
+        "bcType": "MerchandisingCampaign",
+        "seSInstanceId": "EVOU",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 312,
+            "name": "total_recharge_for_retailer",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 322,
+            "name": "total_minutes_for_retailer",
+            "icon": "fa fa-hourglass-half"
+          },
+          {
+            "metricId": 332,
+            "name": "total_dollars_for_retailer",
+            "icon": "fa fa-usd"
+          }
+        ]
+      },
+      {
+        "role": "wholesaler",
+        "bcType": "MerchandisingCampaign",
+        "seSInstanceId": "EORD",
+        "level": "dashboard",
+        "definition": [
+          {
+            "metricId": 342,
+            "name": "total_purchases_for_wholesaler",
+            "icon": "fa fa-shopping-cart"
+          },
+          {
+            "metricId": 352,
+            "name": "total_dollers_spent_for_wholesaler",
+            "icon": "fa fa-usd"
+          },
+          {
+            "metricId": 362,
+            "name": "average_commission_for_wholesaler",
+            "icon": "fa fa-percent"
+          }
+        ]
+      }
+    ],
+    "kpiReport": [
+      {
+        "role": "salesManager",
+        "bcType": "Merchandising",
+        "name": "Sales Manager eService KPI Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "eOrder Revenue"
+            },
+            {
+              "type": "number",
+              "name": "eVoucher Revenue"
+            },
+            {
+              "type": "number",
+              "name": "eRecharge Revenue"
+            }
+          ],
+          "data": [
+            [
+              "2016-Q1",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q2",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q3",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q4",
+              62,
+              182,
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "salesManager",
+        "bcType": "Merchandising",
+        "name": "Sales Manager eService KPI Report 2",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "eOrder Revenue"
+            },
+            {
+              "type": "number",
+              "name": "eVoucher Revenue"
+            },
+            {
+              "type": "number",
+              "name": "eRecharge Revenue"
+            }
+          ],
+          "data": [
+            [
+              "2016-Q1",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q2",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q3",
+              62,
+              182,
+              82
+            ],
+            [
+              "2016-Q4",
+              62,
+              182,
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "productManager",
+        "bcType": "Product",
+        "name": "Revenue Summary - SeService Recharge",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "Regular"
+            },
+            {
+              "type": "number",
+              "name": "Special"
+            }
+          ],
+          "data": [
+            [
+              "Smart eOrder",
+              62,
+              82
+            ],
+            [
+              "Smart eVoucher",
+              62,
+              82
+            ],
+            [
+              "Smart eRecharge",
+              62,
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "subscriber",
+        "bcType": "Merchandising",
+        "name": "My eRecharge Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "remained"
+            },
+            {
+              "type": "number",
+              "name": "total_redeemed"
+            }
+          ],
+          "data": [
+            [
+              "current balance",
+              62,
+              182
+            ]
+          ]
+        }
+      },
+      {
+        "role": "wholesaler",
+        "bcType": "Merchandising",
+        "name": "My eOrder Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "eOrder"
+            }
+          ],
+          "data": [
+            [
+              "Smart eOrder: Purchases",
+              62
+            ],
+            [
+              "Smart eOrder: Sales",
+              182
+            ],
+            [
+              "Smart eOrder: Commissions",
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "retailer",
+        "bcType": "Merchandising",
+        "name": "My eVoucher Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "number",
+              "name": "eVoucher"
+            }
+          ],
+          "data": [
+            [
+              "Smart eVoucher: Regular",
+              182
+            ],
+            [
+              "Smart eVoucher: Special",
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "executive",
+        "bcType": "Merchandising",
+        "name": "SeService Penetration Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "eService"
+            },
+            {
+              "type": "number",
+              "name": "Revenue"
+            }
+          ],
+          "data": [
+            [
+              "SeService Revenue",
+              62
+            ],
+            [
+              "Traditional Revenue",
+              182
+            ],
+            [
+              "Others",
+              82
+            ]
+          ]
+        }
+      },
+      {
+        "role": "executive",
+        "bcType": "Marketing",
+        "name": "Engagement KPI Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "Total"
+            },
+            {
+              "type": "number",
+              "name": "Engagement Metrics"
+            }
+          ],
+          "data": [
+            [
+              "Retention",
+              82
+            ],
+            [
+              "Development",
+              62
+            ],
+            [
+              "Acquisition",
+              182
+            ]
+          ]
+        }
+      },
+      {
+        "role": "marketingDirector",
+        "bcType": "Marketing",
+        "name": "Engagement KPI Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "Total"
+            },
+            {
+              "type": "number",
+              "name": "Engagement Metrics"
+            }
+          ],
+          "data": [
+            [
+              "Conversation",
+              282
+            ],
+            [
+              "Applause",
+              202
+            ],
+            [
+              "Amplification",
+              322
+            ],
+            [
+              "Consumption",
+              342
+            ]
+          ]
+        }
+      },
+      {
+        "role": "marketingManager",
+        "bcType": "Marketing",
+        "name": "Engagement KPI Report",
+        "definition": {
+          "column": [
+            {
+              "type": "string",
+              "name": "Total"
+            },
+            {
+              "type": "number",
+              "name": "Engagement Metrics"
+            }
+          ],
+          "data": [
+            [
+              "Conversation",
+              62
+            ],
+            [
+              "Applause",
+              82
+            ],
+            [
+              "Amplification",
+              182
+            ],
+            [
+              "Consumption",
+              202
+            ]
+          ]
+        }
+      }
+    ],
+    "dashboardReport": [
+      {
+        "role": "executive",
+        "bcType": "Merchandising",
+        "name": "SeService Achievement REPORT",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "",
+            "Goal",
+            "Actual"
+          ],
+          "data": [
+            [
+              "Total eOrder",
+              62,
+              82
+            ],
+            [
+              "Total eVoucher",
+              182,
+              202
+            ],
+            [
+              "Total eRecharge",
+              322,
+              342
+            ]
+          ]
+        }
+      },
+      {
+        "role": "salesManager",
+        "bcType": "Merchandising",
+        "name": "SeService Achievement REPORT",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "",
+            "Planned",
+            "Achieved"
+          ],
+          "data": [
+            [
+              "social channel",
+              1170,
+              460
+            ],
+            [
+              "traditional channel",
+              1660,
+              1120
+            ]
+          ]
+        }
+      },
+      {
+        "role": "productManager",
+        "bcType": "Merchandising",
+        "name": "SeService Achievement REPORT",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "",
+            "Planned",
+            "Achieved"
+          ],
+          "data": [
+            [
+              "social channel",
+              1170,
+              460
+            ],
+            [
+              "traditional channel",
+              1660,
+              1120
+            ]
+          ]
+        }
+      },
+      {
+        "role": "executive",
+        "bcType": "Marketing",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "",
+            "Sales",
+            "Profit"
+          ],
+          "data": [
+            [
+              "Standard",
+              1170,
+              460
+            ],
+            [
+              "online Promotion",
+              1660,
+              1120
+            ]
+          ]
+        }
+      },
+      {
+        "role": "marketingManager",
+        "bcType": "Marketing",
+        "definition": {
+          "refId": "15ddc64c-bbd7-4be9-8670-3379191d88d7",
+          "refType": "MerchandisingCampaign",
+          "column": [
+            "",
+            "Planned",
+            "Achieved"
+          ],
+          "data": [
+            [
+              "Standard",
+              1170,
+              460
+            ],
+            [
+              "online Promotion",
+              1660,
+              1120
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "role_bc_Mapping": {
+    "marketingDirector": [
+      {
+        "name": "Marketing",
+        "id": "05e84bff-0e97-4403-b7ff-c622f43db0cd",
+        "bctype": [
+          "MarketingCampaign"
+        ]
+      }
+    ],
+    "salesManager": [
+      {
+        "name": "Merchandising",
+        "id": "d7b05541-f64d-46a0-a428-9da37d0fc9c6",
+        "bctype": [
+          {
+            "MerchandisingCampaign": {
+              "bctype": [
+                "EngagementPlan"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "marketingManager": [
+      {
+        "name": "Marketing",
+        "id": "05e84bff-0e97-4403-b7ff-c622f43db0cd",
+        "bctype": [
+          {
+            "MarketingCampaign": {
+              "bctype": [
+                "Promotion"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "executive": [
+      {
+        "name": "Merchandising",
+        "id": "d7b05541-f64d-46a0-a428-9da37d0fc9c6",
+        "bctype": [
+          "MerchandisingCampaign"
+        ]
+      },
+      {
+        "name": "Marketing",
+        "id": "05e84bff-0e97-4403-b7ff-c622f43db0cd",
+        "bctype": [
+          "MarketingCampaign"
+        ]
+      }
+    ],
+    "subscriber": [
+      {
+        "name": "Merchandising",
+        "id": "d7b05541-f64d-46a0-a428-9da37d0fc9c6",
+        "bctype": [
+          {
+            "MerchandisingCampaign": {
+              "bctype": [
+                "EngagementPlan"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "wholesaler": [
+      {
+        "name": "Merchandising",
+        "id": "d7b05541-f64d-46a0-a428-9da37d0fc9c6",
+        "bctype": [
+          {
+            "MerchandisingCampaign": {
+              "bctype": [
+                "EngagementPlan"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "retailer": [
+      {
+        "name": "Merchandising",
+        "id": "d7b05541-f64d-46a0-a428-9da37d0fc9c6",
+        "bctype": [
+          {
+            "MerchandisingCampaign": {
+              "bctype": [
+                "EngagementPlan"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "productManager": [
+      {
+        "name": "Offer",
+        "id": "",
+        "bctype": [
+          "Product"
+        ]
+      }
+    ]
+  },
+  "bc_permissions": [
+    {
+      "role": "productManager",
+      "bctype": "Offer",
+      "permission": [
+        "list",
+        "create",
+        "delete",
+        "update"
+      ]
+    },
+    {
+      "role": "productManager",
+      "bctype": "Product",
+      "permission": [
+        "list",
+        "create",
+        "delete",
+        "update"
+      ]
+    },
+    {
+      "role": "salesManager",
+      "bctype": "MerchandisingCampaign",
+      "permission": [
+        "list",
+        "create",
+        "delete",
+        "update"
+      ]
+    }
+  ],
+  "bc_definition": [
+    {
+      "Product": {
+        "singular": "Offer",
+        "plural": "Offers",
+        "sctype": "container",
+        "bctype": "Product",
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "MerchandisingCampaign",
+              "define": {
+                "roles": [],
+                "type": "API"
+              },
+              "navigable": false
+            }
+          ],
+          "entityRelationships": [
+            {
+              "type": "association",
+              "ref": "Roles",
+              "define": {
+                "roles": [],
+                "type": "value",
+                "value": [
+                  "salesManager",
+                  "marketingManager"
+                ]
+              }
+            }
+          ]
+        },
+        "definitions": {
+          "behaviour": [
+            {
+              "name": "service",
+              "tab": "eService",
+              "define": {
+                "roles": [
+                  "productManager"
+                ],
+                "type": "API",
+                "request": "dexit.app.ice.integration.behaviour.list"
+              },
+              "manage": {
+                "roles": [
+                  "productManager"
+                ],
+                "local": true
+              },
+              "view": {
+                "roles": [
+                  "productManager"
+                ]
+              }
+            }
+          ],
+          "businessRule": [
+            {
+              "name": "businessRule",
+              "define": {
+                "roles": [
+                  "productManager"
+                ]
+              }
+            }
+          ],
+          "intelligence": [
+            {
+              "name": "metric",
+              "tab": "engagement metrics",
+              "define": {
+                "roles": [
+                  "productManager"
+                ]
+              },
+              "view": {
+                "roles": [
+                  "productManager"
+                ]
+              }
+            },
+            {
+              "name": "KPI",
+              "tab": "widget report",
+              "define": {
+                "roles": [
+                  "productManager"
+                ]
+              }
+            },
+            {
+              "name": "userProfile",
+              "tab": "user profile",
+              "define": {
+                "roles": []
+              }
+            }
+          ],
+          "multimedia": []
+        }
+      }
+    },
+    {
+      "MerchandisingCampaign": {
+        "singular": "Merchandising Campaign",
+        "plural": "Merchandising Campaigns",
+        "sctype": "container",
+        "bctype": "MerchandisingCampaign",
+        "definitions": {
+          "behaviour": [
+            {
+              "name": "service",
+              "tab": "eService",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              },
+              "manage": {
+                "roles": [],
+                "local": false,
+                "tag": "sc"
+              },
+              "view": {
+                "roles": [
+                  "salesManager"
+                ]
+              },
+              "local": false,
+              "tag": "sc"
+            }
+          ],
+          "businessRule": [
+            {
+              "name": "businessRule",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            }
+          ],
+          "intelligence": [
+            {
+              "name": "metric",
+              "tab": "engagement metrics",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              },
+              "view": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            },
+            {
+              "name": "KPI",
+              "tab": "widget report",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            },
+            {
+              "name": "segmentReport",
+              "tab": "segment report",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            },
+            {
+              "name": "userProfile",
+              "tab": "user profile",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            }
+          ],
+          "multimedia": [
+            {
+              "name": "multimedia",
+              "tab": "multimedia",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              },
+              "manage": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            }
+          ],
+          "touchpoint": [
+            {
+              "name": "touchpoint",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              }
+            }
+          ]
+        },
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "Product",
+              "define": {
+                "roles": [
+                  "salesManager"
+                ]
+              },
+              "navigable": true
+            },
+            {
+              "type": "contains",
+              "ref": "EngagementPlan"
+            },
+            {
+              "type": "part_of",
+              "ref": "Merchandising"
+            }
+          ],
+          "entityRelationships": [
+            {
+              "type": "association",
+              "ref": "Roles",
+              "define": {
+                "roles": [],
+                "type": "value",
+                "value": [
+                  "subscriber",
+                  "wholesaler",
+                  "retailer"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Merchandising": {
+        "singular": "Merchandising",
+        "plural": "Merchandising",
+        "sctype": "container",
+        "bctype": "Merchandising",
+        "definitions": {
+          "behaviour": [
+            {
+              "name": "service",
+              "tab": "eService",
+              "define": {
+                "roles": [
+                  "productManager"
+                ],
+                "type": "API",
+                "request": "dexit.app.ice.integration.behaviour.list"
+              },
+              "manage": {
+                "roles": [
+                  "productManager"
+                ]
+              },
+              "view": {
+                "roles": [
+                  "productManager"
+                ]
+              }
+            }
+          ],
+          "Intelligence": [
+            {
+              "name": "metric",
+              "tab": "engagement metrics",
+              "define": {
+                "roles": [
+                  "productManager"
+                ],
+                "type": "API",
+                "request": ""
+              }
+            }
+          ],
+          "multimedia": []
+        },
+        "metrics": [
+          62,
+          72,
+          82,
+          132,
+          142,
+          182,
+          192,
+          202,
+          242,
+          282,
+          292,
+          302,
+          312,
+          322,
+          332,
+          342,
+          352,
+          362
+        ],
+        "bcAttributes": [
+          {
+            "role": "salesManager",
+            "properties": [
+              {
+                "name": "Business Objective",
+                "value": "Increase 20% revenue in this quater."
+              },
+              {
+                "name": "Business Strategy",
+                "value": "Use two recharge services"
+              },
+              {
+                "name": "Comments",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "role": "executive",
+            "properties": [
+              {
+                "name": "Business Objective",
+                "value": "Increase 20% revenue in this quater."
+              },
+              {
+                "name": "Business Strategy",
+                "value": "Use two recharge services"
+              },
+              {
+                "name": "Comments",
+                "value": ""
+              }
+            ]
+          }
+        ],
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "Product"
+            },
+            {
+              "type": "contains",
+              "ref": "MerchandisingCampaign"
+            }
+          ]
+        },
+        "definition": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "container",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string",
+              "default": "Merchandising"
+            },
+            "touchpoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "name",
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "EngagementPlan": {
+        "singular": "Engagement Plan",
+        "plural": "Engagement Plans",
+        "sctype": "object",
+        "bctype": "EngagementPlan",
+        "metrics": [
+          252,
+          262,
+          272,
+          152,
+          162,
+          172,
+          212,
+          222,
+          232
+        ],
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "reports"
+            },
+            {
+              "type": "part_of",
+              "ref": "MerchandisingCampaign"
+            }
+          ]
+        },
+        "definition": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "default": "eService"
+            }
+          },
+          "required": [
+            "name",
+            "type"
+          ]
+        }
+      }
+    },
+    {
+      "Marketing": {
+        "singular": "Marketing",
+        "plural": "Marketing",
+        "sctype": "container",
+        "bctype": "Marketing",
+        "metrics": [
+          102,
+          112,
+          122
+        ],
+        "bcAttributes": [],
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "Product"
+            },
+            {
+              "type": "association",
+              "ref": "reports"
+            },
+            {
+              "type": "association",
+              "ref": "kpiReport"
+            },
+            {
+              "type": "contains",
+              "ref": "MarketingCampaign"
+            }
+          ]
+        },
+        "definition": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "container",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string",
+              "default": "Marketing"
+            },
+            "touchpoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "name",
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "MarketingCampaign": {
+        "singular": "Marketing Campaign",
+        "plural": "Marketing Campaigns",
+        "sctype": "container",
+        "bctype": "MarketingCampaign",
+        "metrics": [
+          102,
+          112,
+          122
+        ],
+        "associatedRoles": [
+          "subscriber",
+          "wholesaler",
+          "retailer"
+        ],
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "reports"
+            },
+            {
+              "type": "association",
+              "ref": "Product"
+            },
+            {
+              "type": "contains",
+              "ref": "Promotion"
+            }
+          ]
+        },
+        "definition": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string",
+              "default": "Campaign"
+            },
+            "touchpoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "name",
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "Promotion": {
+        "singular": "Promotion",
+        "plural": "Promotions",
+        "sctype": "object",
+        "bctype": "Promotion",
+        "metrics": [
+          22,
+          32,
+          52
+        ],
+        "relationships": {
+          "bcRelationships": [
+            {
+              "type": "association",
+              "ref": "reports"
+            },
+            {
+              "type": "part_of",
+              "ref": "Campaign"
+            }
+          ]
+        },
+        "definition": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string",
+              "default": "Promotion"
+            }
+          },
+          "required": [
+            "name",
+            "type"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+node_modules/**
+public/js/app/build/**
+public/js/app/lib/**
+coverage
+api-docs
+test/lib/**

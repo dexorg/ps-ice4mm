@@ -1,0 +1,778 @@
+<!-- Popover templates - navigation dropdowns - build off of bootstrap popover -->
+<script type="text/html" id="eServicePopoverTemplate">
+    <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+    <!-- populated with dpa_VM.pagedBehaviours -->
+    <div class="ep-action-dropdown">
+        <!-- ko with: dpa_VM.pagedBehaviours -->
+            <!-- ko foreach: pages -->
+            <div class="page" data-bind="css: getPageClass()">
+
+                <div class="clearfix" data-bind="foreach: $data.chunks">
+                    <!-- ko foreach: $data -->
+                        <div data-bind="template: { name: subType + '-menu' }, click: function(){ dpa_VM.addItem($data); }">
+                        </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: pageCount() < 1  -->
+            <div>
+                <br>
+                There are no configured e-services available.
+                <br><br>
+            </div>
+            <!-- /ko -->
+            <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a class="number active"></a>
+                <a class="number"></a>
+                <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+        <!-- /ko -->
+    </div>
+</script>
+
+
+<script type="text/html" id="eServicePopoverWithCatTemplate">
+  <div class="ep-action-dropdown clearfix">
+
+    <div class="ep-action-dropdown-sidebar" data-bind="foreach: dpa_VM.pagedBehaviours">
+      <a data-bind="click: function(){ dpa_VM.activePagedBehaviourItemVM($index());}, css: {'active': dpa_VM.activePagedBehaviourItemVM() === $index()}, text: title"></a>
+    </div>
+
+
+    <!-- ko foreach: dpa_VM.pagedBehaviours-->
+    <div class="ep-action-dropdown-content" data-bind="visible: dpa_VM.activePagedBehaviourItemVM() === $index()">
+      <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+      <!-- ko foreach: pages -->
+      <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+        <div class="clearfix" data-bind="foreach: $data">
+          <div class="ep-item e-service" data-bind="click: function(){ dpa_VM.addItem($data); }">
+            <!-- ko if: $data.iconType === 'null' -->
+              <img class="voucher-large" data-bind="attr: { src: 'images/' + $data.imageName }"  alt="image" aria-hidden="true">
+            <!-- /ko -->
+            <!-- ko ifnot: $data.iconType === 'null' -->
+            <i data-bind="css: $data.iconType" aria-hidden="true"></i>
+
+            <!-- /ko -->
+            <div data-bind="text:renderText"></div>
+          </div>
+        </div>
+      </div>
+      <!-- /ko -->
+      <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+        <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        <a class="number active"></a>
+        <a class="number"></a>
+        <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: dpa_VM.pagedBehaviours().length < 1  -->
+    <div>
+      <br>
+      There are no configured e-Services to display.
+      <br><br>
+    </div>
+    <!-- /ko -->
+  </div>
+</script>
+
+<script type="text/html" id="businessRPopoverTemplate">
+    <div class="ep-action-dropdown">
+      <a class="close pull-right" data-dismiss="popover">×</a>
+        <!-- ko with: dpa_VM.pagedBRs -->
+            <!-- ko foreach: pages -->
+                <div class="page" data-bind="css: getPageClass()">
+                    <div class="clearfix" data-bind="foreach: $data.chunks">
+                        <!-- ko foreach: $data -->
+                        <div data-bind="template: { name: subType + '-menu' }, click: function(){ dpa_VM.addItem($data); }">
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            <!-- /ko -->
+            <!-- ko if: pageCount() < 1  -->
+            <div>
+                <br>
+                There are no configured Business Intelligence available.
+                <br><br>
+            </div>
+            <!-- /ko -->
+            <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a class="number active"></a>
+                <a class="number"></a>
+                <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+
+        <!-- /ko -->
+    </div>
+</script>
+<script type="text/html" id="businessIPopoverTemplate">
+    <div class="ep-action-dropdown clearfix">
+        <div class="ep-action-dropdown-sidebar" data-bind="foreach: dpa_VM.pagedBI">
+            <a data-bind="click: function(){ dpa_VM.activeBIPagedItemVM($index());}, css: {'active': dpa_VM.activeBIPagedItemVM() === $index()}, text: title"></a>
+        </div>
+        <!-- ko foreach: dpa_VM.pagedBI -->
+        <div class="ep-action-dropdown-content" data-bind="visible: dpa_VM.activeBIPagedItemVM() === $index()">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+            <!-- ko foreach: pages -->
+            <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+                <div class="clearfix" data-bind="foreach: $data">
+                    <div class="ep-item business-i" data-bind="click: function(){ dpa_VM.addItem($data); }">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <div data-bind="text:name"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a class="number active"></a>
+                <a class="number"></a>
+                <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: dpa_VM.pagedBI().length < 1  -->
+        <div>
+            <br>
+            There are no configured Business Rules available.
+            <br><br>
+        </div>
+        <!-- /ko -->
+    </div>
+</script>
+<script type="text/html" id="dynamicIPopoverTemplate">
+  <div class="ep-action-dropdown clearfix">
+    <div class="ep-action-dropdown-sidebar" data-bind="foreach: dpa_VM.pagedDI">
+      <a data-bind="click: function(){ dpa_VM.activeDIPagedItemVM($index());}, css: {'active': dpa_VM.activeDIPagedItemVM() === $index()}, text: title"></a>
+    </div>
+    <!-- ko foreach: dpa_VM.pagedDI -->
+    <div class="ep-action-dropdown-content" data-bind="visible: dpa_VM.activeDIPagedItemVM() === $index()">
+      <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+      <!-- ko foreach: pages -->
+      <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+        <div class="clearfix" data-bind="foreach: $data">
+          <div class="ep-item business-i" data-bind="click: function(){ dpa_VM.addItem($data); }">
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+            <div data-bind="text:name"></div>
+          </div>
+        </div>
+      </div>
+      <!-- /ko -->
+      <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+        <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        <a class="number active"></a>
+        <a class="number"></a>
+        <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: dpa_VM.pagedDI().length < 1  -->
+    <div>
+      <br>
+      There are no configured Dynamic Intelligence available.
+      <br><br>
+    </div>
+    <!-- /ko -->
+  </div>
+</script>
+
+<script type="text/html" id="campaignPopoverTemplate">
+    <div class="ep-action-dropdown clearfix">
+
+        <div class="ep-action-dropdown-sidebar" data-bind="foreach: dpa_VM.pagedCampaigns">
+            <a data-bind="click: function(){ dpa_VM.activeCampaignPagedItemVM($index());}, css: {'active': dpa_VM.activeCampaignPagedItemVM() === $index()}, text: title"></a>
+        </div>
+        <!-- ko foreach: dpa_VM.pagedCampaigns -->
+        <div class="ep-action-dropdown-content" data-bind="visible: dpa_VM.activeCampaignPagedItemVM() === $index()">
+          <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+            <!-- ko foreach: pages -->
+            <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+                <div class="clearfix" data-bind="foreach: $data">
+                    <div class="ep-item business-i" data-bind="click: function(){ dpa_VM.addItem($data); }">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <div data-bind="text:name"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a class="number active"></a>
+                <a class="number"></a>
+                <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: dpa_VM.pagedCampaigns().length < 1  -->
+        <div>
+            <br>
+            There are no configured Campaigns available.
+            <br><br>
+        </div>
+        <!-- /ko -->
+    </div>
+</script>
+
+
+
+<script type="text/html" id="imageItemPopoverTemplate">
+    <div class="ep-item image" data-bind="click: function(){ dpa_VM.addItem({ type : 'multimedia', renderType : 'flex-image', mediaType : 'image', src : $data}); }">
+        <img data-bind="attr: { src: $data }" alt="image asset" src="images/defaultImage.png">
+        <div class="img-desc">
+            <span data-bind="trimmedLink:$data"></span>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="videoItemPopoverTemplate">
+    <div class="ep-item image" data-bind="click: function(){ dpa_VM.addItem({ type : 'multimedia', renderType : 'flex-video', mediaType : 'video', src : $data}); }">
+        <video>
+            <source data-bind="attr: { src: $data }" src="//df3k07pdyptjl.cloudfront.net/images/novideo.mp4" type="video/mp4"/>
+        </video>
+        <div class="img-desc" data-bind="trimmedLink:$data">
+        </div>
+        <!--<div class="img-desc" data-bind="text: $data.substring($data.lastIndexOf('/') +1">-->
+            <!--sunset-345.mp4-->
+        <!--</div>-->
+    </div>
+</script>
+
+<script type="text/html" id="docItemPopoverTemplate">
+    <div class="ep-item image" data-bind="attr: { 'data-docsrc' : $data }, click: function(){ dpa_VM.addItem({ type : 'multimedia', renderType : 'flex-link', mediaType : 'link', src : $data}); }">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        <div class="img-desc" data-bind="trimmedLink:$data" >
+            <!--<span data-bind="text: $data.substring($data.lastIndexOf('/') +1">doc.pdf</span>-->
+            <!--<span data-bind="trimmedLink: $data">doc.pdf</span>-->
+        </div>
+    </div>
+</script>
+
+
+
+<script type="text/html" id="multimediaUploadItemTemplate">
+    <!--<i class="fa fa-plus-circle" aria-hidden="true"></i>-->
+    <input name="upload" class="hidden" data-bind="attr:{'id': 'ep_1_imageVideo', 'accept' : $root.fileTypeRestrictions().validMediaTypes }, epafilesUpload: {property: 'fileName', tag: $root.selectedCourse().courseVM.mmTag }" type="file">
+    <label for="ep_1_imageVideo">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </label>
+    <div class="copy">
+        Upload
+    </div>
+</script>
+
+
+
+<script type="text/html" id="multimediaPopoverTemplate">
+    <div class="ep-action-dropdown clearfix">
+
+        <div class="ep-action-dropdown-sidebar" data-bind="foreach: dpa_VM.pagedMM">
+            <a data-bind="click: function(){ dpa_VM.activeMMPagedItemVM($index());}, css: {'active': dpa_VM.activeMMPagedItemVM() === $index()}, text: title"></a>
+        </div>
+        <!-- ko foreach: dpa_VM.pagedMM -->
+            <div class="ep-action-dropdown-content" data-bind="visible: dpa_VM.activeMMPagedItemVM() === $index()">
+              <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+                <!-- ko foreach: pages -->
+                    <div class="page" data-bind="css: getPageClass(), foreach: {data: $data.chunks}">
+                        <div class="clearfix" data-bind="foreach: $data">
+                            <!-- ko if: $data === 'upload' -->
+                                <div class="ep-item empty" data-bind="template: {name:'multimediaUploadItemTemplate'}"></div>
+                            <!-- /ko -->
+                            <!-- ko if: $data !== 'upload' -->
+                                <!-- ko template: { name: $parents[2].template, data: $data } --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                <!-- /ko -->
+                <div class="ep-action-dropdown-nav" data-bind="visible: pageCount() > 1">
+                    <a class="arrow prev" data-bind="click: goToPreviousPage"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <a class="number active"></a>
+                    <a class="number"></a>
+                    <a class="arrow next" data-bind="click: goToNextPage"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        <!-- /ko -->
+    </div>
+</script>
+
+<script type="text/html" id="textPopoverTemplate">
+    <div class="ep-action-dropdown">
+        <div class="page active">
+            <div class="form-group">
+                <label class="sr-only" for="textInputEPA">Enter text</label>
+                <textarea class="form-control" id="textInputEPA" placeholder="Click to add text" data-bind="textInput:dpa_VM.textInput"></textarea>
+            </div>
+            <div class="form-group text-right">
+                <a data-dismiss="popover" class="link-secondary font-small" data-bind="click:function(){ dpa_VM.textInput('');}">Cancel</a>&nbsp;&nbsp;
+                <button data-dismiss="popover" class="btn btn-3" data-bind="click:dpa_VM.addTextAsMM">Confirm</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="itemSelectionTemplate">
+    <div class="ep-popover">
+        <div class="ep-popover-header">
+            <div class="btn-group">
+              <button type="button" class="btn btn-6" data-bind="click:showTransition, visible:transition, css: {active: selectedOption() && selectedOption() === 'transition'}">Transition</button>
+              <button type="button" class="btn btn-6" data-bind="click:showServiceSetup, visible:serviceSetup, css: {active: selectedOption() && selectedOption() === 'configure'}">Configure</button>
+              <button type="button" class="btn btn-6" data-bind="click:showServiceInput, visible:serviceInput, css: {active: selectedOption() && selectedOption() === 'input'}">Input</button>
+              <button type="button" class="btn btn-6" data-bind="click:showBRIntelligenceSetup, visible:brIntelligenceSetup, css: {active: selectedOption() && selectedOption() === 'brIntelligenceSetup'}">Configure</button>
+              <button type="button" class="btn btn-6" data-bind="click:showTagSetup, visible:tagSetup, css: {active: selectedOption() && selectedOption() === 'tagging'}">Tag</button>
+                            <button type="button" class="btn btn-6" data-bind="click:showPlaceholderSetup, visible:placeholderSetup, css: {active: selectedOption() && selectedOption() === 'placeholder'}">Placeholder</button>
+              <!--<button type="button" class="btn btn-6" data-bind="click:showTriggerSetup, visible:triggerSetup, css: {active: selectedOption() && selectedOption() === 'trigger'}">Tag</button>-->
+              <button type="button" class="btn btn-6" data-bind="click:showHandlerSetup, visible:handlerSetup, css: {active: selectedOption() && selectedOption() === 'eventHandler'}">Handler</button>
+
+
+            </div>
+        </div>
+        <div class="ep-popover-body">
+            <div id="serviceInput" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'input'}">
+                <div id="elementInputForm"></div>
+            </div>
+            <div id="serviceSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'configure'}">
+                <div id="behaviour_setupForm"></div>
+            </div>
+            <div id="transitionSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'transition'}">
+                <div class="form-group sm">
+                    <label>Transition Type</label>
+                    <select class="form-control" data-bind="options: availableEventGens, value: selectedEvent">
+                    </select>
+              </div>
+              <div class="form-group sm" data-bind="visible: selectedEvent() && selectedEvent() === 'Timer'">
+                <label>Enter time</label>
+                <div class="form-inline">
+                  <input type="text" class="form-control" placeholder="Enter time" data-bind="value: eventTime, valueUpdate: 'afterkeydown'">
+                  <select class="form-control" data-bind="options:timeUnits, value:selectedTimeUnit">
+                  </select>
+                </div>
+              </div>
+              <div class="form-group sm" data-bind="visible: selectedEvent() && selectedEvent() === 'Video'">
+                <div class="form-inline">
+                  <select class="form-control" data-bind="options: dpa_VM.availableVideoTransitions, optionsText:'label', optionsValue:'elementId', value:selectedVideoElement"/>
+                </div>
+
+                <div class="form-inline">
+                  <select class="form-control" data-bind="options: availableVideoEvents, value:selectedVideoEvent"/>
+                  <input type="text" class="form-control" placeholder="Enter value" data-bind="value: videoEventValue, valueUpdate: 'afterkeydown'">
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!--<div id="triggerSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'trigger'}">-->
+              <!--<div class="form-group sm">-->
+                <!--<label>Events</label>-->
+                <!--<select class="form-control" data-bind="options: dpa_VM.availableConfiguredEventGens, value: selectedEventGen">-->
+                <!--</select>-->
+              <!--</div>-->
+                <!--<div class="form-inline">-->
+                  <!--<select class="form-control" data-bind="options: dpa_VM.currentVideoTransitions, optionsText:'label', optionsValue:'elementId', value:selectedVideoElement"/>-->
+                <!--</div>-->
+                <!--<div class="form-inline">-->
+                  <!--<select class="form-control" data-bind="options: availableVideoEvents, value:selectedVideoEvent"/>-->
+                  <!--<input type="text" class="form-control" placeholder="Enter value" data-bind="value: videoEventValue, valueUpdate: 'afterkeydown'">-->
+                  <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+
+          <div id="eventHandlerSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'eventHandler'}">
+            <!--<div class="form-group sm">-->
+              <!--<label>Available Event Generators</label>-->
+              <!--<select class="form-control" data-bind="options: availableVideoEvents, value: selectedEvent">-->
+              <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group sm" data-bind="visible: selectedEvent() && selectedEvent() === 'Video'">-->
+            <div class="form-group sm">
+              <div class="form-inline">
+                <select class="form-control" data-bind="options: dpa_VM.availableVideoTransitions, optionsCaption: 'Select a...', optionsText:'label', optionsValue:'elementId', value:selectedVideoEventElement"/>
+              </div>
+
+              <div class="form-inline" data-bind="visible: selectedVideoEventElement()">
+                <select class="form-control" data-bind="options: availableVideoEventHandler, value:selectedVideoEventHandler"/>
+                <select class="form-control" data-bind="options: dpa_VM.availableTimes , value:selectedVideoEventPlayedValue"/>
+                <!--<input type="text" class="form-control" placeholder="Enter value" data-bind="value: videoEventValue, valueUpdate: 'afterkeydown'">-->
+                </select>
+              </div>
+            </div>
+          </div>
+
+
+          <div id="placeholderSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'placeholder'}">
+            <div class="form-group sm">
+              <label>Enter Name</label>
+              <input type="text" class="form-control" placeholder="You must enter a name" data-bind="value:placeholderName"/>
+<!--              <select data-bind="options:availableTags, value:selectedTag"></select>-->
+
+              <!--<input type="text" class="form-control" placeholder="Enter value" data-bind="value:selectedTag">-->
+<!--              </select>-->
+            </div>
+            <div class="form-group sm ">
+              <label>Description</label>
+              <textarea type="text" class="form-control" placeholder="Optional" data-bind="value:placeholderDescription">
+              </textarea>
+            </div>
+          </div>
+
+            <div id="tagSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'tagging'}">
+              <div class="form-group sm">
+                <label>Select Tag:</label>
+<!--                <select data-bind="options:availableTags, value:selectedTag"></select>-->
+
+                <input type="text" class="form-control" placeholder="Enter value" data-bind="value:selectedTag">
+<!--                </select>-->
+              </div>
+              <div class="form-group sm hidden">
+                <label>Element Id</label>
+                <input disabled type="text" class="form-control" placeholder="" data-bind="value:selectedId">
+                </select>
+              </div>
+            </div>
+
+            <div id="brIntelligenceSetup" class="page" data-bind="css: {active: selectedOption() && selectedOption() === 'brIntelligenceSetup'}">
+                <div class="form-group sm">
+                    <label>Select Intelligence</label>
+                    <select class="form-control" data-bind="options: availableIntelligence, optionsValue:'intelId', optionsText:'name', optionsCaption: 'Choose Intelligence...', value: selectedIntelligence">
+                    </select>
+                </div>
+                <h4>Configure Outcome for If-else:</h4>
+                <div class="well" data-bind="enable: selectedIntelligence()">
+                    <div class="form-inline">
+                        <div class="form-group sm">
+                            <label>If</label>
+                            <select class="form-control" data-bind="options:intelligenceAttributes, optionsCaption:'Choose...', optionsText:'name', optionsValue:'name', value:selectedIntelligenceAttribute1">
+                            </select>
+                        </div>
+                        <div class="form-group sm">
+                            <label>  </label>
+                            <select class="form-control" placeholder="Select Comparator" data-bind="options:ruleComparators, value:selectedComparator1">
+                            </select>
+                        </div>
+                        <div class="form-group sm">
+                            <label>  </label>
+                            <input type="text" class="form-control" placeholder="Enter value" data-bind="value:selectedIntelligenceValue1">
+                            <!--<select class="form-control" placeholder="Select Value" data-bind="options:ruleComparators, value:selectedComparator">-->
+                            <!--</select>-->
+                        </div>
+                    </div>
+                    <label>Then Path 1 is selected.</label>
+                    <br/>
+                    <label>Otherwise Path 2</label>
+                </div>
+            </div>
+        </div>
+        <div class="ep-popover-footer clearfix">
+            <div class="pull-left"><a data-dismiss="popover" data-action="delete-element" class="link-secondary font-small"><i class="fa fa-trash" aria-hidden="true"></i>Delete Item</a></div>
+            <div class="pull-right"><button data-dismiss="popover" data-action="save-element" class="btn btn-3" data-bind="save">Confirm</button></div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="textEditTemplate">
+    <div class="ep-popover">
+        <div class="ep-popover-header">
+            <div class="btn-group">
+                <button type="button" class="btn btn-6">Transition</button>
+                <button type="button" class="btn btn-6 active">Configure</button>
+            </div>
+        </div>
+        <div class="ep-popover-body">
+            <div class="page active">
+                <div class="form-group">
+                    <label for="text">Enter text</label>
+                    <textarea class="form-control" id="text" rows="10" placeholder="Click to add text">this is the text</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ep-popover-footer clearfix">
+            <div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>
+            <div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>
+        </div>
+    </div>
+</script>
+
+<div class="row main-container">
+    <div class="modal-xl" data-bind="modal: {
+           visible: $root.selectedCourse().courseVM.creativeBriefModalVisible,
+           dialogCss: 'modal-xl',
+           header: { name: 'settings_header', data: { 'title': 'Briefing Setup' }},
+           body: { name: 'creative_brief_setup_body', data: { 'visible': $root.selectedCourse().courseVM.creativeBriefModalVisible, 'windowFolderLink': $root.selectedCourse().courseVM.windowFolderLink, 'iframeFolderLink':$root.selectedCourse().courseVM.iframeFolderLink, 'selectedBriefLink': $root.selectedCourse().courseVM.creativeBriefLink}},
+           footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveCreativeBrief, saveText:'Save' } }}">
+    </div>
+
+    <div class="modal-xl" data-bind="modal: {
+             visible: $root.selectedCourse().courseVM.configureEndModalVisible,
+             dialogCss: 'modal-lg',
+             header: { name: 'settings_header', data: { 'title': 'Configure Ending Setup' }},
+             body: { name: 'configure_ep_end_modal_body', data: {'availableElements':$root.selectedCourse().courseVM.availableElements, 'selectedEndingConditionOption':$root.selectedCourse().courseVM.selectedEndingConditionOption, 'availableEndingCondition': $root.selectedCourse().courseVM.availableEndingCondition, 'selectedEndingCondition': $root.selectedCourse().courseVM.selectedEndingCondition}},
+             footer: { name: 'modal_footer', data: { save: $root.selectedCourse().courseVM.saveConfigureEnd, saveText:'Save' } }}">
+    </div>
+
+    <!-- ko if: (dpa_VM.currentOperation() && dpa_VM.currentOperation() === 'approval') -->
+    <h1 class="board-title text-grey">Engagement Planning Approval:&nbsp;</h1>
+    <!-- /ko -->
+    <!-- ko ifnot: (dpa_VM.currentOperation() && dpa_VM.currentOperation() === 'approval') -->
+    <h1 class="board-title text-grey">Engagement Planning:&nbsp;</h1>
+    <!-- /ko -->
+
+    <h1 class="board-title" data-bind="text:$root.selectedCourse().courseVM.businessConceptInstance.property.name"></h1>
+
+    <div class="col-md-12">
+        <div class="form-group sm">
+            <a data-bind="click: function() { $root.closeEngagementPlanCreate(); $root.bcAuthVM.clearFields(); }">
+<!--                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>-->
+              &#8226;
+              <span data-bind="text: 'Go to '+$root.selectedCourse().courseVM.businessConceptInstance.property.name + ' Campaign Board'">Go To Campaign Board</span>
+            </a>
+        </div>
+        <div class="row">
+            <div class="pull-right">
+                <div class="form-group sm text-right action-group">
+
+
+<!--                  &lt;!&ndash; ko if: (dpa_VM.currentOperation() && (dpa_VM.currentOperation() === 'create' || dpa_VM.currentOperation() === 'edit' )) &ndash;&gt;-->
+<!--                  <button class="btn btn-lg btn-1 inverse" data-bind="click: function() {$root.selectedCourse().courseVM.configureEnd($data)}">Configure End</button>-->
+<!--                  &lt;!&ndash; /ko &ndash;&gt;-->
+
+                    <!-- ko if: dpa_VM.currentOperation() && (dpa_VM.currentOperation() === 'edit' ||  dpa_VM.currentOperation() === 'approval') -->
+                        <!-- ko with: $root.selectedWidget() -->
+<!--                        <a class="link-secondary font-small" data-target="deleteWidgetPopoverTemplate" data-bind="popover: {template: 'deleteWidgetPopoverTemplate', data: $data, options: {title:'Delete?', placement:'auto bottom'}}"><i class="fa fa-trash" aria-hidden="true"></i> Delete Plan</a>-->
+                        <!-- /ko -->
+                    <!-- /ko -->
+
+                    <!--<a class="link-secondary font-small" data-bind="><i class="fa fa-trash" aria-hidden="true"></i>Cancel</a>-->
+
+
+<!--                    <button data-bind="click:$root.selectedCourse().courseVM.showDynamicCampaignSelectionModal" type="button" class="btn btn-1 inverse"><span class="fa fa-file"></span>&nbsp;&nbsp;Dynamic</button>-->
+
+                    <button data-bind="click:$root.selectedCourse().courseVM.showCreativeBrief" type="button" class="btn btn-lg btn-1 inverse"><span class="fa fa-file"></span>&nbsp;&nbsp;Campaign Brief</button>
+
+                    <!-- ko if: dpa_VM.currentOperation() && dpa_VM.currentOperation() === 'create' -->
+                    <button class="btn btn-lg btn-1 inverse" data-bind="click: function() {$root.selectedCourse().courseVM.createOrEditPattern(dpa_VM.currentOperation(),$data);}, enable: dpa_VM.enableDynamicButton">Save & Close</button>
+                    <!-- /ko -->
+
+                    <!-- ko if: dpa_VM.currentOperation() && dpa_VM.currentOperation() === 'edit' -->
+                    <button class="btn btn-lg btn-1 inverse" data-bind="click: function() {$root.selectedCourse().courseVM.createOrEditPattern(dpa_VM.currentOperation(),$data)}, enable: dpa_VM.enableDynamicButton">Save & Close</button>
+                    <!-- /ko -->
+
+
+
+                    <!-- ko if: dpa_VM.currentOperation() && (dpa_VM.currentOperation() === 'edit' ||  dpa_VM.currentOperation() === 'create') -->
+                    <button class="btn btn-lg btn-1" data-bind="click: function() { $root.selectedCourse().courseVM.createOrEditPattern(dpa_VM.currentOperation(),$data, true);}, enable: dpa_VM.enableDynamicButton">Send for Approval</button>
+                    <!-- /ko -->
+
+
+
+
+                    <!-- ko if: dpa_VM.currentOperation() && dpa_VM.currentOperation() === 'approval' -->
+                    <!--<button data-bind="click:$root.selectedCourse().courseVM.showCreativeBrief" type="button" class="btn btn-lg btn-1 inverse pull-right"><span class="fa fa-file"></span>&nbsp;&nbsp;Brief</button>-->
+
+<!--                    <button class="btn btn-lg btn-1 inverse" data-bind="click: function() {$root.selectedCourse().courseVM.approveStep(false, 'rejected')}">Reject</button>-->
+                  <button data-target="rejectPopoverTemplate" data-bind="popover: {template: 'rejectPopoverTemplate', data: { toRun: $root.selectedCourse().courseVM.approveStep}, options: {placement:'auto bottom'}}" class="btn btn-lg btn-1 inverse">Reject</button>
+                    <button class="btn btn-lg btn-1" data-bind="click: function() {$root.selectedCourse().courseVM.approveStep(true, 'approved')}">Approve</button>
+
+
+
+
+
+
+                    <!-- /ko -->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group sm">
+                    <label class="sr-only" for="planName">Engagement Plan Name</label>
+                    <input type="text" class="form-control" id="planName" placeholder="Enter Campaign Name" data-mm-tag="property-mm-1" data-bind="value: $root.bcAuthVM.propertyTextValue()[0], event: { keyup: function() { $root.bcAuthVM.validateTitle($element, $root.selectedCourse(), $root.selectedWidget(), $root.modalOperation()) }}">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-inline">
+                <div class="form-group sm">
+                    <label for="ep-tp-selection">Touchpoints:&nbsp;&nbsp;&nbsp;</label>
+                    <select id="ep-tp-selection"  multiple="multiple"
+                            data-bind="options:dpa_VM.availableTouchpoints,
+                                        optionsText:'name',
+                                        optionsValue:'tpId',
+                                        selectedOptions:dpa_VM.selectedTouchpoints,
+                                        multiselect: {'numberDisplayed':1, nonSelectedText: 'Select Touchpoints'}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <!-- ko if: (dpa_VM.currentOperation() && (dpa_VM.currentOperation() === 'create' || dpa_VM.currentOperation() === 'edit' )) -->
+                Engagement Points
+                <button data-target="campaignPopoverTemplate" data-bind="popover: {template: 'campaignPopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-bullhorn" aria-hidden="true"></i>Campaigns</button>
+                <!--<button data-target="eServicePopoverTemplate" data-bind="popover: {template: 'eServicePopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-cloud" aria-hidden="true"></i>e-service</button>-->
+                <button data-target="eServicePopoverWithCatTemplate" data-bind="popover: {template: 'eServicePopoverWithCatTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-cloud" aria-hidden="true"></i>e-service</button>
+
+                <button data-target="businessRPopoverTemplate" data-bind="popover: {template: 'businessRPopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-gavel" aria-hidden="true"></i>Business Rules</button>
+                <button data-target="businessIPopoverTemplate" data-bind="popover: {template: 'businessIPopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>Business Intelligence</button>
+                <button data-target="multimediaPopoverTemplate" data-bind="popover: {template: 'multimediaPopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-picture-o" aria-hidden="true"></i>Multimedia</button>
+                <button data-target="textPopoverTemplate" data-bind="popover: {template: 'textPopoverTemplate', data:dpa_VM, options: {placement:'auto bottom'}}" class="btn btn-6 with-icon"><i class="fa fa-font" aria-hidden="true"></i>Text</button>
+                <button data-target="dynamicIPopoverTemplate" data-bind="popover: {template: 'dynamicIPopoverTemplate', data:dpa_VM, options: {placement:'auto left'}}" class="btn btn-6 with-icon"><i class="fa fa-bolt" aria-hidden="true"></i>Dynamic</button>
+
+                <button class="btn btn-6 with-icon" data-bind="click: function() {$root.selectedCourse().courseVM.configureEnd($data)}">Config. End</button>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ep-work-area" class="ep-work-area">
+
+    <div class="ep-start-msg"> </div>
+
+    <!--<div id="paper" class="drop-here paper"></div>-->
+
+</div>
+
+<script>
+  $( function() {
+
+    //inside a timeout to wait for template to be rendered - temp workaround - should be changed to be called after template is loaded.
+//    setTimeout(function(){
+//
+//        //jquery ui draggable for ep items
+//        $( ".draggable-item" ).draggable({
+//            containment: "parent"
+//        });
+//
+//        $( ".draggable-item" ).on( "drag", function( event, ui ){
+//            $(this).popover('hide')
+//        });
+//
+//         //jquery ui sortable for list in survey popover
+//        $('#eServiceEditPopover').on('shown.bs.popover', function () {
+//            $( "#sortable" ).sortable({
+//                handle: ".handle",
+//                cursor: "move"
+//            });
+//        })
+//
+//    }, 3000);
+
+  } );
+</script>
+
+
+<!--<script type="text/html" id="eServiceEditTemplate">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6 active">Configure</button>-->
+                <!--<button type="button" class="btn btn-6">Input</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter question</label>-->
+                    <!--<input type="text" class="form-control" placeholder="Enter question">-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter answer(s)</label>-->
+                    <!--<div id="sortable">-->
+                        <!--<div class="input-with-btn sm">-->
+                            <!--<input type="text" class="form-control" placeholder="Enter answer">-->
+                            <!--<div class="handle btn btn-4 icon-btn"><i class="fa fa-arrows" aria-hidden="true"></i></div>-->
+                            <!--<button class="btn btn-4 icon-btn"><i class="fa fa-minus"></i></button>-->
+                        <!--</div>-->
+                        <!--<div class="input-with-btn sm">-->
+                            <!--<input type="text" class="form-control" placeholder="Enter answer">-->
+                            <!--<div class="handle btn btn-4 icon-btn"><i class="fa fa-arrows" aria-hidden="true"></i></div>-->
+                            <!--<button class="btn btn-4 icon-btn"><i class="fa fa-minus"></i></button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<a class="link-tertiary font-small"><i class="fa fa-plus" aria-hidden="true"></i> Add answer</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+
+
+<!--<script type="text/html" id="eServiceEditTemplateInput">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6">Input</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Transition Type</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>Timer</option>-->
+                        <!--<option>Click</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter time</label>-->
+                    <!--<div class="form-inline">-->
+                        <!--<input type="text" class="form-control" placeholder="Enter time">-->
+                        <!--<select class="form-control">-->
+                            <!--<option>Seconds</option>-->
+                            <!--<option>Minutes</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+
+
+
+<!--<script type="text/html" id="eServiceEditTemplateConfigure">-->
+    <!--<div class="ep-popover">-->
+        <!--<div class="ep-popover-header">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-6">Transition</button>-->
+                <!--<button type="button" class="btn btn-6">Configure</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-body">-->
+            <!--<div class="page active">-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Transition Type</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>Timer</option>-->
+                        <!--<option>Click</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group sm">-->
+                    <!--<label>Enter time</label>-->
+                    <!--<div class="form-inline">-->
+                        <!--<input type="text" class="form-control" placeholder="Enter time">-->
+                        <!--<select class="form-control">-->
+                            <!--<option>Seconds</option>-->
+                            <!--<option>Minutes</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ep-popover-footer clearfix">-->
+            <!--<div class="pull-left"><a data-dismiss="popover" class="link-secondary font-small remove-element"><i class="fa fa-trash" aria-hidden="true"></i> Delete Item</a></div>-->
+            <!--<div class="pull-right"><button data-dismiss="popover" class="btn btn-3">Confirm</button></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+

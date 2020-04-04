@@ -1,0 +1,6 @@
+[
+  {"name": "user profile", "schema": {"id": "userprofile"}},
+  {"name": "recommendation profile", "schema": {"id": "recommendedprofile"}},
+  {"name": "dynamic ept", "schema": {"id": "dynamicept"}},
+  {"name": "user crm", "schema": {"id": "usercontact"}}
+]

@@ -1,0 +1,18 @@
+/*  without font tweaks the grapesJS font size is unreadable  */
+.gjs-editor {
+font-size: 2rem;
+}
+.gjs-trt-traits {
+font-size:1.25rem;
+}
+.gjs-block-label {
+font-size:1rem;
+}
+.gjs-sm-properties {
+font-size:1rem;
+}
+
+.gjs-block.allocated {
+    background-color: #157689;
+    pointer-events: none;
+}

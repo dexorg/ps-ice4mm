@@ -1,0 +1,247 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/facebook.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="screen">
+
+    </head>
+
+    <body class="font-sans leading-none bg-grey-lighter mb-8">
+    <header class="bg-blue">
+        <div class="container mx-auto">
+            <div class="flex items-center py-2 mx-24">
+                <div class="w-1/2 h-5">
+                    <div class="relative">
+                            <div class="relative">
+                                <h1 class="text-2xl text-white text-center">
+                                    Facebook Preview
+                                </h1>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container mx-auto">
+        <div class="ml-20 mr-48 border border-t-0">
+            <div class="bg-white flex items-center">
+                <div class="w-1/4">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto">
+        <div class="ml-20 mr-48">
+            <div class="flex mt-3">
+                <div class="w-1/4">
+                    <div class="bg-grey-lighter mr-4 p-4">
+
+                        <div class="">
+
+                            <img alt="" class="block h-40 w-40  rounded-full" src="images/fb_profile.png">
+
+                        </div>
+
+                        <div class="pt-5">
+                            Preview Page
+                        </div>
+                        <div class="flex flex-col py-3 ">
+                            <button class="appearance-none p-2 text-xs text-grey-darker rounded hover:border-black mb-2 text-left ">
+                                Home
+                            </button>
+                            <button class="bg-grey-lightest appearance-none p-2 border text-xs text-grey-darker rounded hover:border-black text-left ">
+                                Posts
+                            </button>
+                            <button class="appearance-none p-2 text-xs text-grey-darker rounded hover:border-black text-left ">
+                                Reviews
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="w-3/5">
+                    <div class="bg-white shadow">
+                        <div class="bg-grey-lightest p-3">
+                            <span class="px-1 text-grey-darkest fa fa-arrow-down">
+                            Preview Below
+                            </span>
+                        </div>
+                    </div>
+
+                   <!-- begin post -->
+                  {{#item}}
+                    <div class="bg-white shadow mt-4 p-3 pb-0 relative">
+                        <div class="flex items-center">
+                            <div>
+                                <img alt="" class="w-10 h-10 rounded-full" src="images/fb_profile.png"/>
+
+                            </div>
+                            <div class="ml-2">
+                                <h5>
+                                    <a class="text-blue no-underline hover:underline" href="#">
+                                        Preview Page
+                                    </a>
+                                </h5>
+                                <p class="text-xs font-normal text-grey mt-1">
+                                        <span class="cursor-pointer hover:underline">
+                                            Preview by DEX
+                                        </span>
+                                    ·
+                                    <span class="cursor-pointer hover:underline">
+                                            Not an actual post
+                                        </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute pin-r pin-t mt-3 mr-3">
+                            <?xml version="1.0" encoding="utf-8"?>
+                            <svg class="w-4 h-4 text-right" viewbox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M576 736v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm512 0v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm512 0v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h5 class="text-sm font-normal my-3">
+                          {{#text}}
+                            {{{text}}}
+                          {{/text}}
+                        </h5>
+
+                        <div class="border">
+                            <img alt="" src="{{{image}}}">
+                        </div>
+                      {{#video}}
+                        <p><a href="#"><video style="width:100%" controls class="border border-solid border-grey-light">
+                          <source src="{{video}}" type="video/mp4">
+                        </video></a></p>
+                      {{/video}}
+
+
+                      <div class="flex py-1">
+                            <button class="appearance-none flex-1 flex items-center justify-center py-2 text-center text-red hover:bg-grey-lighter">
+                                <?xml version="1.0" encoding="iso-8859-1"?>
+                                <svg class="w-4 h-4 mr-1" id="Layer_1" style="enable-background:new 0 0 496.158 496.158;" version="1.1" viewbox="0 0 496.158 496.158" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+                                        <path d="M0,248.085C0,111.063,111.069,0.003,248.075,0.003c137.013,0,248.083,111.061,248.083,248.082
+    c0,137.002-111.07,248.07-248.083,248.07C111.069,496.155,0,385.087,0,248.085z" style="fill:#E04F5F;">
+                                        </path>
+                                    <path d="M374.116,155.145c-34.799-34.8-91.223-34.8-126.022,0h-0.029c-34.801-34.8-91.224-34.8-126.023,0
+    c-34.801,34.8-29.783,86.842,0,126.022c31.541,41.491,89.129,109.944,126.023,109.944h0.029c36.895,0,94.481-68.453,126.022-109.944
+    C403.9,241.988,408.916,189.946,374.116,155.145z" style="fill:#FFFFFF;">
+                                        </path>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    <g>
+                                        </g>
+                                    </svg>
+                                Love
+                            </button>
+                            <button class="appearance-none flex-1 flex items-center justify-center py-2 text-center text-grey-darker hover:bg-grey-lighter">
+                                <?xml version="1.0" encoding="utf-8"?>
+                                <svg class="w-4 h-4 mr-1" viewbox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1792 896q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z">
+                                    </path>
+                                </svg>
+                                Comment
+                            </button>
+                            <button class="appearance-none flex-1 flex items-center justify-center py-2 text-center text-grey-darker hover:bg-grey-lighter">
+                                <?xml version="1.0" encoding="utf-8"?>
+                                <svg class="w-4 h-4 mr-1" viewbox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1792 640q0 26-19 45l-512 512q-19 19-45 19t-45-19-19-45v-256h-224q-98 0-175.5 6t-154 21.5-133 42.5-105.5 69.5-80 101-48.5 138.5-17.5 181q0 55 5 123 0 6 2.5 23.5t2.5 26.5q0 15-8.5 25t-23.5 10q-16 0-28-17-7-9-13-22t-13.5-30-10.5-24q-127-285-127-451 0-199 53-333 162-403 875-403h224v-256q0-26 19-45t45-19 45 19l512 512q19 19 19 45z">
+                                    </path>
+                                </svg>
+                                Share
+                            </button>
+                        </div>
+
+                        <div class="bg-grey-lighter p-2 -mx-3 border">
+                            <?xml version="1.0" encoding="iso-8859-1"?>
+                            <svg class="w-3 h-3" id="Layer_1" style="enable-background:new 0 0 496.158 496.158;" version="1.1" viewbox="0 0 496.158 496.158" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+                                    <path d="M0,248.085C0,111.063,111.069,0.003,248.075,0.003c137.013,0,248.083,111.061,248.083,248.082
+    c0,137.002-111.07,248.07-248.083,248.07C111.069,496.155,0,385.087,0,248.085z" style="fill:#E04F5F;">
+                                    </path>
+                                <path d="M374.116,155.145c-34.799-34.8-91.223-34.8-126.022,0h-0.029c-34.801-34.8-91.224-34.8-126.023,0
+    c-34.801,34.8-29.783,86.842,0,126.022c31.541,41.491,89.129,109.944,126.023,109.944h0.029c36.895,0,94.481-68.453,126.022-109.944
+    C403.9,241.988,408.916,189.946,374.116,155.145z" style="fill:#FFFFFF;">
+                                    </path>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                <g>
+                                    </g>
+                                </svg>
+                            <span class="text-xs text-blue cursor-pointer hover:underline">
+                                    You, and 10 others
+                                </span>
+                        </div>
+
+                        <div class="bg-grey-lighter flex flex-between py-3 -mx-3 p-2">
+                            <img class="w-8 h-8 rounded-full" src="images/fb_profile.png" alt="">
+
+                            <textarea name="body" placeholder="Write a comment..." class="appearance-none w-full mx-2 bg-grey-lighter rounded-full border bg-white h-8 px-2 pt-2 text-xs"></textarea>
+                        </div>
+                    </div>
+                  {{/item}}
+
+                  <!-- end post -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

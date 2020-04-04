@@ -1,0 +1,23 @@
+description: OAuth 2.0 protocol for authenticating the users of the API.
+type: OAuth 2.0
+describedBy:
+  headers:
+    Authorization:
+      description: Used to send a valid OAuth 2 access token.
+      type: string
+  queryParameters:
+    access_token:
+      description: Used to send a valid OAuth 2 access token.
+      type: string
+    realm:
+      description: Tenant account this token is for.
+  responses:
+    401:
+      description: Bad or expired token
+    403:
+      description: Bad OAuth request
+settings:
+    authorizationUri: https://sso-latest.dexit.co/openam/oauth2/authorize
+    accessTokenUri: https://sso-latest.dexit.co/openam/oauth2/access_token
+    queryParameters: realm=dexit.co
+    authorizationGrants: [ code, token, owner, credentials ]
