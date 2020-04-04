@@ -1,0 +1,49 @@
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-credential-initializer-xbttw[0m
+{"level":"warn","ts":1586031924.2424455,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1586031924.2429545,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-working-dir-initializer-slmpt[0m
+{"level":"warn","ts":1586031924.690321,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1586031924.6915884,"logger":"fallback-logger","caller":"bash/main.go:64","msg":"Successfully executed command \"sh -c mkdir -p /workspace/source\"; output "}
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-git-source-dexorg-ps-ice4mm-master-vrg9z-6brzt[0m
+{"level":"warn","ts":1586031966.6730454,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1586031967.5076973,"logger":"fallback-logger","caller":"git/git.go:103","msg":"Successfully cloned https://github.com/******/ps-ice4mm.git @ v1.1.20 in path /workspace/source"}
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:
+WARNING: no SHAs to merge, falling back to initial cloned commit
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-setup-jx-git-credentials[0m
+Generated Git credentials file /workspace/xdg_config/git/credentials
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-build-npmrc[0m
+Command "credential" is deprecated, it will be removed on Jun 1 2020.  This is replaced by Tekton's mounted secrets
+/builder/home/.npmrc
+
+Showing logs for build [32mdexorg-ps-ice4mm-master-vrg9z-1[0m stage [32mfrom-build-pack[0m and container [32mstep-build-npm-install[0m
+Error: Failed to replace env in config: ${NPM_TOKEN}
+    at /usr/lib/node_modules/npm/lib/config/core.js:415:13
+    at String.replace (<anonymous>)
+    at envReplace (/usr/lib/node_modules/npm/lib/config/core.js:411:12)
+    at parseField (/usr/lib/node_modules/npm/lib/config/core.js:389:7)
+    at /usr/lib/node_modules/npm/lib/config/core.js:330:24
+    at Array.forEach (<anonymous>)
+    at Conf.add (/usr/lib/node_modules/npm/lib/config/core.js:328:23)
+    at ConfigChain.addString (/usr/lib/node_modules/npm/node_modules/config-chain/index.js:244:8)
+    at Conf.<anonymous> (/usr/lib/node_modules/npm/lib/config/core.js:316:10)
+    at /usr/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:90:16
+/usr/lib/node_modules/npm/lib/npm.js:59
+      throw new Error('npm.load() required')
+      ^
+
+Error: npm.load() required
+    at Object.get (/usr/lib/node_modules/npm/lib/npm.js:59:13)
+    at process.errorHandler (/usr/lib/node_modules/npm/lib/utils/error-handler.js:205:32)
+    at process.emit (events.js:193:13)
+    at process._fatalException (internal/process/execution.js:123:25)
+[31m
+Pipeline failed on stage 'from-build-pack' : container 'step-build-npm-install'. The execution of the pipeline has stopped.[0m
